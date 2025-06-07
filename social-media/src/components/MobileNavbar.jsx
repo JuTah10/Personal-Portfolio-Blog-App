@@ -1,30 +1,20 @@
 "use client";
 
-import { BellIcon, HomeIcon, LogOutIcon, MenuIcon, MoonIcon, SunIcon, UserIcon } from "lucide-react";
+import { BellIcon, HomeIcon, LogOutIcon, MenuIcon, UserIcon, NotebookPen, FolderDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
-import { useTheme } from "next-themes";
 import Link from "next/link";
+import { ModeToggle } from "./ui/ModeToggle";
 
-function MobileNavbar() {
+function MobileNavbar({ user }) {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
     const { isSignedIn } = useAuth();
-    const { theme, setTheme } = useTheme();
 
     return (
         <div className="flex md:hidden items-center space-x-2">
-            <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="mr-2"
-            >
-                <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
-            </Button>
+            <ModeToggle variant="ghost" />
 
             <Sheet open={showMobileMenu} onOpenChange={setShowMobileMenu}>
                 <SheetTrigger asChild>
@@ -44,6 +34,20 @@ function MobileNavbar() {
                             </Link>
                         </Button>
 
+                        <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+                            <Link href="/#projects">
+                                <FolderDot className="w-4 h-4" />
+                                Project
+                            </Link>
+                        </Button>
+
+                        <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+                            <Link href="/blog">
+                                <NotebookPen className="w-4 h-4" />
+                                Blog
+                            </Link>
+                        </Button>
+
                         {isSignedIn ? (
                             <>
                                 <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
@@ -53,7 +57,10 @@ function MobileNavbar() {
                                     </Link>
                                 </Button>
                                 <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
-                                    <Link href="/profile">
+                                    <Link
+                                        href={`/profile/${user.username ?? user.emailAddress.split("@")[0]
+                                            }`}
+                                    >
                                         <UserIcon className="w-4 h-4" />
                                         Profile
                                     </Link>

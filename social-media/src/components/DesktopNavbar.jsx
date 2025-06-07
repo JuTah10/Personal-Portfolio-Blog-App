@@ -1,15 +1,14 @@
-import { BellIcon, HomeIcon, UserIcon, NotebookPen } from "lucide-react";
+import { BellIcon, HomeIcon, UserIcon, NotebookPen, FolderDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/ModeToggle";
-import { currentUser } from "@clerk/nextjs/server";
 
-async function DesktopNavbar() {
-    const user = await currentUser();
 
+async function DesktopNavbar({user}) {
+  
     return (
-        <div className="hidden md:flex items-center space-x-4">    
+        <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
 
             <Button variant="secondary" className="flex items-center gap-2 cursor-pointer" asChild>
@@ -24,7 +23,7 @@ async function DesktopNavbar() {
             </Button>
             <Button variant="ghost" className="flex items-center gap-2" asChild>
                 <Link href="/#projects">
-                    <NotebookPen className="w-4 h-4" />
+                    <FolderDot className="w-4 h-4" />
                     <span className="hidden lg:inline">Project</span>
                 </Link>
             </Button>
@@ -45,7 +44,7 @@ async function DesktopNavbar() {
                     </Button>
                     <Button variant="ghost" className="flex items-center gap-2" asChild>
                         <Link
-                            href={`/profile/${user.username ?? user.emailAddresses[0].emailAddress.split("@")[0]
+                            href={`/profile/${user.username ?? user.emailAddress.split("@")[0]
                                 }`}
                         >
                             <UserIcon className="w-4 h-4" />

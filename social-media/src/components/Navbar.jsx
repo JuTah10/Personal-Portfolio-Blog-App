@@ -2,8 +2,15 @@ import React from 'react'
 import Link from 'next/link'
 import DesktopNavbar from './DesktopNavbar'
 import MobileNavbar from './MobileNavbar'
+import { currentUser, EmailAddress } from "@clerk/nextjs/server";
 
-export default function Navbar() {
+export default async function Navbar() {
+    const user = await currentUser();
+    console.log(user)
+    const userInfor = user ? {
+        userName : user.username,
+        emailAddress: user.emailAddresses[0]?.emailAddress,
+    } : null
     return (
         <div className='sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50'>
             <div className='max-w-[80%] mx-auto px-4'>
@@ -16,8 +23,8 @@ export default function Navbar() {
                             Vu Nguyen
                         </Link>
                     </div>
-                    <DesktopNavbar />
-                    <MobileNavbar />
+                    <DesktopNavbar user={userInfor}/>
+                    <MobileNavbar user={userInfor}/>
                 </div>
 
             </div>
