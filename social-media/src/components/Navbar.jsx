@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import DesktopNavbar from './DesktopNavbar'
+import MobileNavbar from './MobileNavbar'
 
 export default function Navbar() {
     return (
@@ -15,7 +16,8 @@ export default function Navbar() {
                             Vu Nguyen
                         </Link>
                     </div>
-                    <DesktopNavbar/>
+                    <DesktopNavbar />
+                    <MobileNavbar />
                 </div>
 
             </div>
