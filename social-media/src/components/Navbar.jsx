@@ -13,7 +13,7 @@ export default async function Navbar() {
     } : null
     return (
         <div className='sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50'>
-            <div className='max-w-[80%] mx-auto px-4'>
+            <div className='max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] mx-auto px-4'>
                 <div className='flex items-center justify-between h-16'>
                     <div className='flex items-center'>
                         <Link

@@ -17,8 +17,11 @@ function MobileNavbar({ user }) {
             <ModeToggle variant="ghost" />
 
             <Sheet open={showMobileMenu} onOpenChange={setShowMobileMenu}>
-                <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon">
+                <SheetTrigger className="cursor-pointer" asChild>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                    >
                         <MenuIcon className="h-5 w-5" />
                     </Button>
                 </SheetTrigger>
@@ -27,21 +30,30 @@ function MobileNavbar({ user }) {
                         <SheetTitle>Menu</SheetTitle>
                     </SheetHeader>
                     <nav className="flex flex-col space-y-4 mt-6">
-                        <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+                        <Button
+                            onClick={() => setShowMobileMenu(false)}
+                            variant="ghost"
+                            className="flex items-center gap-3 justify-start" asChild>
                             <Link href="/">
                                 <HomeIcon className="w-4 h-4" />
                                 Home
                             </Link>
                         </Button>
 
-                        <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+                        <Button
+                            onClick={() => setShowMobileMenu(false)}
+                            variant="ghost"
+                            className="flex items-center gap-3 justify-start" asChild>
                             <Link href="/#projects">
                                 <FolderDot className="w-4 h-4" />
                                 Project
                             </Link>
                         </Button>
 
-                        <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+                        <Button
+                            onClick={() => setShowMobileMenu(false)}
+                            variant="ghost"
+                            className="flex items-center gap-3 justify-start" asChild>
                             <Link href="/blog">
                                 <NotebookPen className="w-4 h-4" />
                                 Blog
@@ -50,13 +62,22 @@ function MobileNavbar({ user }) {
 
                         {isSignedIn ? (
                             <>
-                                <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+                                <Button
+                                    onClick={() => setShowMobileMenu(false)}
+                                    variant="ghost"
+                                    className="flex items-center gap-3 justify-start"
+                                    asChild
+                                >
                                     <Link href="/notifications">
                                         <BellIcon className="w-4 h-4" />
                                         Notifications
                                     </Link>
                                 </Button>
-                                <Button variant="ghost" className="flex items-center gap-3 justify-start" asChild>
+                                <Button
+                                    onClick={() => setShowMobileMenu(false)}
+                                    variant="ghost"
+                                    className="flex items-center gap-3 justify-start" asChild
+                                >
                                     <Link
                                         href={`/profile/${user.username ?? user.emailAddress.split("@")[0]
                                             }`}
@@ -66,7 +87,10 @@ function MobileNavbar({ user }) {
                                     </Link>
                                 </Button>
                                 <SignOutButton>
-                                    <Button variant="ghost" className="flex items-center gap-3 justify-start w-full">
+                                    <Button
+                                        onClick={() => setShowMobileMenu(false)}
+                                        variant="ghost"
+                                        className="flex items-center gap-3 justify-start w-full cursor-pointer">
                                         <LogOutIcon className="w-4 h-4" />
                                         Logout
                                     </Button>
@@ -74,7 +98,10 @@ function MobileNavbar({ user }) {
                             </>
                         ) : (
                             <SignInButton mode="modal">
-                                <Button variant="default" className="w-full">
+                                <Button
+                                    onClick={() => setShowMobileMenu(false)}
+                                    variant="default"
+                                    className="w-full cursor-pointer">
                                     Sign In
                                 </Button>
                             </SignInButton>

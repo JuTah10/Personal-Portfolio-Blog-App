@@ -5,8 +5,8 @@ import { SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 
 
-async function DesktopNavbar({user}) {
-  
+async function DesktopNavbar({ user }) {
+
     return (
         <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
@@ -18,19 +18,19 @@ async function DesktopNavbar({user}) {
             <Button variant="ghost" className="flex items-center gap-2" asChild>
                 <Link href="/">
                     <HomeIcon className="w-4 h-4" />
-                    <span className="hidden lg:inline">Home</span>
+                    <span className="hidden xl:inline">Home</span>
                 </Link>
             </Button>
             <Button variant="ghost" className="flex items-center gap-2" asChild>
                 <Link href="/#projects">
                     <FolderDot className="w-4 h-4" />
-                    <span className="hidden lg:inline">Project</span>
+                    <span className="hidden xl:inline">Project</span>
                 </Link>
             </Button>
             <Button variant="ghost" className="flex items-center gap-2" asChild>
                 <Link href="/blog">
                     <NotebookPen className="w-4 h-4" />
-                    <span className="hidden lg:inline">Blog</span>
+                    <span className="hidden xl:inline">Blog</span>
                 </Link>
             </Button>
 
@@ -39,7 +39,7 @@ async function DesktopNavbar({user}) {
                     <Button variant="ghost" className="flex items-center gap-2" asChild>
                         <Link href="/notifications">
                             <BellIcon className="w-4 h-4" />
-                            <span className="hidden lg:inline">Notifications</span>
+                            <span className="hidden xl:inline">Notifications</span>
                         </Link>
                     </Button>
                     <Button variant="ghost" className="flex items-center gap-2" asChild>
@@ -48,14 +48,19 @@ async function DesktopNavbar({user}) {
                                 }`}
                         >
                             <UserIcon className="w-4 h-4" />
-                            <span className="hidden lg:inline">Profile</span>
+                            <span className="hidden xl:inline">Profile</span>
                         </Link>
                     </Button>
                     <UserButton />
                 </>
             ) : (
                 <SignInButton mode="modal">
-                    <Button variant="default">Sign In</Button>
+                    <Button
+                        className="cursor-pointer"
+                        variant="default"
+                    >
+                        Sign In
+                    </Button>
                 </SignInButton>
             )}
         </div>
