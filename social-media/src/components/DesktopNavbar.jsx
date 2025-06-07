@@ -23,7 +23,13 @@ async function DesktopNavbar() {
                 </Link>
             </Button>
             <Button variant="ghost" className="flex items-center gap-2" asChild>
-                <Link href="/">
+                <Link href="/#projects">
+                    <NotebookPen className="w-4 h-4" />
+                    <span className="hidden lg:inline">Project</span>
+                </Link>
+            </Button>
+            <Button variant="ghost" className="flex items-center gap-2" asChild>
+                <Link href="/blog">
                     <NotebookPen className="w-4 h-4" />
                     <span className="hidden lg:inline">Blog</span>
                 </Link>
