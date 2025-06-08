@@ -2,11 +2,10 @@ import React from 'react'
 import Link from 'next/link'
 import DesktopNavbar from './DesktopNavbar'
 import MobileNavbar from './MobileNavbar'
-import { currentUser, EmailAddress } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Navbar() {
     const user = await currentUser();
-    console.log(user)
     const userInfor = user ? {
         userName : user.username,
         emailAddress: user.emailAddresses[0]?.emailAddress,

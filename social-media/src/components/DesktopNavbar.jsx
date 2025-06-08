@@ -6,7 +6,6 @@ import { ModeToggle } from "@/components/ui/ModeToggle";
 
 
 async function DesktopNavbar({ user }) {
-
     return (
         <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
