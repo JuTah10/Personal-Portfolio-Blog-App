@@ -1,4 +1,4 @@
 # Personal Portfolio
 
 
-NextJS - Tailwind - Shadcn - Prisma - PostgreSQL 
+NextJS - Tailwind - Shadcn - Clerk - Prisma - PostgreSQL 
