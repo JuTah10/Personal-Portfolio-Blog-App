@@ -32,8 +32,8 @@ model User {
   comments Comment[]
   likes    Like[]
 
-  notifications        Notification[] @relation("userNotifications") //notifications received by a user
-  notificationsCreated Notification[] @relation("notificationCreator") //notifications triggered by a user
+  notifications        Notification[] @relation("receiverNotifications") //notifications received by a user
+  notificationsCreated Notification[] @relation("senderNotifications") //notifications triggered by a user
 }
 
 model Post {
@@ -61,6 +61,7 @@ model Comment {
   //Relation
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
   post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  notifications Notification[]
 
   @@index([authorId, postId])
 }
@@ -77,4 +78,30 @@ model Like {
 
   @@index([authorId, postId])
   @@unique([authorId, postId]) //same user can't like a post twice
+}
+
+model Notification{
+  id String @id @default(cuid())
+  receiverId String
+  senderId String
+  type NotificationType
+  read Boolean @default(false)
+  postId String?
+  commentId String?
+  createdAt DateTime @default(now())
+
+  //relations
+  receiver User @relation("receiverNotifications", fields: [receiverId], references: [id], onDelete: Cascade)
+  sender User @relation("senderNotifications", fields: [senderId], references: [id], onDelete: Cascade)
+  post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@index([receiverId, createdAt])
+  
+}
+
+enum NotificationType{
+  LIKE
+  COMMENT
+  MESSAGE
 }
