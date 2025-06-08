@@ -15,23 +15,38 @@ datasource db {
 }
 
 model User {
-  id String @id @default(cuid())
-  email String @unique 
-  username String @unique
-  clerkId String @unique
-  name String?
-  bio String?
-  location String?
-  website String?
-  role String @default("user")
-  createdAt DateTime @default(now()) 
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  clerkId   String   @unique
+  name      String?
+  bio       String?
+  location  String?
+  website   String?
+  role      String   @default("user")
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   //Relations
-  posts Post[]
+  posts    Post[]
   comments Comment[]
-  likes Like[]
+  likes    Like[]
 
   notifications Notification[] @relation("userNotifications") //notifications received by a user
   notificationsCreated Notification[] @relation("notificationCreator") //notifications triggered by a user
+}
+
+model Post {
+  id String @id @default(cuid())
+  authorId String
+  content String?
+  image String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments Comment[]
+  likes Like[]
+  notifications Notification[]
 }
