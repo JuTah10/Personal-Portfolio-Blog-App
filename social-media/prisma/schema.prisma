@@ -34,6 +34,9 @@ model User {
 
   notifications        Notification[] @relation("receiverNotifications") //notifications received by a user
   notificationsCreated Notification[] @relation("senderNotifications") //notifications triggered by a user
+
+  sentMessages     Message[] @relation("sentMessages")
+  receivedMessages Message[] @relation("receivedMessages")
 }
 
 model Post {
@@ -59,48 +62,65 @@ model Comment {
   createdAt DateTime @default(now())
 
   //Relation
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post          Post           @relation(fields: [postId], references: [id], onDelete: Cascade)
   notifications Notification[]
 
   @@index([authorId, postId])
 }
 
 model Like {
-  id String @id @default(cuid())
-  authorId String
-  postId String
+  id        String   @id @default(cuid())
+  authorId  String
+  postId    String
   createdAt DateTime @default(now())
 
   //relation
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
   post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  @@index([authorId, postId])
   @@unique([authorId, postId]) //same user can't like a post twice
+  @@index([authorId, postId])
 }
 
-model Notification{
-  id String @id @default(cuid())
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
   receiverId String
-  senderId String
-  type NotificationType
-  read Boolean @default(false)
-  postId String?
-  commentId String?
-  createdAt DateTime @default(now())
+  content    String
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
 
-  //relations
-  receiver User @relation("receiverNotifications", fields: [receiverId], references: [id], onDelete: Cascade)
-  sender User @relation("senderNotifications", fields: [senderId], references: [id], onDelete: Cascade)
-  post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
-  comment Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  // Relations
+  sender       User           @relation("sentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver     User           @relation("receivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+  Notification Notification[]
 
   @@index([receiverId, createdAt])
-  
 }
 
-enum NotificationType{
+model Notification {
+  id         String           @id @default(cuid())
+  receiverId String
+  senderId   String
+  type       NotificationType
+  read       Boolean          @default(false)
+  postId     String?
+  commentId  String?
+  messageId  String?
+  createdAt  DateTime         @default(now())
+
+  //relations
+  receiver User     @relation("receiverNotifications", fields: [receiverId], references: [id], onDelete: Cascade)
+  sender   User     @relation("senderNotifications", fields: [senderId], references: [id], onDelete: Cascade)
+  post     Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment  Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  message  Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([receiverId, createdAt])
+}
+
+enum NotificationType {
   LIKE
   COMMENT
   MESSAGE
