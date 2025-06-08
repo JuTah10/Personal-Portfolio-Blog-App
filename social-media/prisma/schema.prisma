@@ -32,21 +32,35 @@ model User {
   comments Comment[]
   likes    Like[]
 
-  notifications Notification[] @relation("userNotifications") //notifications received by a user
+  notifications        Notification[] @relation("userNotifications") //notifications received by a user
   notificationsCreated Notification[] @relation("notificationCreator") //notifications triggered by a user
 }
 
 model Post {
-  id String @id @default(cuid())
-  authorId String
-  content String?
-  image String?
+  id        String   @id @default(cuid())
+  authorId  String
+  content   String?
+  image     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relation
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  comments Comment[]
-  likes Like[]
+  author        User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments      Comment[]
+  likes         Like[]
   notifications Notification[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  authorId  String
+  postId    String
+  createdAt DateTime @default(now())
+
+  //Relation
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([authorId, postId])
 }
