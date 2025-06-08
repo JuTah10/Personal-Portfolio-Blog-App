@@ -64,3 +64,17 @@ model Comment {
 
   @@index([authorId, postId])
 }
+
+model Like {
+  id String @id @default(cuid())
+  authorId String
+  postId String
+  createdAt DateTime @default(now())
+
+  //relation
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([authorId, postId])
+  @@unique([authorId, postId]) //same user can't like a post twice
+}
