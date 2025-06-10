@@ -3,11 +3,13 @@ import Link from 'next/link'
 import DesktopNavbar from './DesktopNavbar'
 import MobileNavbar from './MobileNavbar'
 import { currentUser } from "@clerk/nextjs/server";
+import { syncUser } from '@/actions/user';
 
 export default async function Navbar() {
     const user = await currentUser();
+    if (user) await syncUser();
     const userInfor = user ? {
-        userName : user.username,
+        userName: user.username,
         emailAddress: user.emailAddresses[0]?.emailAddress,
     } : null
     return (
@@ -22,8 +24,8 @@ export default async function Navbar() {
                             Vu Nguyen
                         </Link>
                     </div>
-                    <DesktopNavbar user={userInfor}/>
-                    <MobileNavbar user={userInfor}/>
+                    <DesktopNavbar user={userInfor} />
+                    <MobileNavbar user={userInfor} />
                 </div>
 
             </div>
