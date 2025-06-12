@@ -4,13 +4,12 @@ import { BellIcon, HomeIcon, LogOutIcon, MenuIcon, UserIcon, NotebookPen, Folder
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
-import { useAuth, SignInButton, SignOutButton } from "@clerk/nextjs";
+import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { ModeToggle } from "./ui/ModeToggle";
 
 function MobileNavbar({ user }) {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
-    const { isSignedIn } = useAuth();
 
     return (
         <div className="flex md:hidden items-center space-x-2">
@@ -60,7 +59,7 @@ function MobileNavbar({ user }) {
                             </Link>
                         </Button>
 
-                        {isSignedIn ? (
+                        {user ? (
                             <>
                                 <Button
                                     onClick={() => setShowMobileMenu(false)}
