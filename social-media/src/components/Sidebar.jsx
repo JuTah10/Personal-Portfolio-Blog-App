@@ -1,10 +1,12 @@
-import React from 'react'
+import { currentUser } from '@clerk/nextjs/server';
+import { UnauthenticatedSidebar } from './UnauthenticatedSidebar';
 
-export default function Sidebar() {
-  return (
-    <div>
-      Side bar
-    </div>
-  )
+export default async function Sidebar() {
+    const authUser = await currentUser();
+    if (!authUser) return <UnauthenticatedSidebar />
+    return(
+        <>Hello</>
+    );
+
 }
 
