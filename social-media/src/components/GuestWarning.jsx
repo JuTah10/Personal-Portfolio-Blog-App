@@ -53,7 +53,7 @@ export function GuestWarning() {
                                 };
 
                                 document.cookie = `guestInf=${encodeURIComponent(JSON.stringify(guestInfo))}; path=/; max-age=604800`;
-                                window.location.href = "/blog"
+                                window.location.reload();
                             }}
 
                         >

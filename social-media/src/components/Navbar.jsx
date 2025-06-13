@@ -21,6 +21,7 @@ export default async function Navbar() {
     const userInfor = guestInf || user ? {
         userName: guestInf ? guestInf.name.replace(/\s+/g, '') : user.username,
         emailAddress: guestInf ? guestInf.email : user.emailAddresses[0]?.emailAddress,
+        guest: guestInf ? true : false
     } : null
     return (
         <div className='sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50'>

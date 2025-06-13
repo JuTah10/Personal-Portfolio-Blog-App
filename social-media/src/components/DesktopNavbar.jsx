@@ -1,11 +1,12 @@
-import { BellIcon, HomeIcon, UserIcon, NotebookPen, FolderDot } from "lucide-react";
+"use client"
+import { BellIcon, HomeIcon, UserIcon, NotebookPen, FolderDot, LogOutIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 
 
-async function DesktopNavbar({ user }) {
+function DesktopNavbar({ user }) {
     return (
         <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
@@ -50,6 +51,23 @@ async function DesktopNavbar({ user }) {
                             <span className="hidden xl:inline">Profile</span>
                         </Link>
                     </Button>
+                    {user.guest &&
+                        <Button
+                            onClick={() => {
+                                document.cookie = "guestInf=; path=/; max-age=0";
+                                window.location.reload();
+                            }}
+                            variant="ghost"
+                            className="flex items-center gap-2 cursor-pointer"
+                            asChild
+                        >
+                            <div>
+                                <LogOutIcon className="w-4 h-4" />
+                                <span className="hidden xl:inline">Log out</span>
+                            </div>
+
+                        </Button>}
+
                     <UserButton />
                 </>
             ) : (
