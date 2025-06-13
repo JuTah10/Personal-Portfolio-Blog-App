@@ -18,9 +18,9 @@ export default async function Navbar() {
         guestInf = guestInfoRaw ? JSON.parse(decodeURIComponent(guestInfoRaw)) : null;
     }
     if (guestInfoRaw || user) await syncUser({ guestInf });
-    const userInfor = user ? {
-        userName: user.username,
-        emailAddress: user.emailAddresses[0]?.emailAddress,
+    const userInfor = guestInf || user ? {
+        userName: guestInf ? guestInf.name.replace(/\s+/g, '') : user.username,
+        emailAddress: guestInf ? guestInf.email : user.emailAddresses[0]?.emailAddress,
     } : null
     return (
         <div className='sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50'>
