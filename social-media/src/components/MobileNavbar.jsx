@@ -87,7 +87,12 @@ function MobileNavbar({ user }) {
                                 </Button>
                                 <SignOutButton>
                                     <Button
-                                        onClick={() => setShowMobileMenu(false)}
+                                        onClick={() => {
+                                            setShowMobileMenu(false);
+                                            document.cookie = "guestInf=; path=/; max-age=0";
+                                            window.location.reload();
+                                            
+                                        }}
                                         variant="ghost"
                                         className="flex items-center gap-3 justify-start w-full cursor-pointer">
                                         <LogOutIcon className="w-4 h-4" />
