@@ -3,14 +3,17 @@
 import { prisma } from "../lib/prisma.ts"
 import { currentUser } from "@clerk/nextjs/server";
 
-export async function syncUser() {
+export async function syncUser({ guestInf }) {
     try {
-        const user = await currentUser();
-        if (!user) return;
+        let user = null;
+        if (!guestInf) {
+            user = await currentUser();
+            if (!user) return;
+        }
 
         const existingUser = await prisma.user.findUnique({
             where: {
-                clerkId: user.id
+                clerkId: guestInf ? guestInf.guestId : user.id
             }
         })
 
@@ -18,11 +21,11 @@ export async function syncUser() {
 
         await prisma.user.create({
             data: {
-                clerkId: user.id,
-                name: `${user.firstName || ""} ${user.lastName || ""}`,
-                username: user.username ?? user.emailAddresses[0].emailAddress.split("@")[0],
-                email: user.emailAddresses[0].emailAddress,
-                image: user.imageUrl,
+                clerkId: guestInf ? guestInf.guestId : user.id,
+                name: guestInf ? guestInf.name : `${user.firstName || ""} ${user.lastName || ""}`,
+                username: guestInf ? guestInf.name.replace(/\s+/g, '') : user.username ?? user.emailAddresses[0].emailAddress.split("@")[0],
+                email: guestInf ? guestInf.email : user.emailAddresses[0].emailAddress,
+                image: guestInf ? guestInf.image : user.imageUrl,
             }
         })
     } catch (error) {

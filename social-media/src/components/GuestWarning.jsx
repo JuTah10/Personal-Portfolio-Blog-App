@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -11,11 +12,19 @@ import {
 } from "@/components/ui/dialog"
 
 export function GuestWarning() {
+    function generateRandomGuestName() {
+        const adjectives = ["Brave", "Clever", "Swift", "Happy", "Calm"];
+        const animals = ["Otter", "Panda", "Tiger", "Fox", "Koala"];
+        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const animal = animals[Math.floor(Math.random() * animals.length)];
+        return `${adj} ${animal}`;
+    }
+
     return (
         <Dialog>
             <form className="w-full">
                 <DialogTrigger asChild>
-                    <Button className="w-full" variant="outline">Continue as Guest</Button>
+                    <Button className="w-full cursor-pointer" variant="outline">Continue as Guest</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -33,6 +42,20 @@ export function GuestWarning() {
                         </DialogClose>
                         <Button
                             type="submit"
+                            className="cursor-pointer"
+                            onClick={() => {
+                                const guestId = `guest_${crypto.randomUUID()}`
+                                const guestInfo = {
+                                    guestId,
+                                    name: generateRandomGuestName(),
+                                    email: `${guestId}@guest.local`,
+                                    image: "https://www.gravatar.com/avatar/?d=mp"
+                                };
+
+                                document.cookie = `guestInf=${encodeURIComponent(JSON.stringify(guestInfo))}; path=/; max-age=604800`;
+                                window.location.href = "/blog"
+                            }}
+
                         >
                             Confirm as Guest
                         </Button>

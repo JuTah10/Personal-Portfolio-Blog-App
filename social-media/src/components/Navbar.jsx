@@ -4,10 +4,20 @@ import DesktopNavbar from './DesktopNavbar'
 import MobileNavbar from './MobileNavbar'
 import { currentUser } from "@clerk/nextjs/server";
 import { syncUser } from '@/actions/user';
+import { cookies } from 'next/headers';
 
 export default async function Navbar() {
-    const user = await currentUser();
-    if (user) await syncUser();
+    const cookieStore = await cookies();
+    const guestInfoRaw = cookieStore.get("guestInf")?.value;
+    let user = null;
+    let guestInf = null;
+
+    if (!guestInfoRaw) {
+        user = await currentUser();
+    } else {
+        guestInf = guestInfoRaw ? JSON.parse(decodeURIComponent(guestInfoRaw)) : null;
+    }
+    if (guestInfoRaw || user) await syncUser({ guestInf });
     const userInfor = user ? {
         userName: user.username,
         emailAddress: user.emailAddresses[0]?.emailAddress,
