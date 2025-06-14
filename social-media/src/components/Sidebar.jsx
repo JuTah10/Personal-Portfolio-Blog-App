@@ -1,6 +1,7 @@
 "use server"
 import { currentUser } from '@clerk/nextjs/server';
 import { UnauthenticatedSidebar } from './UnauthenticatedSidebar';
+import UserCard from './UserCard';
 import { cookies } from 'next/headers';
 import { syncUser, getUserById } from '@/actions/user';
 
@@ -18,7 +19,7 @@ export default async function Sidebar() {
     if (!guestInf && !authUser) return <UnauthenticatedSidebar />
 
     const clerkId = guestInf?.guestId || authUser?.id;
- 
+
     let userInf;
 
     if (clerkId) {
@@ -27,9 +28,7 @@ export default async function Sidebar() {
     };
 
     return (
-        <div>
-            {userInf?.username}
-        </div>
+        <UserCard userInf={userInf} />
     );
 
 }
