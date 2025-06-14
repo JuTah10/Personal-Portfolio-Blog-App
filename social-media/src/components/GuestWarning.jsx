@@ -1,4 +1,5 @@
 "use client"
+import React from "react";
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -11,14 +12,20 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 
+import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
+
 export function GuestWarning() {
-    function generateRandomGuestName() {
-        const adjectives = ["Brave", "Clever", "Swift", "Happy", "Calm"];
-        const animals = ["Otter", "Panda", "Tiger", "Fox", "Koala"];
-        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const animal = animals[Math.floor(Math.random() * animals.length)];
-        return `${adj} ${animal}`;
-    }
+    const [randomName, setRandomName] = React.useState("");
+
+    React.useEffect(() => {
+        const name = uniqueNamesGenerator({
+            dictionaries: [adjectives, animals],
+            separator: ' ',
+            style: 'capital'
+        });
+        setRandomName(name);
+    }, []);
+
 
     return (
         <Dialog>
@@ -45,12 +52,14 @@ export function GuestWarning() {
                             className="cursor-pointer"
                             onClick={() => {
                                 const guestId = `guest_${crypto.randomUUID()}`
+                                
                                 const guestInfo = {
                                     guestId,
-                                    name: generateRandomGuestName(),
+                                    name: randomName,
                                     email: `${guestId}@guest.local`,
                                     image: "https://www.gravatar.com/avatar/?d=mp"
                                 };
+                                
 
                                 document.cookie = `guestInf=${encodeURIComponent(JSON.stringify(guestInfo))}; path=/; max-age=604800`;
                                 window.location.reload();

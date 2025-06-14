@@ -5,31 +5,47 @@ import { currentUser } from "@clerk/nextjs/server";
 
 export async function syncUser({ guestInf }) {
     try {
-        let user = null;
-        if (!guestInf) {
-            user = await currentUser();
-            if (!user) return;
-        }
+        const clerkUser = guestInf ? null : await currentUser();
+        if (!guestInf && !clerkUser) return null;
 
-        const existingUser = await prisma.user.findUnique({
-            where: {
-                clerkId: guestInf ? guestInf.guestId : user.id
-            }
-        })
+        const clerkId = guestInf?.guestId ?? clerkUser.id;
+        const name = (guestInf?.name
+            ?? `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`
+        ).trim();
+        const username = guestInf
+            ? guestInf.name.replace(/\s+/g, "")
+            : clerkUser.username
+            || clerkUser.emailAddresses[0].emailAddress.split("@")[0];
+        const email = guestInf?.email ?? clerkUser.emailAddresses[0].emailAddress;
+        const image = guestInf?.image ?? clerkUser.imageUrl;
 
-        if (existingUser) return existingUser;
-
-        await prisma.user.create({
-            data: {
-                clerkId: guestInf ? guestInf.guestId : user.id,
-                name: guestInf ? guestInf.name : `${user.firstName || ""} ${user.lastName || ""}`,
-                username: guestInf ? guestInf.name.replace(/\s+/g, '') : user.username ?? user.emailAddresses[0].emailAddress.split("@")[0],
-                email: guestInf ? guestInf.email : user.emailAddresses[0].emailAddress,
-                image: guestInf ? guestInf.image : user.imageUrl,
-            }
-        })
-    } catch (error) {
-        console.log("error in syncUser action", error)
+        await prisma.user.upsert({
+            where: { email },
+            update: {
+                clerkId,
+                name,
+                username,
+                image,
+            },
+            create: {
+                clerkId,
+                name,
+                username,
+                email,
+                image,
+            },
+        });
+    } catch (err) {
+        console.error("error in syncUser action", err);
+        return null;
     }
+}
+
+export async function getUserById({ clerkId }) {
+    return prisma.user.findUnique({
+        where: {
+            clerkId
+        },
+    })
 }
 

@@ -17,7 +17,7 @@ export default async function Navbar() {
     } else {
         guestInf = guestInfoRaw ? JSON.parse(decodeURIComponent(guestInfoRaw)) : null;
     }
-    if (guestInfoRaw || user) await syncUser({ guestInf });
+    if (guestInfoRaw || user) await syncUser({ guestInf: guestInf ?? null });
     const userInfor = guestInf || user ? {
         userName: guestInf ? guestInf.name.replace(/\s+/g, '') : user.username,
         emailAddress: guestInf ? guestInf.email : user.emailAddresses[0]?.emailAddress,
