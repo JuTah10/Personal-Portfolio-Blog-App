@@ -15,7 +15,7 @@ import {
 
 export function UnauthenticatedSidebar() {
     return (
-        <Card className="w-full max-w-sm">
+        <Card className="w-full max-w-sm sticky top-20">
             <CardHeader >
                 <div className="flex flex-col space-y-5 text-center">
                     <CardTitle className="text-xl font-bold">Welcome back!</CardTitle>

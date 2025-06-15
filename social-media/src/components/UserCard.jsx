@@ -13,7 +13,7 @@ import { MapPinIcon, LinkIcon } from 'lucide-react'
 
 export default function UserCard({ userInf }) {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm sticky top-20">
       <CardContent>
         <div className='flex flex-col justify-center items-center gap-y-1'>
           <Avatar className="w-20 h-20 border-2 mb-4">
