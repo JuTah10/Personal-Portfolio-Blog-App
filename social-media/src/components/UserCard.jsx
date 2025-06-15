@@ -46,6 +46,13 @@ export default function UserCard({ userInf }) {
           </div>
         </div>
 
+        {userInf.clerkId.startsWith("guest_") && (
+          <div
+            className="border-t-2 border-red-400 mt-4 pt-2 text-red-400 text-center text-xs"
+          >
+            Create a real user account to edit your profile
+          </div>
+        )}
       </CardContent>
     </Card>
   )
