@@ -5,6 +5,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Textarea } from "./ui/textarea";
 import { Avatar, AvatarImage } from './ui/avatar'
 import { ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
+import BlogUploadImage from './BlogUploadImage';
+
+import { createPost } from '@/actions/post';
 
 
 export default function CreateNewPost({ user }) {
@@ -13,8 +16,15 @@ export default function CreateNewPost({ user }) {
   const [isPosting, setIsPosting] = React.useState(false);
   const [showImageUpload, setShowImageUpload] = React.useState(false);
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    if (!content.trim()) return;
 
+    setIsPosting(true);
+    try {
+      await createPost(content, imageUrl);
+    } catch (error) {
+
+    }
   }
   return (
     <Card className="mb-6">
@@ -25,7 +35,7 @@ export default function CreateNewPost({ user }) {
               <AvatarImage src={user?.image} />
             </Avatar>
             <Textarea
-            
+
               placeholder="What's on your mind?"
               className="min-h-[100px] resize-none border-none focus-visible:ring-0 p-0 text-base !bg-card"
               value={content}
@@ -34,7 +44,51 @@ export default function CreateNewPost({ user }) {
             />
           </div>
 
-          
+          {(showImageUpload || imageUrl) && (
+            <div className="border rounded-lg p-4">
+              <BlogUploadImage
+                endpoint="postImage"
+                value={imageUrl}
+                onChange={(url) => {
+                  setImageUrl(url);
+                  if (!url) setShowImageUpload(false);
+                }}
+              />
+            </div>
+          )}
+
+          <div className="flex items-center justify-between border-t pt-4">
+            <div className="flex space-x-2">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground hover:text-primary"
+                onClick={() => setShowImageUpload(!showImageUpload)}
+                disabled={isPosting}
+              >
+                <ImageIcon className="size-4 mr-2" />
+                Photo
+              </Button>
+            </div>
+            <Button
+              className="flex items-center"
+              onClick={handleSubmit}
+              disabled={(!content.trim() && !imageUrl) || isPosting}
+            >
+              {isPosting ? (
+                <>
+                  <Loader2Icon className="size-4 mr-2 animate-spin" />
+                  Posting...
+                </>
+              ) : (
+                <>
+                  <SendIcon className="size-4 mr-2" />
+                  Post
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

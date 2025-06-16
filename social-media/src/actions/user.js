@@ -1,7 +1,7 @@
 "use server"
 
 import { prisma } from "../lib/prisma.ts"
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export async function syncUser({ guestInf }) {
     try {
@@ -47,5 +47,16 @@ export async function getUserById({ clerkId }) {
             clerkId
         },
     })
+}
+
+export async function getUserIdFromClerkId() {
+    const { userId: clerkId } = await auth();
+
+    if (!clerkId) throw new Error("User not found with this clerkId");
+
+    const user = await getUserById({ clerkId });
+    if (!user) throw new Error("User not found!");
+
+    return user.id;
 }
 
