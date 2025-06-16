@@ -1,25 +1,32 @@
-import { FaExternalLinkAlt, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
+
+
 import { MdOutlineEmail } from "react-icons/md";
 
 export const OwnerSocials = [
     {
         name: "Website",
-        link: "https://yourwebsite.com",
-        Icon: FaExternalLinkAlt,
+        link: "#",
+        Icon: FiExternalLink,
+        action: "Visit",
     },
     {
         name: "Email",
-        link: "mailto:you@example.com",
+        link: "mailto:vn22dy@brocku.ca",
         Icon: MdOutlineEmail,
+        action: "Email",
     },
     {
         name: "LinkedIn",
-        link: "https://linkedin.com/in/yourprofile",
+        link: "https://www.linkedin.com/in/vu-nguyen-5a739026b/",
         Icon: FaLinkedin,
+        action: "Connect",
     },
     {
         name: "Github",
-        link: "https://github.com/yourusername",
+        link: "https://github.com/JuTah10",
         Icon: FaGithub,
+        action: "View",
     },
 ];
