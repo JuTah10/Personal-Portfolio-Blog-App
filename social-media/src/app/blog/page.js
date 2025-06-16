@@ -26,9 +26,9 @@ export default function BlogPage() {
   }, [userId])
 
   return (
-    <div className='grid grid-cols-1 lg:grid-cols-10 gap-6 border border-red-300'>
-      <div className='lg:col-span-6 h-[2000px]'>
-        {isSignedIn && (user?.role === "admin") && <CreateNewPost />}
+    <div className='grid grid-cols-1 lg:grid-cols-10 gap-6'>
+      <div className='lg:col-span-6'>
+        {isSignedIn && (user?.role === "admin") && <CreateNewPost user={user} />}
       </div>
       <div className='hidden lg:block lg:col-span-4 sticky top-20'>
         <OwnerInf />
