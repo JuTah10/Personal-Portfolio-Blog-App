@@ -13,7 +13,7 @@ export async function createPost(content, image) {
                 authorId: adminId
             }
         })
-        revalidatePath("/blog");
+        revalidatePath("/blog"); //reinivalidate everytime user visit blog instead of using cache data
         return { success: true, post: post }
 
     } catch (error) {

@@ -5,7 +5,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Textarea } from "./ui/textarea";
 import { Avatar, AvatarImage } from './ui/avatar'
 import { ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
+
 import BlogUploadImage from './BlogUploadImage';
+
+import toast from 'react-hot-toast';
 
 import { createPost } from '@/actions/post';
 
@@ -21,9 +24,18 @@ export default function CreateNewPost({ user }) {
 
     setIsPosting(true);
     try {
-      await createPost(content, imageUrl);
+      const result = await createPost(content, imageUrl);
+      if (result.success) {
+        setContent("");
+        setImageUrl("");
+        setShowImageUpload(false);
+        toast.success("Uploaded New Post");
+      }
     } catch (error) {
-
+      console.error("Error in handSubmit - CreateNewPost", error);
+      toast.error("Failed to post. Try again!");
+    } finally {
+      setIsPosting(false);
     }
   }
   return (
