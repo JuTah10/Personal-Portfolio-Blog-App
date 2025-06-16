@@ -8,6 +8,7 @@ import { getUserById } from '@/actions/user';
 export default function BlogPage() {
   const { isSignedIn, userId } = useAuth();
   const [user, setUser] = React.useState(null);
+  
 
   React.useEffect(() => {
     if (!userId) return;
@@ -29,6 +30,9 @@ export default function BlogPage() {
     <div className='grid grid-cols-1 lg:grid-cols-10 gap-6'>
       <div className='lg:col-span-7'>
         {isSignedIn && (user?.role === "admin") && <CreateNewPost user={user} />}
+        <div className='space-y-6'>
+
+        </div>
       </div>
       <div className='hidden lg:block lg:col-span-3 sticky top-20'>
         <OwnerInf />
