@@ -21,7 +21,7 @@ export default async function BlogPage() {
       <div className='lg:col-span-7'>
         {isSignedIn && (user?.role === "admin") && <CreateNewPost user={user} />}
         <div className='space-y-6'>
-          <BlogPost posts={posts} />
+          <BlogPost posts={posts} admin={(user?.role === "admin")} />
         </div>
       </div>
       <div className='hidden lg:block lg:col-span-3 sticky top-20'>

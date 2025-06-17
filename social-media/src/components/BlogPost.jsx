@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { formatDistanceToNow } from "date-fns"
 
-export default function BlogPost({ posts }) {
+export default function BlogPost({ posts, admin }) {
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
@@ -50,6 +50,11 @@ export default function BlogPost({ posts }) {
                                             <span>{formatDistanceToNow(new Date(post.updatedAt))} ago</span>
                                         </div>
                                     </div>
+
+                                    {admin && (
+                                        <span>X</span> //need to implement admin/poster delete later
+                                    )}
+                                    
                                 </div>
                             </div>
                         </div>
