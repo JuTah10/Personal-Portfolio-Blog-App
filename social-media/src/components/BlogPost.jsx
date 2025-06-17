@@ -1,6 +1,9 @@
 "use client"
 import React from 'react'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Card, CardContent } from "./ui/card";
+import { Avatar, AvatarImage } from './ui/avatar';
+import Link from 'next/link';
 
 
 export default function BlogPost({ posts }) {
@@ -18,13 +21,20 @@ export default function BlogPost({ posts }) {
     );
 
     return (
-        <div>
-            {posts.map((post) => (
-                <div key={post.id} className="mb-4 border p-4 rounded">
-                    <h2 className="text-xl font-bold">{post.title}</h2>
-                    <p>{post.content}</p>
-                </div>
-            ))}
-        </div>
+        <Card className="overflow-hidden">
+            <CardContent className="p-4 sm:p-6">
+                {posts.map((post) => (
+                    <div key={post.id} className="space-y-4">
+                        <div className="flex space-x-3 sm:space-x-4">
+                            <Link href={`/profile/${post.author.username}`}>
+                                <Avatar className="size-8 sm:w-10 sm:h-10">
+                                    <AvatarImage src={post.author.image ?? "/avatar.png"} />
+                                </Avatar>
+                            </Link>
+                        </div>
+                    </div>
+                ))}
+            </CardContent>
+        </Card>
     );
 }
