@@ -10,15 +10,6 @@ import { fetchPosts } from '@/actions/post'
 import { cookies } from 'next/headers';
 
 export default async function BlogPage() {
-  const { userId } = await auth();
-  const isSignedIn = !!userId;
-  let user = userId ? await getUserById({ clerkId: userId }) : null;
-  if (!user) {
-    user = getJsonCookie("guestInf");
-  }
-
-  const posts = await fetchPosts();
-
 
   async function getJsonCookie(name) {
     const cookieStore = await cookies();
@@ -32,6 +23,20 @@ export default async function BlogPage() {
       return null;
     }
   }
+
+  const { userId } = await auth();
+  const isSignedIn = !!userId;
+  let guest = null;
+
+  if (!userId) {
+    guest = await getJsonCookie("guestInf") ?? null;
+  }
+  const clerkId = userId ?? guest?.guestId;
+
+  const user = clerkId ? await getUserById({ clerkId }) : null;
+
+  const posts = await fetchPosts();
+
 
 
   return (

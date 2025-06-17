@@ -76,3 +76,29 @@ export async function fetchPosts() {
         console.log("Error inside fetchPost", error);
     }
 }
+
+export async function postLike({ authorId, postId }) {
+    try {
+        const hasLiked = await prisma.like.findUnique({
+            where: {
+                authorId_postId: { authorId, postId }
+            }
+        })
+        if (hasLiked) {
+            await prisma.like.delete({
+                where: {
+                    authorId_postId: { authorId, postId }
+                }
+            });
+            return;
+        }
+        await prisma.like.create({
+            data: { authorId, postId }
+
+        })
+    } catch (error) {
+        console.error("Failed to insert to Like table", error);
+        throw error;
+    }
+
+}

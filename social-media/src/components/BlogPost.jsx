@@ -9,11 +9,31 @@ import Link from 'next/link';
 
 import { formatDistanceToNow } from "date-fns"
 
-export default function BlogPost({ post, user }) {
-    const [liked, setLiked] = React.useState(false);
+import { postLike } from '@/actions/post';
 
-    function handleLike() {
-        setLiked(!liked)
+export default function BlogPost({ post, user }) {
+    
+    const [liked, setLiked] = React.useState(post.likes.some(like => like.authorId === user?.id));
+
+    const [updateLikes, setUpdateLikes] = React.useState(post._count.likes);
+    const [processingLike, setProcessingLike] = React.useState(false);
+
+    async function handleLike() {
+        if (processingLike) return;
+        try {
+            setProcessingLike(true);
+            setLiked(!liked);
+            setUpdateLikes(prevLike => prevLike + (liked ? -1 : +1));
+            await postLike({ authorId: user.id, postId: post.id })
+        } catch (error) {
+            setUpdateLikes(post._count.likes)
+            setLiked(post.likes.some(like => like.authorId === user?.id));
+            setLiked(post.likes.authorId === user?.id)
+        } finally {
+            setProcessingLike(false);
+        }
+
+
     }
 
     return (
@@ -71,7 +91,7 @@ export default function BlogPost({ post, user }) {
                             ) : (
                                 <HeartIcon className="size-5" />
                             )}
-                            <span>{ }</span>
+                            <span>{updateLikes}</span>
                         </Button>
                     </div>
                 </div>
