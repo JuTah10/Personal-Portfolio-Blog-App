@@ -25,9 +25,9 @@ export default function BlogPost({ posts, admin }) {
         <>
             {
                 posts.map((post) => (
-                    <Card className="overflow-hidden">
+                    <Card key={post.id} className="overflow-hidden">
                         <CardContent className="p-4 sm:p-6">
-                            <div key={post.id} className="space-y-4">
+                            <div className="space-y-4">
                                 <div className="flex space-x-3 sm:space-x-4">
                                     <Link href={`/profile/${post.author.username}`}>
                                         <Avatar className="size-8 sm:w-10 sm:h-10">

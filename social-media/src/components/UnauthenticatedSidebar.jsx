@@ -20,7 +20,7 @@ export function UnauthenticatedSidebar() {
                 <div className="flex flex-col space-y-5 text-center">
                     <CardTitle className="text-xl font-bold">Welcome back!</CardTitle>
                     <CardDescription >
-                        Login to access your profile and connect with others
+                        Login to access your profile, comment and like!
                     </CardDescription>
                 </div>
             </CardHeader>
