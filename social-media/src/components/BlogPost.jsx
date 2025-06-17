@@ -7,8 +7,27 @@ import Link from 'next/link';
 
 import { formatDistanceToNow } from "date-fns"
 
-export default function BlogPost({ posts, admin }) {
+export default function BlogPost({ posts, user }) {
     const [loading, setLoading] = React.useState(true);
+    const [liked, setLiked] = React.useState(false);
+
+    React.useEffect(() => {
+        if (!user) {
+            user = getJsonCookie("guestInf");        
+        } 
+    }, [])
+
+
+    function getJsonCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (!match) return null;
+        try {
+            return JSON.parse(decodeURIComponent(match[2]));
+        } catch (err) {
+            console.error("Failed to parse cookie:", err);
+            return null;
+        }
+    }
 
     React.useEffect(() => {
         if (posts) setLoading(false);
@@ -53,7 +72,7 @@ export default function BlogPost({ posts, admin }) {
                                                 </div>
                                             </div>
 
-                                            {admin && (
+                                            {(user?.role === "admin") && (
                                                 <span>X</span> //need to implement admin/poster delete later
                                             )}
                                         </div>
@@ -65,6 +84,10 @@ export default function BlogPost({ posts, admin }) {
                                         <img src={post.image} alt="Post content" className="w-full h-auto object-cover" />
                                     </div>
                                 )}
+
+                                <div className="flex items-center pt-2 space-x-4">
+
+                                </div>
                             </div>
                         </CardContent>
                     </Card>
