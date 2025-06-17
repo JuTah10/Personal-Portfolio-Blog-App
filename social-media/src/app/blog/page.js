@@ -5,6 +5,7 @@ import OwnerInf from '@/components/OwnerInf'
 import BlogPostClient from '@/components/BlogPostClient';
 import { auth } from "@clerk/nextjs/server";
 import { getUserById } from '@/actions/user';
+import { fetchPosts } from '@/actions/post'
 
 import { cookies } from 'next/headers';
 
@@ -15,6 +16,8 @@ export default async function BlogPage() {
   if (!user) {
     user = getJsonCookie("guestInf");
   }
+
+  const posts = await fetchPosts();
 
 
   async function getJsonCookie(name) {
@@ -36,7 +39,7 @@ export default async function BlogPage() {
       <div className='lg:col-span-7'>
         {isSignedIn && (user?.role === "admin") && <CreateNewPost user={user} />}
         <div className='space-y-6'>
-          <BlogPostClient />
+          <BlogPostClient user={user} posts={posts} />
         </div>
       </div>
       <div className='hidden lg:block lg:col-span-3 sticky top-20'>
