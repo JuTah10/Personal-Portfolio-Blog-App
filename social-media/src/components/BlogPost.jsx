@@ -11,8 +11,20 @@ import { formatDistanceToNow } from "date-fns"
 
 import { postLike } from '@/actions/post';
 
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+
+
 export default function BlogPost({ post, user }) {
-    
+
     const [liked, setLiked] = React.useState(post.likes.some(like => like.authorId === user?.id));
 
     const [updateLikes, setUpdateLikes] = React.useState(post._count.likes);
@@ -79,20 +91,49 @@ export default function BlogPost({ post, user }) {
                     )}
 
                     <div className="flex items-center pt-2 space-x-4">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className={`text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
-                                }`}
-                            onClick={handleLike}
-                        >
-                            {liked ? (
-                                <HeartIcon className="size-5 fill-current" />
-                            ) : (
-                                <HeartIcon className="size-5" />
-                            )}
-                            <span>{updateLikes}</span>
-                        </Button>
+                        {user ?
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className={`text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
+                                    }`}
+                                onClick={handleLike}
+                            >
+                                {liked ? (
+                                    <HeartIcon className="size-5 fill-current" />
+                                ) : (
+                                    <HeartIcon className="size-5" />
+                                )
+                                }
+
+                                <span>{updateLikes}</span>
+                            </Button>
+                            :
+
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <button className='cursor-pointer flex gap-2 items-center hover:text-red-500'>
+                                        <HeartIcon className="size-5" />
+                                        <span>{updateLikes}</span>
+                                    </button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[425px]">
+                                    <DialogHeader>
+                                        <DialogTitle>Warning</DialogTitle>
+                                        <DialogDescription>
+                                            Please log in, create an account, or continue as a guest to proceed.
+                                        </DialogDescription>
+                                    </DialogHeader>
+
+                                    <DialogFooter>
+                                        <DialogClose asChild>
+                                            <Button variant="outline" className="cursor-pointer">Close</Button>
+                                        </DialogClose>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+
+                        }
                     </div>
                 </div>
             </CardContent>
