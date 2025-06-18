@@ -47,7 +47,7 @@ export default async function BlogPage() {
           <BlogPostClient user={user} posts={posts} />
         </div>
       </div>
-      <div className='hidden lg:block lg:col-span-3 sticky top-20'>
+      <div className='hidden lg:block lg:col-span-3'>
         <OwnerInf />
       </div>
     </div>

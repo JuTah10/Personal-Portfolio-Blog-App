@@ -7,7 +7,7 @@ import { OwnerSocials } from "@/constant/OwnerSocial";
 
 export default function OwnerInf() {
     return (
-        <Card>
+        <Card className="sticky top-20">
             <CardHeader>
                 <CardTitle>My Socials:</CardTitle>
             </CardHeader>
