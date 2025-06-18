@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-import { HeartIcon } from 'lucide-react';
+import { HeartIcon, MessageCircleIcon } from 'lucide-react';
 import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -26,9 +26,10 @@ import {
 export default function BlogPost({ post, user }) {
 
     const [liked, setLiked] = React.useState(post.likes.some(like => like.authorId === user?.id));
-
     const [updateLikes, setUpdateLikes] = React.useState(post._count.likes);
     const [processingLike, setProcessingLike] = React.useState(false);
+
+    const [showComments, setShowComments] = React.useState(false);
 
     async function handleLike() {
         if (processingLike) return;
@@ -109,7 +110,6 @@ export default function BlogPost({ post, user }) {
                                 <span>{updateLikes}</span>
                             </Button>
                             :
-
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <button className='cursor-pointer flex gap-2 items-center hover:text-red-500'>
@@ -132,9 +132,28 @@ export default function BlogPost({ post, user }) {
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
-
                         }
+
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-muted-foreground gap-2 hover:text-blue-500"
+                            onClick={() => setShowComments((prev) => !prev)}
+                        >
+                            <MessageCircleIcon
+                                className={`size-5 ${showComments ? "fill-blue-500 text-blue-500" : ""}`}
+                            />
+                            <span>{post.comments.length}</span>
+                        </Button>
                     </div>
+
+
+                    <Dialog open={showComments} onOpenChange={setShowComments}>
+                        <DialogContent className="!w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh] overflow-y-auto">
+                            aasd
+                        </DialogContent>
+                    </Dialog>
+
                 </div>
             </CardContent>
         </Card>
