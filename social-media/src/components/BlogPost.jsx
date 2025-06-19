@@ -82,7 +82,7 @@ export default function BlogPost({ post, user }) {
                                     <span>X</span> //need to implement admin/poster delete later
                                 )}
                             </div>
-                            <p className="mt-2 text-sm text-foreground break-words">{post.content}</p>
+                            <p className="mt-2 text-sm text-foreground break-words whitespace-pre-line">{post.content}</p>
                         </div>
                     </div>
                     {post.image && (
@@ -150,7 +150,13 @@ export default function BlogPost({ post, user }) {
 
                     <Dialog open={showComments} onOpenChange={setShowComments}>
                         <DialogContent className="!w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh] overflow-y-auto">
-                            aasd
+                            <DialogHeader>
+                                <DialogTitle>Edit profile</DialogTitle>
+                                <DialogDescription>
+                                    Make changes to your profile here. Click save when you&apos;re
+                                    done.
+                                </DialogDescription>
+                            </DialogHeader>
                         </DialogContent>
                     </Dialog>
 
