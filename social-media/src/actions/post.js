@@ -1,17 +1,15 @@
 "use server"
 import { revalidatePath } from "next/cache";
-import { getUserIdFromClerkId } from "./user";
 
 
-export async function createPost(content, image) {
+
+export async function createPost(content, image, authorId) {
     try {
-        const adminId = await getUserIdFromClerkId();
-
         const post = await prisma.post.create({
             data: {
                 content,
                 image,
-                authorId: adminId
+                authorId
             }
         })
         revalidatePath("/blog"); //reinivalidate everytime user visit blog path instead of using cache data

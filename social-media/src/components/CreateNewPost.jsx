@@ -3,6 +3,7 @@ import React from 'react'
 import { Button } from './ui/button';
 import { Card, CardContent } from "@/components/ui/card"
 import { Textarea } from "./ui/textarea";
+import { Input } from './ui/input';
 import { Avatar, AvatarImage } from './ui/avatar'
 import { ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
 
@@ -14,6 +15,8 @@ import { createPost } from '@/actions/post';
 
 
 export default function CreateNewPost({ user }) {
+  const [showInput, setShowInput] = React.useState(false);
+  const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
   const [imageUrl, setImageUrl] = React.useState("");
   const [isPosting, setIsPosting] = React.useState(false);
@@ -21,20 +24,23 @@ export default function CreateNewPost({ user }) {
 
   async function handleSubmit() {
     if (!content.trim()) return;
+    const safeTitle = title.trim() ? title : "Untitled";
+    const finalContent = `${safeTitle}\n${content}`;
 
     setIsPosting(true);
     try {
-      const result = await createPost(content, imageUrl);
+      const result = await createPost(finalContent, imageUrl, user.id);
       if (result.success) {
-        setContent("");
-        setImageUrl("");
-        setShowImageUpload(false);
         toast.success("Uploaded New Post");
       }
     } catch (error) {
       console.error("Error in handSubmit - CreateNewPost", error);
       toast.error("Failed to post. Try again!");
     } finally {
+      setTitle("");
+      setContent("");
+      setImageUrl("");
+      setShowImageUpload(false);
       setIsPosting(false);
     }
   }
@@ -46,14 +52,38 @@ export default function CreateNewPost({ user }) {
             <Avatar className="w-10 h-10">
               <AvatarImage src={user?.image} />
             </Avatar>
-            <Textarea
 
-              placeholder="What's on your mind?"
-              className="min-h-[100px] resize-none border-none focus-visible:ring-0 p-0 text-base !bg-card"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              disabled={isPosting}
-            />
+            {!showInput ?
+              <Textarea
+                placeholder="What's on your mind?"
+                className="min-h-[100px] resize-none border-none focus-visible:ring-0 p-0 text-base !bg-card"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                onClick={() => setShowInput(true)}
+                disabled={isPosting}
+              >
+
+              </Textarea>
+              :
+              <div className=''>
+                <Input
+                  placeholder="Title"
+                  className="text-2xl font-bold border-none focus-visible:ring-0 !bg-card p-0"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  disabled={isPosting}
+                />
+
+                <Textarea
+                  placeholder="What's on your mind?"
+                  className="min-h-[100px] resize-none border-none focus-visible:ring-0 p-0 text-base !bg-card mt-2"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  onClick={() => setShowInput(true)}
+                  disabled={isPosting}
+                />
+              </div>
+            }
           </div>
 
           {(showImageUpload || imageUrl) && (
@@ -103,6 +133,6 @@ export default function CreateNewPost({ user }) {
           </div>
         </div>
       </CardContent>
-    </Card>
+    </Card >
   )
 }
