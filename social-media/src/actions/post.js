@@ -49,8 +49,15 @@ export async function fetchPosts() {
                     select: {
                         id: true,
                         content: true,
-                        authorId: true,
-                        createdAt: true
+                        createdAt: true,
+                        author: {
+                            select: {
+                                id: true,
+                                username: true,
+                                image: true,
+                                name: true
+                            }
+                        }
                     },
                     orderBy: {
                         createdAt: "desc"

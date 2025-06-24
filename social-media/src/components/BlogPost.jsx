@@ -33,10 +33,11 @@ export default function BlogPost({ post, user }) {
 
     const [showComments, setShowComments] = React.useState(false);
 
+    const [comment, setComment] = React.useState(post.comments)
+
     const lines = post.content.split("\n")
     const title = lines[0];
     const content = lines.slice(1).join("\n");
-    console.log(post.content)
 
     async function handleLike() {
         if (processingLike) return;
@@ -175,7 +176,7 @@ export default function BlogPost({ post, user }) {
                                     <div className="row-span-1 flex items-center space-x-3 sm:space-x-4">
                                         <Link href={`/profile/${post.author.username}`}>
                                             <Avatar className="size-8 sm:w-10 sm:h-10">
-                                                <AvatarImage src={post.author.image ?? "/avatar.png"} />
+                                                <AvatarImage src={post.author.image} />
                                             </Avatar>
                                         </Link>
 
@@ -201,8 +202,35 @@ export default function BlogPost({ post, user }) {
                                     </div>
 
                                     {/* Comments */}
-                                    <div className='row-span-9 overflow-y-auto'>
-                                        Comment holder
+                                    <div className='row-span-9 overflow-y-auto '>
+                                        {(comment.length > 0) &&
+                                            comment.map((com) => {
+                                                return (
+                                                    <div className='flex items-center space-x-3 sm:space-x-4 mx-2 my-4'>
+                                                        <Avatar className="size-8 sm:w-10 sm:h-10">
+                                                            <AvatarImage src={com.author.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
+                                                        </Avatar>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-start justify-between">
+                                                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate text-sm">
+                                                                    <div
+                                                                        className="font-semibold truncate"
+                                                                    >
+                                                                        {com.author.username}
+                                                                    </div>
+                                                                    <div >
+                                                                        {com.content}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <span className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                                                {formatDistanceToNow(new Date(com.createdAt))} ago
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
                                     </div>
 
                                     {/* Like/Comment/create new comment section */}

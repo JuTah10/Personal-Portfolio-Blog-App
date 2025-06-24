@@ -13,69 +13,91 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from './ui/input';
 
-import { HeartIcon, MessageCircleIcon } from 'lucide-react';
+import { HeartIcon, MessageCircleIcon, Loader2Icon } from 'lucide-react';
 
 export default function CreateNewComment({ user, liked, handleLike, updateLikes, post }) {
+
+    const inputRef = React.useRef(null);
+    const [isPosting, setIsPosting] = React.useState(false);
+    const [newComment, setNewComment] = React.useState("");
+
     return (
-        <div>
-            {user ?
+        <div className='lg:mt-4'>
+            <div className='flex items-center'>
+                {user ?
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className={`text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
+                            }`}
+                        onClick={handleLike}
+                    >
+                        {liked ? (
+                            <HeartIcon className="size-5 fill-current" />
+                        ) : (
+                            <HeartIcon className="size-5" />
+                        )
+                        }
+                        <span>{updateLikes}</span>
+                    </Button>
+                    :
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <button className='cursor-pointer flex gap-2 items-center hover:text-red-500'>
+                                <HeartIcon className="size-5" />
+                                <span>{updateLikes}</span>
+                            </button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                                <DialogTitle>Warning</DialogTitle>
+                                <DialogDescription>
+                                    Please log in, create an account, or continue as a guest to proceed.
+                                </DialogDescription>
+                            </DialogHeader>
+
+                            <DialogFooter>
+                                <DialogClose asChild>
+                                    <Button variant="outline" className="cursor-pointer">Close</Button>
+                                </DialogClose>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                }
                 <Button
                     variant="ghost"
                     size="sm"
-                    className={`text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
-                        }`}
-                    onClick={handleLike}
+                    className="text-muted-foreground gap-2 hover:text-blue-500"
+                    onClick={() => {
+                        if (inputRef.current) inputRef.current.focus();
+                    }}
                 >
-                    {liked ? (
-                        <HeartIcon className="size-5 fill-current" />
-                    ) : (
-                        <HeartIcon className="size-5" />
-                    )
-                    }
-                    <span>{updateLikes}</span>
+                    <MessageCircleIcon
+                        className={`size-5  "fill-blue-500 text-blue-500" }`}
+                    />
+                    <span>{post.comments.length}</span>
                 </Button>
-                :
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <button className='cursor-pointer flex gap-2 items-center hover:text-red-500'>
-                            <HeartIcon className="size-5" />
-                            <span>{updateLikes}</span>
-                        </button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                        <DialogHeader>
-                            <DialogTitle>Warning</DialogTitle>
-                            <DialogDescription>
-                                Please log in, create an account, or continue as a guest to proceed.
-                            </DialogDescription>
-                        </DialogHeader>
-
-                        <DialogFooter>
-                            <DialogClose asChild>
-                                <Button variant="outline" className="cursor-pointer">Close</Button>
-                            </DialogClose>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
-            }
-            <Button
-                variant="ghost"
-                size="sm"
-                className="text-muted-foreground gap-2 hover:text-blue-500"
-
-            >
-                <MessageCircleIcon
-                    className={`size-5  "fill-blue-500 text-blue-500" }`}
-                />
-                <span>{post.comments.length}</span>
-            </Button>
-
+            </div>
             {/* input field */}
-            <div className='mt-4 border-t-1 w-full p-2'>
-                <Input
-                    placeholder="Add a comment..."
-                    className="p-4 text-2xl font-bold border-none focus-visible:ring-0 !bg-card "
-                />
+            <div className='relative mt-4 border-t-1 w-full p-2 flex justify-center items-center'>
+                {isPosting ?
+                    <Loader2Icon className="size-4 mr-2 animate-spin" />
+                    :
+                    <>
+                        <Input
+                            ref={inputRef}
+                            placeholder="Add a comment..."
+                            className="p-4 font-bold border-none focus-visible:ring-0 !bg-card resize-none"
+                            disabled={isPosting}
+                        />
+                        <button
+                            disabled={!newComment.trim() || isPosting}
+                            className='absolute top-3 right-4 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
+                        >
+                            Post
+                        </button>
+                    </>
+                }
             </div>
 
         </div>
