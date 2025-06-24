@@ -7,6 +7,8 @@ import { Avatar, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import Link from 'next/link';
 
+import CreateNewComment from './CreateNewComment';
+
 import { formatDistanceToNow } from "date-fns"
 
 import { postLike } from '@/actions/post';
@@ -87,7 +89,11 @@ export default function BlogPost({ post, user }) {
                                     <span>X</span> //need to implement admin/poster delete later
                                 )}
                             </div>
-                            <p className="mt-2 text-sm text-foreground break-words whitespace-pre-line">{post.content}</p>
+                            <p
+                                className={`mt-2 text-sm text-foreground break-words whitespace-pre-line }`}
+                            >
+                                {post.content}
+                            </p>
                         </div>
                     </div>
                     {post.image && (
@@ -195,13 +201,18 @@ export default function BlogPost({ post, user }) {
                                     </div>
 
                                     {/* Comments */}
-                                    <div className='row-span-8 overflow-y-auto'>
+                                    <div className='row-span-9 overflow-y-auto'>
                                         Comment holder
                                     </div>
 
                                     {/* Like/Comment/create new comment section */}
-                                    <div className='row-span-3'>
-                                        New comment section
+                                    <div className='row-span-2'>
+                                        <CreateNewComment
+                                            user={user}
+                                            liked={liked}
+                                            handleLike={handleLike}
+                                            updateLikes={updateLikes}
+                                        />
                                     </div>
                                 </div>
                             </div>
