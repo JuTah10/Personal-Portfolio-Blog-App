@@ -155,40 +155,53 @@ export default function BlogPost({ post, user }) {
 
                     <Dialog open={showComments} onOpenChange={setShowComments}>
                         <DialogContent className="block lg:flex !w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh] overflow-y-auto">
-                            <div className='p-2 w-full lg:w-[60%] border-b-2 lg:border-r-2 mb-4'>
+                            <div className='p-4 w-full lg:w-[60%] border-b-2 lg:border-r-2 lg:border-b-0 mb-4 lg:mb-0'>
                                 <DialogHeader>
                                     <DialogTitle className="mb-5">{title}</DialogTitle>
-                                    <DialogDescription className="break-words whitespace-pre-line text-left">
+                                    <DialogDescription className="break-words whitespace-pre-line text-left overflow-y-auto">
                                         {content}
                                     </DialogDescription>
                                 </DialogHeader>
                             </div>
                             <div className='w-full lg:w-[35%]'>
-                                <div className="flex items-center space-x-3 sm:space-x-4">
-                                    <Link href={`/profile/${post.author.username}`}>
-                                        <Avatar className="size-8 sm:w-10 sm:h-10">
-                                            <AvatarImage src={post.author.image ?? "/avatar.png"} />
-                                        </Avatar>
-                                    </Link>
+                                <div className='grid grid-rows-12 grid-cols-1 gap-2 h-full'>
+                                    {/* Author infor display */}
+                                    <div className="row-span-1 flex items-center space-x-3 sm:space-x-4">
+                                        <Link href={`/profile/${post.author.username}`}>
+                                            <Avatar className="size-8 sm:w-10 sm:h-10">
+                                                <AvatarImage src={post.author.image ?? "/avatar.png"} />
+                                            </Avatar>
+                                        </Link>
 
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-start justify-between">
-                                            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
-                                                <Link
-                                                    href={`/profile/${post.author.username}`}
-                                                    className="font-semibold truncate"
-                                                >
-                                                    {post.author.name}
-                                                </Link>
-                                                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                                                    <Link href={`/profile/${post.author.username}`}>
-                                                        @{post.author.username}
+                                        <div className="flex-1 min-w-0">
+                                            <div className="flex items-start justify-between">
+                                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
+                                                    <Link
+                                                        href={`/profile/${post.author.username}`}
+                                                        className="font-semibold truncate"
+                                                    >
+                                                        {post.author.name}
                                                     </Link>
-                                                    <span>•</span>
-                                                    <span>{formatDistanceToNow(new Date(post.updatedAt))} ago</span>
+                                                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                                        <Link href={`/profile/${post.author.username}`}>
+                                                            @{post.author.username}
+                                                        </Link>
+                                                        <span>•</span>
+                                                        <span>{formatDistanceToNow(new Date(post.updatedAt))} ago</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    {/* Comments */}
+                                    <div className='row-span-8 overflow-y-auto'>
+                                        Comment holder
+                                    </div>
+
+                                    {/* Like/Comment/create new comment section */}
+                                    <div className='row-span-3'>
+                                        New comment section
                                     </div>
                                 </div>
                             </div>
