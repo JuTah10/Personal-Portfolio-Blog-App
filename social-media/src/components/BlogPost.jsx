@@ -212,6 +212,7 @@ export default function BlogPost({ post, user }) {
                                             liked={liked}
                                             handleLike={handleLike}
                                             updateLikes={updateLikes}
+                                            post={post}
                                         />
                                     </div>
                                 </div>

@@ -14,7 +14,7 @@ import {
 
 import { HeartIcon, MessageCircleIcon } from 'lucide-react';
 
-export default function CreateNewComment({ user, liked, handleLike, updateLikes }) {
+export default function CreateNewComment({ user, liked, handleLike, updateLikes, post }) {
     return (
         <div>
             {user ?
@@ -31,7 +31,6 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes 
                         <HeartIcon className="size-5" />
                     )
                     }
-
                     <span>{updateLikes}</span>
                 </Button>
                 :
@@ -58,6 +57,17 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes 
                     </DialogContent>
                 </Dialog>
             }
+            <Button
+                variant="ghost"
+                size="sm"
+                className="text-muted-foreground gap-2 hover:text-blue-500"
+
+            >
+                <MessageCircleIcon
+                    className={`size-5  "fill-blue-500 text-blue-500" }`}
+                />
+                <span>{post.comments.length}</span>
+            </Button>
         </div>
     )
 }
