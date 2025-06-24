@@ -217,9 +217,7 @@ export default function BlogPost({ post, user }) {
                                     </div>
                                 </div>
                             </div>
-
                         </DialogContent>
-
                     </Dialog>
 
                 </div>

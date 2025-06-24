@@ -11,6 +11,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { Input } from './ui/input';
 
 import { HeartIcon, MessageCircleIcon } from 'lucide-react';
 
@@ -68,6 +69,15 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes,
                 />
                 <span>{post.comments.length}</span>
             </Button>
+
+            {/* input field */}
+            <div className='mt-4 border-t-1 w-full p-2'>
+                <Input
+                    placeholder="Add a comment..."
+                    className="p-4 text-2xl font-bold border-none focus-visible:ring-0 !bg-card "
+                />
+            </div>
+
         </div>
     )
 }
