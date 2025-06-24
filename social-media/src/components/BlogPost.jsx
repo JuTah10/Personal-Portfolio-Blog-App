@@ -31,6 +31,11 @@ export default function BlogPost({ post, user }) {
 
     const [showComments, setShowComments] = React.useState(false);
 
+    const lines = post.content.split("\n")
+    const title = lines[0];
+    const content = lines.slice(1).join("\n");
+    console.log(post.content)
+
     async function handleLike() {
         if (processingLike) return;
         try {
@@ -149,15 +154,47 @@ export default function BlogPost({ post, user }) {
 
 
                     <Dialog open={showComments} onOpenChange={setShowComments}>
-                        <DialogContent className="!w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh] overflow-y-auto">
-                            <DialogHeader>
-                                <DialogTitle>Edit profile</DialogTitle>
-                                <DialogDescription>
-                                    Make changes to your profile here. Click save when you&apos;re
-                                    done.
-                                </DialogDescription>
-                            </DialogHeader>
+                        <DialogContent className="block lg:flex !w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh] overflow-y-auto">
+                            <div className='p-2 w-full lg:w-[60%] border-b-2 lg:border-r-2 mb-4'>
+                                <DialogHeader>
+                                    <DialogTitle className="mb-5">{title}</DialogTitle>
+                                    <DialogDescription className="break-words whitespace-pre-line text-left">
+                                        {content}
+                                    </DialogDescription>
+                                </DialogHeader>
+                            </div>
+                            <div className='w-full lg:w-[35%]'>
+                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                    <Link href={`/profile/${post.author.username}`}>
+                                        <Avatar className="size-8 sm:w-10 sm:h-10">
+                                            <AvatarImage src={post.author.image ?? "/avatar.png"} />
+                                        </Avatar>
+                                    </Link>
+
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-start justify-between">
+                                            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
+                                                <Link
+                                                    href={`/profile/${post.author.username}`}
+                                                    className="font-semibold truncate"
+                                                >
+                                                    {post.author.name}
+                                                </Link>
+                                                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                                    <Link href={`/profile/${post.author.username}`}>
+                                                        @{post.author.username}
+                                                    </Link>
+                                                    <span>•</span>
+                                                    <span>{formatDistanceToNow(new Date(post.updatedAt))} ago</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </DialogContent>
+
                     </Dialog>
 
                 </div>

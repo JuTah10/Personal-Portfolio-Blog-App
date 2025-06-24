@@ -65,7 +65,7 @@ export default function CreateNewPost({ user }) {
 
               </Textarea>
               :
-              <div className=''>
+              <div className='w-full '>
                 <Input
                   placeholder="Title"
                   className="text-2xl font-bold border-none focus-visible:ring-0 !bg-card p-0"
