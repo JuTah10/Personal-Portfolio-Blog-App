@@ -105,5 +105,20 @@ export async function postLike({ authorId, postId }) {
         console.error("Failed to insert to Like table", error);
         throw error;
     }
+}
+
+export async function createNewCommment({ content, authorId, postId }) {
+    try {
+        await prisma.comment.create({
+            data:{
+                content,
+                authorId,
+                postId
+            }
+        })
+    } catch (error) {
+        console.error("Failed to insert to Comment table", error);
+        throw error;
+    }
 
 }

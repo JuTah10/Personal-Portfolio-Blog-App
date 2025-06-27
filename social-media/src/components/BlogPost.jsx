@@ -39,6 +39,7 @@ export default function BlogPost({ post, user }) {
     const title = lines[0];
     const content = lines.slice(1).join("\n");
 
+
     async function handleLike() {
         if (processingLike) return;
         try {
@@ -53,8 +54,10 @@ export default function BlogPost({ post, user }) {
         } finally {
             setProcessingLike(false);
         }
+    }
 
-
+    async function handleComment() {
+        
     }
 
     return (
@@ -206,7 +209,9 @@ export default function BlogPost({ post, user }) {
                                         {(comment.length > 0) &&
                                             comment.map((com) => {
                                                 return (
-                                                    <div className='flex items-center space-x-3 sm:space-x-4 mx-2 my-4'>
+                                                    <div
+                                                        key={com.id}
+                                                        className='flex items-center space-x-3 sm:space-x-4 mx-2 my-4'>
                                                         <Avatar className="size-8 sm:w-10 sm:h-10">
                                                             <AvatarImage src={com.author.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
                                                         </Avatar>
