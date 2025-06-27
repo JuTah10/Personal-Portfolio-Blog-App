@@ -15,11 +15,11 @@ import { Input } from './ui/input';
 
 import { HeartIcon, MessageCircleIcon, Loader2Icon } from 'lucide-react';
 
-export default function CreateNewComment({ user, liked, handleLike, updateLikes, post }) {
+
+
+export default function CreateNewComment({ user, liked, handleLike, updateLikes, post, handleComment, commentPosting, newComment, setNewComment }) {
 
     const inputRef = React.useRef(null);
-    const [isPosting, setIsPosting] = React.useState(false);
-    const [newComment, setNewComment] = React.useState("");
 
     return (
         <div className='lg:mt-4'>
@@ -80,19 +80,25 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes,
             </div>
             {/* input field */}
             <div className='relative mt-4 border-t-1 w-full p-2 flex justify-center items-center'>
-                {isPosting ?
+                {commentPosting ?
                     <Loader2Icon className="size-4 mr-2 animate-spin" />
                     :
                     <>
                         <Input
                             ref={inputRef}
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
                             placeholder="Add a comment..."
                             className="p-4 font-bold border-none focus-visible:ring-0 !bg-card resize-none"
-                            disabled={isPosting}
+                            disabled={commentPosting}
                         />
                         <button
-                            disabled={!newComment.trim() || isPosting}
+                            disabled={!newComment.trim() || commentPosting}
                             className='absolute top-3 right-4 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
+                            onClick={async () => {
+                                await handleComment();
+                                setNewComment("");
+                            }}
                         >
                             Post
                         </button>

@@ -11,7 +11,7 @@ import CreateNewComment from './CreateNewComment';
 
 import { formatDistanceToNow } from "date-fns"
 
-import { postLike } from '@/actions/post';
+import { postLike, createNewCommment } from '@/actions/post';
 
 import {
     Dialog,
@@ -26,7 +26,6 @@ import {
 
 
 export default function BlogPost({ post, user }) {
-
     const [liked, setLiked] = React.useState(post.likes.some(like => like.authorId === user?.id));
     const [updateLikes, setUpdateLikes] = React.useState(post._count.likes);
     const [processingLike, setProcessingLike] = React.useState(false);
@@ -34,6 +33,8 @@ export default function BlogPost({ post, user }) {
     const [showComments, setShowComments] = React.useState(false);
 
     const [comment, setComment] = React.useState(post.comments)
+    const [newComment, setNewComment] = React.useState("")
+    const [commentPosting, setCommentPosting] = React.useState(false);
 
     const lines = post.content.split("\n")
     const title = lines[0];
@@ -57,8 +58,20 @@ export default function BlogPost({ post, user }) {
     }
 
     async function handleComment() {
-        
+        if (commentPosting) return;
+        try {
+            setCommentPosting(true);
+            const getComment = await createNewCommment({ content: newComment, authorId: user.id, postId: post.id })
+            console.log(getComment)
+            setComment(prevComment => [{ ...getComment, author: { image: user.image, username: user.username } }, ...prevComment]);
+        } catch (error) {
+            console.error("Error frontend when adding new comment", error)
+        } finally {
+            setCommentPosting(false);
+        }
     }
+
+
 
     return (
         <Card className="overflow-hidden">
@@ -246,6 +259,10 @@ export default function BlogPost({ post, user }) {
                                             handleLike={handleLike}
                                             updateLikes={updateLikes}
                                             post={post}
+                                            handleComment={handleComment}
+                                            commentPosting={commentPosting}
+                                            newComment={newComment}
+                                            setNewComment={setNewComment}
                                         />
                                     </div>
                                 </div>

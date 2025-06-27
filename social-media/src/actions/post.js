@@ -109,13 +109,14 @@ export async function postLike({ authorId, postId }) {
 
 export async function createNewCommment({ content, authorId, postId }) {
     try {
-        await prisma.comment.create({
+        const newComment = await prisma.comment.create({
             data:{
                 content,
                 authorId,
                 postId
             }
         })
+        return newComment;
     } catch (error) {
         console.error("Failed to insert to Comment table", error);
         throw error;
