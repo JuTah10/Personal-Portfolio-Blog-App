@@ -1,42 +1,20 @@
 
+"use client"
 import React from 'react'
 import CreateNewPost from '@/components/CreateNewPost'
 import OwnerInf from '@/components/OwnerInf'
 import BlogPostClient from '@/components/BlogPostClient';
-import { auth } from "@clerk/nextjs/server";
-import { getUserById } from '@/actions/user';
-import { fetchPosts } from '@/actions/post'
 
-import { cookies } from 'next/headers';
 
-export default async function BlogPage() {
+import { UserLogInContext } from '@/components/UserLogInContextBlog';
 
-  async function getJsonCookie(name) {
-    const cookieStore = await cookies();
-    const cookie = cookieStore.get(name);
-    if (!cookie) return null;
 
-    try {
-      return JSON.parse(decodeURIComponent(cookie.value));
-    } catch (err) {
-      console.error("Failed to parse server cookie:", err);
-      return null;
-    }
-  }
+export default function BlogPage() {
+  const { userInf, posts } = React.useContext(UserLogInContext);
 
-  const { userId } = await auth();
-  const isSignedIn = !!userId;
-  let guest = null;
+  const isSignedIn = !!userInf;
 
-  if (!userId) {
-    guest = await getJsonCookie("guestInf") ?? null;
-  }
-  const clerkId = userId ?? guest?.guestId;
-
-  const user = clerkId ? await getUserById({ clerkId }) : null;
-
-  const posts = await fetchPosts();
-
+  const user = userInf;
 
 
   return (

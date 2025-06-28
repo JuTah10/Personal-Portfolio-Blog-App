@@ -2,6 +2,7 @@ import Sidebar from "@/components/Sidebar";
 import { cookies } from "next/headers";
 import { currentUser } from "@clerk/nextjs/server";
 import { syncUser, getUserById } from "@/actions/user";
+import { fetchPosts } from '@/actions/post'
 import UserLogInContextBlog from "@/components/UserLogInContextBlog";
 
 
@@ -24,10 +25,10 @@ export default async function BlogLayout({ children }) {
     userInf = await getUserById({ clerkId });
   }
 
-
+  const posts = await fetchPosts();
 
   return (
-    <UserLogInContextBlog userInf={userInf}>
+    <UserLogInContextBlog userInf={userInf} posts={posts}>
       <main>
         <div className="py-8">
           <div className="max-w-7xl mx-auto px-4">
