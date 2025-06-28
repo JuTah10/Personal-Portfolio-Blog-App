@@ -1,31 +1,17 @@
-"use server"
-import { currentUser } from '@clerk/nextjs/server';
+"use client"
+import React from "react"
+import { UserLogInContext } from "./UserLogInContextBlog";
 import { UnauthenticatedSidebar } from './UnauthenticatedSidebar';
 import UserCard from './UserCard';
-import { cookies } from 'next/headers';
-import { syncUser, getUserById } from '@/actions/user';
 
-export default async function Sidebar() {
-    // const cookieStore = await cookies();
-    // const guestInfoRaw = cookieStore.get("guestInf")?.value;
-    // let guestInf = null;
-    // let authUser = null;
-    // if (guestInfoRaw) {
-    //     guestInf = guestInfoRaw ? JSON.parse(decodeURIComponent(guestInfoRaw)) : null;
-    // } else {
-    //     authUser = await currentUser();
-    // }
 
-    if (!guestInf && !authUser) return <UnauthenticatedSidebar />
 
-    // const clerkId = guestInf?.guestId || authUser?.id;
+export default function Sidebar() {
 
-    let userInf;
+    const { userInf } = React.useContext(UserLogInContext)
 
-    if (clerkId) {
-        await syncUser({ guestInf: guestInf ?? null });
-        userInf = await getUserById({ clerkId })
-    };
+    if (!userInf) return <UnauthenticatedSidebar />
+
 
     return (
         <UserCard userInf={userInf} />

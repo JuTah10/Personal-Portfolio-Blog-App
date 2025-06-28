@@ -1,5 +1,8 @@
 import Sidebar from "@/components/Sidebar";
-
+import { cookies } from "next/headers";
+import { currentUser } from "@clerk/nextjs/server";
+import { syncUser, getUserById } from "@/actions/user";
+import UserLogInContextBlog from "@/components/UserLogInContextBlog";
 
 
 
@@ -12,14 +15,19 @@ export default async function BlogLayout({ children }) {
 
   const authUser = guestInf ? null : await currentUser();
 
-  const clerkId = guestInf?.guestId || authUser.id;
+  const clerkId = guestInf?.guestId || authUser?.id;
 
-  await syncUser({ guestInf: guestInf ?? null });
+  let userInf = null;
+  if (clerkId) {
+    await syncUser({ guestInf: guestInf ?? null });
 
-  const userInf = await getUserById({ clerkId });
+    userInf = await getUserById({ clerkId });
+  }
+
+
 
   return (
-    
+    <UserLogInContextBlog userInf={userInf}>
       <main>
         <div className="py-8">
           <div className="max-w-7xl mx-auto px-4">
@@ -35,6 +43,6 @@ export default async function BlogLayout({ children }) {
           </div>
         </div>
       </main>
-   
+    </UserLogInContextBlog>
   );
 }
