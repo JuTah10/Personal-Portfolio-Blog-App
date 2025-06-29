@@ -123,12 +123,12 @@ export default function BlogPost({ post, user }) {
 
                                 {(user?.role === "admin") && (
                                     isDeletingPost ?
-                                        <LoaderCircle className='size-5 animate-spin' />
+                                        <LoaderCircle className='size-4 animate-spin' />
                                         :
                                         <Trash
                                             onClick={handleDeletePost}
-                                            className={`size-5 transition hover:brightness-70 cursor-pointer`}
-                                        /> //need to implement admin/poster delete later
+                                            className={`size-4 transition hover:brightness-70 cursor-pointer`}
+                                        /> 
                                 )}
                             </div>
                             <p
