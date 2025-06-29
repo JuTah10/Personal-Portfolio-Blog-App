@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-import { HeartIcon, MessageCircleIcon } from 'lucide-react';
+import { HeartIcon, MessageCircleIcon, Trash } from 'lucide-react';
 import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -103,7 +103,7 @@ export default function BlogPost({ post, user }) {
                                 </div>
 
                                 {(user?.role === "admin") && (
-                                    <span>X</span> //need to implement admin/poster delete later
+                                    <Trash className='size-5 transition hover:brightness-70 cursor-pointer' /> //need to implement admin/poster delete later
                                 )}
                             </div>
                             <p
