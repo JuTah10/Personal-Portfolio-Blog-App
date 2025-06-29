@@ -143,28 +143,30 @@ export async function createNewCommment({ content, authorId: userId, postId }) {
             }
         })
 
-        const [newComment] = await prisma.$transaction([
-            prisma.comment.create({
+
+
+        const [newComment] = await prisma.$transaction(async (psm) => {
+            const newComment = await psm.comment.create({
                 data: {
                     content,
                     authorId: userId,
                     postId
                 }
-            }),
-            ...(post.authorId !== userId ?
-                [
-                    prisma.notification.create({
-                        data: {
-                            type: "COMMENT",
-                            receiverId: post.authorId,
-                            senderId: userId,
-                            postId
-                        }
-                    })
-                ]
-                :
-                [])
-        ])
+            });
+
+            if (post.authorId !== userId) {
+                await psm.notification.create({
+                    data: {
+                        type: "COMMENT",
+                        receiverId: post.authorId,
+                        senderId: userId,
+                        postId,
+                        commentId: newComment.id
+                    }
+                })
+            }
+            return [newComment];
+        })
         return newComment;
     } catch (error) {
         console.error("Failed to insert to Comment table", error);
