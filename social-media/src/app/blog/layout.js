@@ -1,33 +1,7 @@
 import Sidebar from "@/components/Sidebar";
-import { cookies } from "next/headers";
-import { currentUser } from "@clerk/nextjs/server";
-import { syncUser, getUserById } from "@/actions/user";
-import { fetchPosts } from '@/actions/post'
-import UserLogInContextBlog from "@/components/UserLogInContextBlog";
-
-
-
-export default async function BlogLayout({ children }) {
-  const cookieStore = await cookies();
-  const guestInfRaw = cookieStore.get("guestInf")?.value;
-  const guestInf = guestInfRaw
-    ? JSON.parse(decodeURIComponent(guestInfRaw))
-    : null;
-
-  const authUser = guestInf ? null : await currentUser();
-
-  const clerkId = guestInf?.guestId || authUser?.id;
-
-  let userInf = null;
-  if (clerkId) {
-    await syncUser({ guestInf: guestInf ?? null });
-    userInf = await getUserById({ clerkId });
-  }
-
-  const posts = await fetchPosts();
-
+export default function BlogLayout({ children }) {
   return (
-    <UserLogInContextBlog userInf={userInf} posts={posts}>
+   
       <main>
         <div className="py-8">
           <div className="max-w-7xl mx-auto px-4">
@@ -43,6 +17,6 @@ export default async function BlogLayout({ children }) {
           </div>
         </div>
       </main>
-    </UserLogInContextBlog>
+
   );
 }

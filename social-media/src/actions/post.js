@@ -1,6 +1,5 @@
 "use server"
 import { prisma } from "@/lib/prisma";
-import { UserRoundIcon } from "lucide-react";
 import { revalidatePath } from "next/cache";
 
 
@@ -166,7 +165,6 @@ export async function createNewCommment({ content, authorId: userId, postId }) {
                 :
                 [])
         ])
-
         return newComment;
     } catch (error) {
         console.error("Failed to insert to Comment table", error);
