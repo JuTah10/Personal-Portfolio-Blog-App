@@ -125,7 +125,7 @@ export async function postLike({ authorId: userId, postId }) {
                 ] :
                 [])
         ])
-        
+
 
     } catch (error) {
         console.error("Failed to insert to Like table", error);
@@ -133,15 +133,40 @@ export async function postLike({ authorId: userId, postId }) {
     }
 }
 
-export async function createNewCommment({ content, authorId, postId }) {
+export async function createNewCommment({ content, authorId: userId, postId }) {
     try {
-        const newComment = await prisma.comment.create({
-            data: {
-                content,
-                authorId,
-                postId
+        const post = await prisma.post.findUnique({
+            where: {
+                id: postId
+            },
+            select: {
+                authorId: true
             }
         })
+
+        const [newComment] = await prisma.$transaction([
+            prisma.comment.create({
+                data: {
+                    content,
+                    authorId: userId,
+                    postId
+                }
+            }),
+            ...(post.authorId !== userId ?
+                [
+                    prisma.notification.create({
+                        data: {
+                            type: "COMMENT",
+                            receiverId: post.authorId,
+                            senderId: userId,
+                            postId
+                        }
+                    })
+                ]
+                :
+                [])
+        ])
+
         return newComment;
     } catch (error) {
         console.error("Failed to insert to Comment table", error);
