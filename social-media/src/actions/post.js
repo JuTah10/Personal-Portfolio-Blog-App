@@ -1,4 +1,5 @@
 "use server"
+import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 
@@ -110,7 +111,7 @@ export async function postLike({ authorId, postId }) {
 export async function createNewCommment({ content, authorId, postId }) {
     try {
         const newComment = await prisma.comment.create({
-            data:{
+            data: {
                 content,
                 authorId,
                 postId
@@ -121,5 +122,17 @@ export async function createNewCommment({ content, authorId, postId }) {
         console.error("Failed to insert to Comment table", error);
         throw error;
     }
+}
 
+export async function deletePost({ postId }) {
+    try {
+        await prisma.post.delete({
+            where: {
+                postId
+            }
+        })
+    } catch (error) {
+        console.error("Failed to delete Post", error);
+        throw error;
+    }
 }
