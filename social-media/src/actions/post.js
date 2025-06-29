@@ -1,5 +1,6 @@
 "use server"
 import { prisma } from "@/lib/prisma";
+import { UserRoundIcon } from "lucide-react";
 import { revalidatePath } from "next/cache";
 
 
@@ -83,25 +84,49 @@ export async function fetchPosts() {
     }
 }
 
-export async function postLike({ authorId, postId }) {
+export async function postLike({ authorId: userId, postId }) {
     try {
         const hasLiked = await prisma.like.findUnique({
             where: {
-                authorId_postId: { authorId, postId }
+                authorId_postId: { authorId: userId, postId }
+            }
+        })
+
+        const post = await prisma.post.findUnique({
+            where: {
+                id: postId
+            },
+            select: {
+                authorId: true
             }
         })
         if (hasLiked) {
             await prisma.like.delete({
                 where: {
-                    authorId_postId: { authorId, postId }
+                    authorId_postId: { authorId: userId, postId }
                 }
             });
             return;
         }
-        await prisma.like.create({
-            data: { authorId, postId }
+        await prisma.$transaction([
+            prisma.like.create({
+                data: { authorId: userId, postId }
+            }),
+            ...(post.authorId !== userId
+                ? [
+                    prisma.notification.create({
+                        data: {
+                            type: "LIKE",
+                            receiverId: post.authorId,
+                            senderId: userId,
+                            postId
+                        }
+                    })
+                ] :
+                [])
+        ])
+        
 
-        })
     } catch (error) {
         console.error("Failed to insert to Like table", error);
         throw error;
