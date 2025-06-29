@@ -126,11 +126,19 @@ export async function createNewCommment({ content, authorId, postId }) {
 
 export async function deletePost({ postId }) {
     try {
+        const post = await prisma.post.findUnique({
+            where: { id: postId },
+        });
+
+        if (!post) throw new Error("Post not found");
         await prisma.post.delete({
             where: {
-                postId
+                id: postId
             }
-        })
+        });
+
+        revalidatePath("/blog");
+        return { success: true }
     } catch (error) {
         console.error("Failed to delete Post", error);
         throw error;

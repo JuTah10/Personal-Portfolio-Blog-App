@@ -35,7 +35,7 @@ export default function CreateNewPost({ user }) {
       }
     } catch (error) {
       console.error("Error in handSubmit - CreateNewPost", error);
-      toast.error("Failed to post. Try again!");
+      toast.error("Failed to post. Please try again!");
     } finally {
       setTitle("");
       setContent("");

@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-import { HeartIcon, MessageCircleIcon, Trash } from 'lucide-react';
+import { HeartIcon, MessageCircleIcon, Trash, LoaderCircle } from 'lucide-react';
 import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -11,7 +11,9 @@ import CreateNewComment from './CreateNewComment';
 
 import { formatDistanceToNow } from "date-fns"
 
-import { postLike, createNewCommment } from '@/actions/post';
+import { postLike, createNewCommment, deletePost } from '@/actions/post';
+
+import toast from 'react-hot-toast';
 
 import {
     Dialog,
@@ -35,6 +37,8 @@ export default function BlogPost({ post, user }) {
     const [comment, setComment] = React.useState(post.comments)
     const [newComment, setNewComment] = React.useState("")
     const [commentPosting, setCommentPosting] = React.useState(false);
+
+    const [isDeletingPost, setIsDeletingPost] = React.useState(false);
 
     const lines = post.content.split("\n")
     const title = lines[0];
@@ -71,6 +75,21 @@ export default function BlogPost({ post, user }) {
         }
     }
 
+    async function handleDeletePost() {
+        if (isDeletingPost) return;
+        try {
+            setIsDeletingPost(true);
+            const result = await deletePost({ postId: post.id });
+            if (result.success) {
+                toast.success("Deleted Post")
+            }
+        } catch (error) {
+            console.error("Error in BlogPost - handleDeletPost", error);
+            toast.error("Failed to delete post. Please try again!");
+        } finally {
+            setIsDeletingPost(false);
+        }
+    }
 
 
     return (
@@ -103,7 +122,13 @@ export default function BlogPost({ post, user }) {
                                 </div>
 
                                 {(user?.role === "admin") && (
-                                    <Trash className='size-5 transition hover:brightness-70 cursor-pointer' /> //need to implement admin/poster delete later
+                                    isDeletingPost ?
+                                        <LoaderCircle className='size-5 animate-spin' />
+                                        :
+                                        <Trash
+                                            onClick={handleDeletePost}
+                                            className={`size-5 transition hover:brightness-70 cursor-pointer`}
+                                        /> //need to implement admin/poster delete later
                                 )}
                             </div>
                             <p
