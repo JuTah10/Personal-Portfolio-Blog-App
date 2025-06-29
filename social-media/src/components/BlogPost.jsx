@@ -218,7 +218,9 @@ export default function BlogPost({ post, user }) {
                                     </div>
 
                                     {/* Comments */}
-                                    <div className='row-span-9 overflow-y-auto '>
+                                    <div
+                                        className='row-span-9 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+                                    >
                                         {(comment.length > 0) &&
                                             comment.map((com) => {
                                                 return (
@@ -230,14 +232,10 @@ export default function BlogPost({ post, user }) {
                                                         </Avatar>
                                                         <div className="flex-1 min-w-0">
                                                             <div className="flex items-start justify-between">
-                                                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate text-sm">
-                                                                    <div
-                                                                        className="font-semibold truncate"
-                                                                    >
-                                                                        {com.author.username}
-                                                                    </div>
-                                                                    <div >
-                                                                        {com.content}
+                                                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-sm">
+                                                                    <div>
+                                                                        <span className="font-semibold">{com.author.username}</span>
+                                                                        <span className='ml-1 font-thin'>{com.content}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>

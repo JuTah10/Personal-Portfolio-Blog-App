@@ -21,7 +21,6 @@ export default async function BlogLayout({ children }) {
   let userInf = null;
   if (clerkId) {
     await syncUser({ guestInf: guestInf ?? null });
-
     userInf = await getUserById({ clerkId });
   }
 
