@@ -1,27 +1,18 @@
+"use client"
 import React from 'react'
 import Link from 'next/link'
 import DesktopNavbar from './DesktopNavbar'
 import MobileNavbar from './MobileNavbar'
-import { currentUser } from "@clerk/nextjs/server";
-import { syncUser } from '@/actions/user';
-import { cookies } from 'next/headers';
 
-export default async function Navbar() {
-    const cookieStore = await cookies();
-    const guestInfoRaw = cookieStore.get("guestInf")?.value;
-    let user = null;
-    let guestInf = null;
+import { UserLogInContext } from "./UserLogInContextBlog";
 
-    if (!guestInfoRaw) {
-        user = await currentUser();
-    } else {
-        guestInf = guestInfoRaw ? JSON.parse(decodeURIComponent(guestInfoRaw)) : null;
-    }
-    if (guestInfoRaw || user) await syncUser({ guestInf: guestInf ?? null });
-    const userInfor = guestInf || user ? {
-        userName: guestInf ? guestInf.name.replace(/\s+/g, '') : user.username,
-        emailAddress: guestInf ? guestInf.email : user.emailAddresses[0]?.emailAddress,
-        guest: guestInf ? true : false
+export default function Navbar() {
+    const { userInf } = React.useContext(UserLogInContext)
+
+    const userInfor = userInf ? {
+        userName: userInf.username,
+        emailAddress: userInf.email,
+        guest: userInf.email.startsWith("guest_") ? true : false
     } : null
     return (
         <div className='sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50'>
