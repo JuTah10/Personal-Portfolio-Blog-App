@@ -7,10 +7,13 @@ export async function getNotifications({ receiverId }) {
             where: {
                 receiverId
             },
-            orderBy:{
+            orderBy: {
                 createdAt: "desc"
             },
             select: {
+                type: true,
+                read: true,
+                createdAt: true,
                 sender: {
                     select: {
                         id: true,

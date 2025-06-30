@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { formatDistanceToNow } from "date-fns"
 import { Ellipsis, Check, Settings } from "lucide-react"
 
 export default function NotificationsPage() {
@@ -46,7 +47,7 @@ export default function NotificationsPage() {
 
   return (
     <div className='w-full flex justify-center items-center'>
-      <Card className="w-[80%]">
+      <Card className="w-full md:w-[80%]">
         <CardHeader>
           <CardTitle>
             Notifications
@@ -100,9 +101,10 @@ export default function NotificationsPage() {
               <Card
                 onClick={() => router.push(`/blog/#${notification.post.id}`)}
                 key={notification.id + notification.post.id + notification.comment?.id}
-                className="mb-2"
+                className="mb-2 cursor-pointer"
               >
-                <CardContent className="p-4 sm:py-0 flex items-center space-x-3 sm:space-x-4 ">
+                <CardContent className="flex items-center space-x-3 sm:space-x-4">
+                  <span>•</span>
                   <Avatar className="size-8 sm:w-10 sm:h-10">
                     <AvatarImage src={notification.sender.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
                   </Avatar>
@@ -110,12 +112,35 @@ export default function NotificationsPage() {
                     <div className="flex items-start justify-between">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-sm">
                         <div>
-                          <span className="font-semibold">{notification.sender.username}</span>
-                          <span className='ml-1 font-thin'>
+                          <div className="font-semibold flex ">
+                            <div
+                              className='mr-1 max-w-[100px] truncate'
+                            >
+                              {notification.sender.username}
+                            </div>
+                            <span
+                              className='font-thin whitespace-nowrap'
+                            >
+                              {formatDistanceToNow(new Date(notification.createdAt))} ago
+                            </span>
+                          </div>
+                          <div className='font-thin'>
                             {notification.comment ?
-                              "commented on your post"
+                              <div className='flex items-center justify-start'>
+                                commented
+                                <div
+                                  className='mx-1 font-bold max-w-[50px] md:max-w-[200px] truncate'
+                                >
+                                  {notification.comment.content}
+                                </div>
+                                <span>on your post.</span>
+
+                              </div>
                               :
-                              "liked your post"}</span>
+                              <div>liked your post.</div>
+                            }
+
+                          </div>
                         </div>
                       </div>
                     </div>
