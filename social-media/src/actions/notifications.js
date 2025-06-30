@@ -11,6 +11,7 @@ export async function getNotifications({ receiverId }) {
                 createdAt: "desc"
             },
             select: {
+                id: true,
                 type: true,
                 read: true,
                 createdAt: true,
@@ -41,6 +42,22 @@ export async function getNotifications({ receiverId }) {
         return result
     } catch (error) {
         console.error("Failed fetch Notificationss", error);
+        throw error;
+    }
+}
+
+export async function setReadNotification({ notificationId }) {
+    try {
+        await prisma.notification.update({
+            where: {
+                id: notificationId
+            },
+            data: {
+                read: true
+            }
+        })
+    } catch (error) {
+        console.error("Failed setting notificaions to Read", error);
         throw error;
     }
 }

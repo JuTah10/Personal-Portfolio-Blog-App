@@ -17,7 +17,7 @@ import { HeartIcon, MessageCircleIcon, Loader2Icon } from 'lucide-react';
 
 
 
-export default function CreateNewComment({ user, liked, handleLike, updateLikes, post, handleComment, commentPosting, newComment, setNewComment }) {
+export default function CreateNewComment({ user, liked, handleLike, updateLikes, post, handleComment, commentPosting, newComment, setNewComment, commentAmount }) {
 
     const inputRef = React.useRef(null);
 
@@ -75,7 +75,7 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes,
                     <MessageCircleIcon
                         className={`size-5  "fill-blue-500 text-blue-500" }`}
                     />
-                    <span>{post.comments.length}</span>
+                    <span>{commentAmount}</span>
                 </Button>
             </div>
             {/* input field */}

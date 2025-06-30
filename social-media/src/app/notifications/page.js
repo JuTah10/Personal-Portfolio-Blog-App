@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { useRouter } from 'next/navigation';
-import { getNotifications } from '@/actions/notifications'
+import { getNotifications, setReadNotification } from '@/actions/notifications'
 import { UserLogInContext } from '@/components/UserLogInContextBlog';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { Button } from "@/components/ui/button"
@@ -96,15 +96,32 @@ export default function NotificationsPage() {
           </CardAction>
         </CardHeader>
         <CardContent>
-          {notifications.map((notification) => {
+          {notifications.filter(notification => readNotifications || !notification.read).map((notification) => {
             return (
               <Card
-                onClick={() => router.push(`/blog/#${notification.post.id}`)}
-                key={notification.id + notification.post.id + notification.comment?.id}
-                className="mb-2 cursor-pointer"
+                onClick={async () => {
+                  try {
+                    await setReadNotification({ notificationId: notification.id })
+                    router.push(`/blog/#${notification.post.id}`)
+                  } catch (error) {
+                    console.error("Failed to mark notification as read:(front-end)", error);
+                  }
+
+                }}
+                key={notification.id}
+                className={`mb-2 cursor-pointer ${notification.read ? "brightness-90" : "hover:brightness-70"}`}
               >
                 <CardContent className="flex items-center space-x-3 sm:space-x-4">
-                  <span>•</span>
+                  {notification.read ?
+                    null
+                    :
+                    <span
+                      className='text-blue-400'
+                    >
+                      •
+                    </span>
+                  }
+
                   <Avatar className="size-8 sm:w-10 sm:h-10">
                     <AvatarImage src={notification.sender.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
                   </Avatar>

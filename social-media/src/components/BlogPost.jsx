@@ -34,7 +34,8 @@ export default function BlogPost({ post, user }) {
 
     const [showComments, setShowComments] = React.useState(false);
 
-    const [comment, setComment] = React.useState(post.comments)
+    const [comment, setComment] = React.useState(post.comments);
+    const [commentAmount, setCommentAmount] = React.useState(post.comments.length)
     const [newComment, setNewComment] = React.useState("")
     const [commentPosting, setCommentPosting] = React.useState(false);
 
@@ -66,8 +67,8 @@ export default function BlogPost({ post, user }) {
         try {
             setCommentPosting(true);
             const getComment = await createNewCommment({ content: newComment, authorId: user.id, postId: post.id })
-            console.log(getComment)
             setComment(prevComment => [{ ...getComment, author: { image: user.image, username: user.username } }, ...prevComment]);
+            setCommentAmount(prev => prev + 1);
         } catch (error) {
             console.error("Error frontend when adding new comment", error)
         } finally {
@@ -196,7 +197,7 @@ export default function BlogPost({ post, user }) {
                             <MessageCircleIcon
                                 className={`size-5 ${showComments ? "fill-blue-500 text-blue-500" : ""}`}
                             />
-                            <span>{post.comments.length}</span>
+                            <span>{commentAmount}</span>
                         </Button>
                     </div>
 
@@ -286,6 +287,7 @@ export default function BlogPost({ post, user }) {
                                             commentPosting={commentPosting}
                                             newComment={newComment}
                                             setNewComment={setNewComment}
+                                            commentAmount={commentAmount}
                                         />
                                     </div>
                                 </div>
