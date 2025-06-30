@@ -93,7 +93,7 @@ export default function BlogPost({ post, user }) {
 
 
     return (
-        <Card className="overflow-hidden">
+        <Card id={post.id.toString()} className="overflow-hidden">
             <CardContent className="p-4 sm:p-6">
                 <div className="space-y-4">
                     <div className="flex space-x-3 sm:space-x-4">
@@ -128,7 +128,7 @@ export default function BlogPost({ post, user }) {
                                         <Trash
                                             onClick={handleDeletePost}
                                             className={`size-4 transition hover:brightness-70 cursor-pointer`}
-                                        /> 
+                                        />
                                 )}
                             </div>
                             <p
