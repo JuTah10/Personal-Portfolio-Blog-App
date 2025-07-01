@@ -19,7 +19,6 @@ export default function UserCard({ userInf }) {
           <Avatar className="w-20 h-20 border-2 mb-4">
             <AvatarImage src={userInf.image} />
           </Avatar>
-
           <CardTitle>
             <h1>{userInf.name}</h1>
           </CardTitle>
@@ -37,7 +36,7 @@ export default function UserCard({ userInf }) {
           <div className="flex items-center text-muted-foreground">
             <LinkIcon className="w-4 h-4 mr-2 shrink-0" />
             {userInf.website ? (
-              <a href={`${user.website}`} className="hover:underline truncate" target="_blank">
+              <a href={`${userInf.website}`} className="hover:underline truncate" target="_blank">
                 {userInf.website}
               </a>
             ) : (

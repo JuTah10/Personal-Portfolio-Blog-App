@@ -197,7 +197,7 @@ export default function BlogPost({ post, user }) {
                             <MessageCircleIcon
                                 className={`size-5 ${showComments ? "fill-blue-500 text-blue-500" : ""}`}
                             />
-                            <span>{commentAmount}</span>
+                            <span>{comment.length}</span>
                         </Button>
                     </div>
 
@@ -287,7 +287,7 @@ export default function BlogPost({ post, user }) {
                                             commentPosting={commentPosting}
                                             newComment={newComment}
                                             setNewComment={setNewComment}
-                                            commentAmount={commentAmount}
+                                            comment={comment}
                                         />
                                     </div>
                                 </div>
