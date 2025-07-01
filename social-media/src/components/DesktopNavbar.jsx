@@ -44,8 +44,7 @@ function DesktopNavbar({ user }) {
                     </Button>
                     <Button variant="ghost" className="flex items-center gap-2" asChild>
                         <Link
-                            href={`/profile/${user.username ?? user.emailAddress.split("@")[0]
-                                }`}
+                            href={`/profile/${user.id}`}
                         >
                             <UserIcon className="w-4 h-4" />
                             <span className="hidden xl:inline">Profile</span>

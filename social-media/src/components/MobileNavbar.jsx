@@ -78,8 +78,7 @@ function MobileNavbar({ user }) {
                                     className="flex items-center gap-3 justify-start" asChild
                                 >
                                     <Link
-                                        href={`/profile/${user.username ?? user.emailAddress.split("@")[0]
-                                            }`}
+                                        href={`/profile/${user.id}`}
                                     >
                                         <UserIcon className="w-4 h-4" />
                                         Profile

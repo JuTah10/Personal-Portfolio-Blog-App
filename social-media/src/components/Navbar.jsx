@@ -10,8 +10,7 @@ export default function Navbar() {
     const { userInf } = React.useContext(UserLogInContext)
 
     const userInfor = userInf ? {
-        userName: userInf.username,
-        emailAddress: userInf.email,
+        id: userInf.id,
         guest: userInf.email.startsWith("guest_") ? true : false
     } : null
     return (

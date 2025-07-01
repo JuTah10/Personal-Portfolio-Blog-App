@@ -98,7 +98,7 @@ export default function BlogPost({ post, user }) {
             <CardContent className="p-4 sm:p-6">
                 <div className="space-y-4">
                     <div className="flex space-x-3 sm:space-x-4">
-                        <Link href={`/profile/${post.author.username}`}>
+                        <Link href={`/profile/${post.author.id}`}>
                             <Avatar className="size-8 sm:w-10 sm:h-10">
                                 <AvatarImage src={post.author.image ?? "/avatar.png"} />
                             </Avatar>
@@ -108,13 +108,13 @@ export default function BlogPost({ post, user }) {
                             <div className="flex items-start justify-between">
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
                                     <Link
-                                        href={`/profile/${post.author.username}`}
+                                        href={`/profile/${post.author.id}`}
                                         className="font-semibold truncate"
                                     >
                                         {post.author.name}
                                     </Link>
                                     <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                                        <Link href={`/profile/${post.author.username}`}>
+                                        <Link href={`/profile/${post.author.id}`}>
                                             @{post.author.username}
                                         </Link>
                                         <span>•</span>
@@ -216,7 +216,7 @@ export default function BlogPost({ post, user }) {
                                 <div className='grid grid-rows-12 grid-cols-1 gap-2 h-full'>
                                     {/* Author infor display */}
                                     <div className="row-span-1 flex items-center space-x-3 sm:space-x-4">
-                                        <Link href={`/profile/${post.author.username}`}>
+                                        <Link href={`/profile/${post.author.id}`}>
                                             <Avatar className="size-8 sm:w-10 sm:h-10">
                                                 <AvatarImage src={post.author.image} />
                                             </Avatar>
@@ -226,13 +226,13 @@ export default function BlogPost({ post, user }) {
                                             <div className="flex items-start justify-between">
                                                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
                                                     <Link
-                                                        href={`/profile/${post.author.username}`}
+                                                        href={`/profile/${post.author.id}`}
                                                         className="font-semibold truncate"
                                                     >
                                                         {post.author.name}
                                                     </Link>
                                                     <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                                                        <Link href={`/profile/${post.author.username}`}>
+                                                        <Link href={`/profile/${post.author.id}`}>
                                                             @{post.author.username}
                                                         </Link>
                                                         <span>•</span>
