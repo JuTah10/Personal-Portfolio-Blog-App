@@ -12,6 +12,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+
+import { useForm } from 'react-hook-form';
+
 import { User } from "lucide-react"
 
 import { useParams } from 'next/navigation';
@@ -19,13 +22,25 @@ import { useParams } from 'next/navigation';
 import { UserLogInContext } from '@/components/UserLogInContextBlog';
 
 export default function UserNameProfilePage() {
-    const { userInf } = React.useContext(UserLogInContext)
+    const { userInf } = React.useContext(UserLogInContext);
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            name: userInf.name,
+            email: userInf.email,
+            location: userInf.location,
+            website: userInf.website
+        }
+    });
     const params = useParams();
 
-    console.log(params.userid);
+    // console.log(params.userid);
 
 
     const [displayProfilePage, setDisplayProfilePage] = React.useState(true);
+
+    function onSubmit(data) {
+        console.log(data);
+    }
 
     return (
         <div className='grid grid-cols-1 lg:grid-cols-9 lg:grid-rows-1 gap-5'>
@@ -49,7 +64,7 @@ export default function UserNameProfilePage() {
             </div>
             <Card className="col-span-7">
                 {displayProfilePage ?
-                    <>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <CardHeader>
                             <CardTitle className="flex justify-start items-center gap-2">
                                 <User />
@@ -63,15 +78,33 @@ export default function UserNameProfilePage() {
                                     <Input disabled type="email" id="email" placeholder={userInf.email} />
                                 </div>
                                 <div className="grid w-full items-center gap-3">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input type="name" id="name" placeholder="Name" />
+                                    <Label htmlFor="name">
+                                        Name
+                                        {errors.name && <span className="text-sm text-red-500">Name is required</span>}
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        id="name"
+                                        placeholder="Name"
+                                        {...register("name", { required: true })}
+                                    />
+
                                 </div>
                                 <div className="grid w-full items-center gap-3">
-                                    <Label htmlFor="location">Location</Label>
-                                    <Input type="text" id="location" placeholder="Location" />
+                                    <Label htmlFor="location">
+                                        Location
+                                    </Label>
+                                    <Input
+                                        type="text"
+                                        id="location"
+                                        placeholder="Location"
+                                        {...register("location")}
+                                    />
                                 </div>
                                 <div className="grid w-full items-center gap-3">
-                                    <Label htmlFor="website">Website</Label>
+                                    <Label htmlFor="website">
+                                        Website
+                                    </Label>
                                     <Input type="text" id="website" placeholder="Website" />
                                 </div>
                                 <div className='md:col-span-3 row-span-full w-full flex justify-center items-center'>
@@ -84,7 +117,7 @@ export default function UserNameProfilePage() {
                                 Save
                             </Button>
                         </CardContent>
-                    </>
+                    </form>
                     :
                     <></>
                 }
