@@ -1,9 +1,12 @@
 "use server"
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
 export async function updateUserProfile({ newUserProfile }) {
+
+
     try {
-        await prisma.user.update({
+        const testNewData = await prisma.user.update({
             where: {
                 id: newUserProfile.id
             },
@@ -13,7 +16,8 @@ export async function updateUserProfile({ newUserProfile }) {
                 website: newUserProfile.website
             }
         })
-
+   
+        revalidatePath(`/profile/${newUserProfile.id}`);
         return { succcess: true };
     } catch (error) {
         console.error("Failed to updateUserInf: ", error);

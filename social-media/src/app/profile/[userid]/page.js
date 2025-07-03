@@ -16,31 +16,38 @@ import {
 import { useForm } from 'react-hook-form';
 
 import { User } from "lucide-react"
+import { useToaster } from 'react-hot-toast';
 
 import { useParams } from 'next/navigation';
 
 import { UserLogInContext } from '@/components/UserLogInContextBlog';
 
-export default function UserNameProfilePage() {
-    const { userInf } = React.useContext(UserLogInContext);
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            id: userInf.id,
-            name: userInf.name,
-            email: userInf.email,
-            location: userInf.location,
-            website: userInf.website
-        }
-    });
-    const params = useParams();
+import { updateUserProfile } from '@/actions/profile';
 
-    // console.log(params.userid);
+export default function UserNameProfilePage() {
+    const params = useParams();
+    const { userInf } = React.useContext(UserLogInContext);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
 
     const [displayProfilePage, setDisplayProfilePage] = React.useState(true);
 
-    function onSubmit(data) {
-        console.log(data);
+    React.useEffect(() => {
+        if (userInf && params.userid) {
+            reset({
+                id: params.userid,
+                name: userInf.name,
+                email: userInf.email,
+                location: userInf.location,
+                website: userInf.website,
+            });
+        }
+    }, [userInf, params.userid, reset]);
+
+
+    async function onSubmit(data) {
+        const result = await updateUserProfile({ newUserProfile: data });
+     
     }
 
     return (
@@ -106,7 +113,12 @@ export default function UserNameProfilePage() {
                                     <Label htmlFor="website">
                                         Website
                                     </Label>
-                                    <Input type="text" id="website" placeholder="Website" />
+                                    <Input
+                                        type="text"
+                                        id="website"
+                                        placeholder="Website"
+                                        {...register("website")}
+                                    />
                                 </div>
                                 <div className='md:col-span-3 row-span-full w-full flex justify-center items-center'>
                                     <Avatar className=" size-24 sm:w-24 sm:h-24">
