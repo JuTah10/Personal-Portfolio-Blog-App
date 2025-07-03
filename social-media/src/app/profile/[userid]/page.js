@@ -36,7 +36,7 @@ export default function UserNameProfilePage() {
     });
 
     const [displayProfilePage, setDisplayProfilePage] = React.useState(true);
-    const [activityPage, setActivityPage] = React.useState('posted')
+    const [activityPage, setActivityPage] = React.useState('liked')
 
 
     async function onSubmit(data) {
@@ -151,15 +151,7 @@ export default function UserNameProfilePage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="mt-2">
-                            <div className='flex justify-start items-center gap-1'>
-                                <Button
-                                    variant={`${activityPage === "posted" ? "default" : "ghost"}`}
-                                    disabled={activityPage === "posted"}
-                                    className="rounded-3xl cursor-pointer"
-                                    onClick={() => setActivityPage('posted')}
-                                >
-                                    Posted
-                                </Button>
+                            <div className='flex justify-start items-center gap-1 mb-4'>
                                 <Button
                                     variant={`${activityPage === "liked" ? "default" : "ghost"}`}
                                     disabled={activityPage === "liked"}
@@ -168,7 +160,22 @@ export default function UserNameProfilePage() {
                                 >
                                     Liked
                                 </Button>
+                                <Button
+                                    variant={`${activityPage === "commented" ? "default" : "ghost"}`}
+                                    disabled={activityPage === "commented"}
+                                    className="rounded-3xl cursor-pointer"
+                                    onClick={() => setActivityPage('commented')}
+                                >
+                                    Commented
+                                </Button>
                             </div>
+                            <Card>
+                                {activityPage === "liked" &&
+                                    <>
+
+                                    </>
+                                }
+                            </Card>
 
                         </CardContent>
                     </div>
