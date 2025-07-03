@@ -6,7 +6,7 @@ export async function updateUserProfile({ newUserProfile }) {
 
 
     try {
-        const testNewData = await prisma.user.update({
+        await prisma.user.update({
             where: {
                 id: newUserProfile.id
             },

@@ -6,17 +6,15 @@ import { Label } from "@/components/ui/label"
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import {
     Card,
-    CardAction,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
 
 import { useForm } from 'react-hook-form';
 
-import { User } from "lucide-react"
-import { useToaster } from 'react-hot-toast';
+import { User, LoaderCircle } from "lucide-react"
+import { toast } from 'react-hot-toast';
 
 import { useParams } from 'next/navigation';
 
@@ -27,27 +25,30 @@ import { updateUserProfile } from '@/actions/profile';
 export default function UserNameProfilePage() {
     const params = useParams();
     const { userInf } = React.useContext(UserLogInContext);
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
-
+    const { register, handleSubmit, formState: { errors }, formState: { isDirty, isSubmitting }, reset } = useForm({
+        defaultValues: {
+            id: params.userid,
+            name: userInf.name,
+            email: userInf.email,
+            location: userInf.location,
+            website: userInf.website,
+        }
+    });
 
     const [displayProfilePage, setDisplayProfilePage] = React.useState(true);
 
-    React.useEffect(() => {
-        if (userInf && params.userid) {
-            reset({
-                id: params.userid,
-                name: userInf.name,
-                email: userInf.email,
-                location: userInf.location,
-                website: userInf.website,
-            });
-        }
-    }, [userInf, params.userid, reset]);
-
 
     async function onSubmit(data) {
-        const result = await updateUserProfile({ newUserProfile: data });
-     
+        if (isSubmitting) return;
+        try {
+            const result = await updateUserProfile({ newUserProfile: data });
+            if (result.succcess) toast.success("Profile Updated!")
+        } catch (error) {
+            toast.error("Failed to update User Profile!")
+        } finally {
+            reset(data);
+        }
+
     }
 
     return (
@@ -126,8 +127,17 @@ export default function UserNameProfilePage() {
                                     </Avatar>
                                 </div>
                             </div>
-                            <Button className="my-4 cursor-pointer">
-                                Save
+                            <Button
+                                disabled={isSubmitting || !isDirty}
+                                className="my-4 cursor-pointer"
+                            >
+                                {isSubmitting ?
+                                    <div className='w-full flex justify-center items-center h-[200px]'>
+                                        <LoaderCircle className='animate-spin' />
+                                    </div>
+                                    :
+                                    "Save"
+                                }
                             </Button>
                         </CardContent>
                     </form>
