@@ -25,6 +25,7 @@ export default function UserNameProfilePage() {
     const { userInf } = React.useContext(UserLogInContext);
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
+            id: userInf.id,
             name: userInf.name,
             email: userInf.email,
             location: userInf.location,
