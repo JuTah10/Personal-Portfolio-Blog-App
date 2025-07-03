@@ -7,34 +7,34 @@ export async function syncUser({ guestInf }) {
     try {
         const clerkUser = guestInf ? null : await currentUser();
         if (!guestInf && !clerkUser) return null;
-
-        const clerkId = guestInf?.guestId ?? clerkUser.id;
-        const name = (guestInf?.name
-            ?? `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`
-        ).trim();
-        const username = guestInf
-            ? guestInf.name.replace(/\s+/g, "")
-            : clerkUser.username
-            || clerkUser.emailAddresses[0].emailAddress.split("@")[0];
         const email = guestInf?.email ?? clerkUser.emailAddresses[0].emailAddress;
-        const image = guestInf?.image ?? clerkUser.imageUrl;
-
-        await prisma.user.upsert({
+        const existingUser = await prisma.user.findUnique({
             where: { email },
-            update: {
-                clerkId,
-                name,
-                username,
-                image,
-            },
-            create: {
-                clerkId,
-                name,
-                username,
-                email,
-                image,
-            },
         });
+        if (!existingUser) {
+            const clerkId = guestInf?.guestId ?? clerkUser.id;
+            const name = (guestInf?.name
+                ?? `${clerkUser.firstName || ""} ${clerkUser.lastName || ""}`
+            ).trim();
+            const username = guestInf
+                ? guestInf.name.replace(/\s+/g, "")
+                : clerkUser.username
+                || clerkUser.emailAddresses[0].emailAddress.split("@")[0];
+
+            const image = guestInf?.image ?? clerkUser.imageUrl;
+
+            await prisma.user.create({
+                data: {
+                    clerkId,
+                    name,
+                    username,
+                    email,
+                    image,
+                },
+            });
+        }
+
+
     } catch (err) {
         console.error("error in syncUser action", err);
         return null;
