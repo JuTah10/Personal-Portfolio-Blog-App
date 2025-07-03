@@ -13,7 +13,7 @@ import {
 
 import { useForm } from 'react-hook-form';
 
-import { User, LoaderCircle } from "lucide-react"
+import { User, LoaderCircle, Activity } from "lucide-react"
 import { toast } from 'react-hot-toast';
 
 import { useParams } from 'next/navigation';
@@ -36,6 +36,7 @@ export default function UserNameProfilePage() {
     });
 
     const [displayProfilePage, setDisplayProfilePage] = React.useState(true);
+    const [activityPage, setActivityPage] = React.useState('posted')
 
 
     async function onSubmit(data) {
@@ -142,7 +143,35 @@ export default function UserNameProfilePage() {
                         </CardContent>
                     </form>
                     :
-                    <></>
+                    <div>
+                        <CardHeader>
+                            <CardTitle className="flex justify-start items-center gap-2">
+                                <Activity />
+                                <h1>Activity</h1>
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="mt-2">
+                            <div className='flex justify-start items-center gap-1'>
+                                <Button
+                                    variant={`${activityPage === "posted" ? "default" : "ghost"}`}
+                                    disabled={activityPage === "posted"}
+                                    className="rounded-3xl cursor-pointer"
+                                    onClick={() => setActivityPage('posted')}
+                                >
+                                    Posted
+                                </Button>
+                                <Button
+                                    variant={`${activityPage === "liked" ? "default" : "ghost"}`}
+                                    disabled={activityPage === "liked"}
+                                    className="rounded-3xl cursor-pointer"
+                                    onClick={() => setActivityPage('liked')}
+                                >
+                                    Liked
+                                </Button>
+                            </div>
+
+                        </CardContent>
+                    </div>
                 }
             </Card>
         </div>
