@@ -18,9 +18,12 @@ import { toast } from 'react-hot-toast';
 
 import { useParams } from 'next/navigation';
 
+
 import { UserLogInContext } from '@/components/UserLogInContextBlog';
 
 import { updateUserProfile } from '@/actions/profile';
+
+import { fetchUserLikedPosts } from '@/actions/profile';
 
 export default function UserNameProfilePage() {
     const params = useParams();
@@ -35,8 +38,14 @@ export default function UserNameProfilePage() {
         }
     });
 
-    const [displayProfilePage, setDisplayProfilePage] = React.useState(true);
+    const [displayProfilePage, setDisplayProfilePage] = React.useState(false); //rememebr to fix this
     const [activityPage, setActivityPage] = React.useState('liked')
+    const [likedPosts, setLikedPosts] = React.useState([]);
+    const [commentedPosts, setCommentedPosts] = React.useState([]);
+
+    React.useEffect(() => {
+        fetchUserLikedPosts({ authorId: params.userid }).then(setLikedPosts);
+    }, [])
 
 
     async function onSubmit(data) {
@@ -169,11 +178,41 @@ export default function UserNameProfilePage() {
                                     Commented
                                 </Button>
                             </div>
-                            <Card>
+                            <Card
+                                className="grid md:grid-cols-2 p-4 brightness-75"
+                            >
                                 {activityPage === "liked" &&
-                                    <>
+                                    likedPosts.map((post) => {
+                                        return (
+                                            <Card
+                                                key={post.post.id}
+                                                className="brightness-125 bg-card text-card-foreground"
+                                            >
+                                                <CardContent className="px-4 sm:px-6">
+                                                    <div className="flex space-x-3 sm:space-x-4 justify-start items-center">
+                                                        <Avatar className="size-8 sm:w-10 sm:h-10">
+                                                            <AvatarImage src={post.author.image ?? "/avatar.png"} />
+                                                        </Avatar>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex">
+                                                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
+                                                                    <div className="font-semibold truncate">
+                                                                        {post.author.name}
+                                                                    </div>
+                                                                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                                                        <div>
+                                                                            @{post.author.username}
+                                                                        </div>                         
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </CardContent>
 
-                                    </>
+                                            </Card>
+                                        )
+                                    })
                                 }
                             </Card>
 
