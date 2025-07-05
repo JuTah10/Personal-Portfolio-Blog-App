@@ -36,12 +36,15 @@ function DesktopNavbar({ user }) {
 
             {user ? (
                 <>
-                    <Button variant="ghost" className="flex items-center gap-2" asChild>
-                        <Link href="/notifications">
-                            <BellIcon className="w-4 h-4" />
-                            <span className="hidden xl:inline">Notifications</span>
-                        </Link>
-                    </Button>
+                    {user.admin &&
+                        <Button variant="ghost" className="flex items-center gap-2" asChild>
+                            <Link href="/notifications">
+                                <BellIcon className="w-4 h-4" />
+                                <span className="hidden xl:inline">Notifications</span>
+                            </Link>
+                        </Button>
+                    }
+
                     <Button variant="ghost" className="flex items-center gap-2" asChild>
                         <Link
                             href={`/profile/${user.id}`}

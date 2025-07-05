@@ -266,12 +266,12 @@ export default function BlogPost({ post, user }) {
                                                         <Avatar className="size-8 sm:w-10 sm:h-10">
                                                             <AvatarImage src={com.author.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
                                                         </Avatar>
-                                                        <div className="flex-1 min-w-0">
-                                                            <div className="flex items-start justify-between">
-                                                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-sm">
-                                                                    <div>
+                                                        <div className="flex-1 min-w-0 ">
+                                                            <div className="flex items-start justify-between ">
+                                                                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-sm min-w-0" >
+                                                                    <div className='min-w-0'>
                                                                         <span className="font-semibold">{com.author.username}</span>
-                                                                        <span className='ml-1 font-thin'>{com.content}</span>
+                                                                        <span className='ml-1 font-thin break-words whitespace-pre-wrap'>{com.content}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>

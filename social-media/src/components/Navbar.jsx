@@ -11,7 +11,8 @@ export default function Navbar() {
 
     const userInfor = userInf ? {
         id: userInf.id,
-        guest: userInf.email.startsWith("guest_") ? true : false
+        guest: userInf.email.startsWith("guest_") ? true : false,
+        admin: userInf.role === "admin" ? true : false
     } : null
     return (
         <div className='sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50'>

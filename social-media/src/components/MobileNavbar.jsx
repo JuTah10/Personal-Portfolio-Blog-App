@@ -61,17 +61,19 @@ function MobileNavbar({ user }) {
 
                         {user ? (
                             <>
-                                <Button
-                                    onClick={() => setShowMobileMenu(false)}
-                                    variant="ghost"
-                                    className="flex items-center gap-3 justify-start"
-                                    asChild
-                                >
-                                    <Link href="/notifications">
-                                        <BellIcon className="w-4 h-4" />
-                                        Notifications
-                                    </Link>
-                                </Button>
+                                {user.admin &&
+                                    <Button
+                                        onClick={() => setShowMobileMenu(false)}
+                                        variant="ghost"
+                                        className="flex items-center gap-3 justify-start"
+                                        asChild
+                                    >
+                                        <Link href="/notifications">
+                                            <BellIcon className="w-4 h-4" />
+                                            Notifications
+                                        </Link>
+                                    </Button>
+                                }
                                 <Button
                                     onClick={() => setShowMobileMenu(false)}
                                     variant="ghost"
@@ -90,7 +92,7 @@ function MobileNavbar({ user }) {
                                             setShowMobileMenu(false);
                                             document.cookie = "guestInf=; path=/; max-age=0";
                                             window.location.reload();
-                                            
+
                                         }}
                                         variant="ghost"
                                         className="flex items-center gap-3 justify-start w-full cursor-pointer">
