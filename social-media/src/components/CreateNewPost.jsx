@@ -60,13 +60,12 @@ export default function CreateNewPost({ user }) {
                 onClick={() => setShowInput(true)}
                 disabled={isPosting}
               >
-
               </Textarea>
               :
-              <div className='w-full '>
+              <div className='w-[85%]'>
                 <Input
                   placeholder="Title"
-                  className="text-2xl font-bold border-none focus-visible:ring-0 !bg-card p-0"
+                  className="text-2xl font-bold border-none focus-visible:ring-0 !bg-card p-0 "
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   disabled={isPosting}

@@ -39,7 +39,7 @@ export default function UserNameProfilePage() {
         }
     });
 
-    const [displayProfilePage, setDisplayProfilePage] = React.useState(false); //rememebr to fix this
+    const [displayProfilePage, setDisplayProfilePage] = React.useState(true); //rememebr to fix this
     const [loading, setLoading] = React.useState(false);
     const [activityPage, setActivityPage] = React.useState('liked')
     const [posts, setPosts] = React.useState([])

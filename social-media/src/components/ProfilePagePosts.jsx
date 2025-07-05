@@ -21,10 +21,17 @@ export default function ProfilePagePosts({ posts, type }) {
             {
                 posts.length === 0 ?
                     <div className='flex flex-col justify-center items-center h-[150px] gap-4'>
-                        <div className='flex flex-col justify-center items-center'>
-                            <HeartIcon className="size-15 text-red-500" />
-                            <h1>Looks like there are no liked posts yet.</h1>
-                        </div>
+                        {type === "liked" ?
+                            <div className='flex flex-col justify-center items-center gap-1'>
+                                <HeartIcon className="size-15 text-red-500" />
+                                <h1>Looks like there are no liked posts yet.</h1>
+                            </div>
+                            :
+                            <div className='flex flex-col justify-center items-center gap-1'>
+                                <MessageCircleIcon className="size-15 text-blue-500" />
+                                <h1>Looks like there are no commented posts yet.</h1>
+                            </div>
+                        }
 
                         <Button
                             className="cursor-pointer"

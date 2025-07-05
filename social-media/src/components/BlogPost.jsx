@@ -119,8 +119,8 @@ export default function BlogPost({ post, user }) {
                                             @{post.author.username}
                                         </Link>
                                         <span>•</span>
-                                        <span><Time date={post.updatedAt}/></span>
-                                       
+                                        <span><Time date={post.updatedAt} /></span>
+
                                     </div>
                                 </div>
 
@@ -134,11 +134,19 @@ export default function BlogPost({ post, user }) {
                                         />
                                 )}
                             </div>
-                            <p
-                                className={`mt-2 text-sm text-foreground break-words whitespace-pre-line }`}
-                            >
-                                {post.content}
-                            </p>
+                            <div>
+                                <h1
+                                    className='text-xl break-words my-1'
+                                >
+                                    {title}
+                                </h1>
+                                <p
+                                    className={`text-sm text-foreground break-words whitespace-pre-line}`}
+                                >
+                                    {content}
+                                </p>
+                            </div>
+
                         </div>
                     </div>
                     {post.image && (
@@ -208,7 +216,7 @@ export default function BlogPost({ post, user }) {
                         <DialogContent className="block lg:flex !w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh] overflow-y-auto">
                             <div className='p-4 w-full lg:w-[60%] border-b-2 lg:border-r-2 lg:border-b-0 mb-4 lg:mb-0'>
                                 <DialogHeader>
-                                    <DialogTitle className="mb-5">{title}</DialogTitle>
+                                    <DialogTitle className="mb-5 break-words pb-4 border-b-2">{title}</DialogTitle>
                                     <DialogDescription className="break-words whitespace-pre-line text-left overflow-y-auto">
                                         {content}
                                     </DialogDescription>
@@ -238,7 +246,7 @@ export default function BlogPost({ post, user }) {
                                                             @{post.author.username}
                                                         </Link>
                                                         <span>•</span>
-                                                        <span>{<Time date={post.updatedAt}/>}</span>  
+                                                        <span>{<Time date={post.updatedAt} />}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,8 +275,8 @@ export default function BlogPost({ post, user }) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <span className="flex items-center space-x-2 text-sm text-muted-foreground">                                
-                                                                <Time date={com.createdAt}/>
+                                                            <span className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                                                <Time date={com.createdAt} />
                                                             </span>
                                                         </div>
                                                     </div>

@@ -17,7 +17,7 @@ import { HeartIcon, MessageCircleIcon, Loader2Icon } from 'lucide-react';
 
 
 
-export default function CreateNewComment({ user, liked, handleLike, updateLikes, post, handleComment, commentPosting, newComment, setNewComment, comment }) {
+export default function CreateNewComment({ user, liked, handleLike, updateLikes, handleComment, commentPosting, newComment, setNewComment, comment }) {
 
     const inputRef = React.useRef(null);
 
@@ -89,7 +89,7 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes,
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                             placeholder="Add a comment..."
-                            className="p-4 font-bold border-none focus-visible:ring-0 !bg-card resize-none"
+                            className="p-4 pr-11 font-bold border-none focus-visible:ring-0 !bg-card resize-none"
                             disabled={commentPosting}
                         />
                         <button
