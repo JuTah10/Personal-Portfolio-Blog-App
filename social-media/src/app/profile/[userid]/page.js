@@ -39,16 +39,27 @@ export default function UserNameProfilePage() {
         }
     });
 
-
     const [displayProfilePage, setDisplayProfilePage] = React.useState(false); //rememebr to fix this
+    const [loading, setLoading] = React.useState(false);
     const [activityPage, setActivityPage] = React.useState('liked')
     const [posts, setPosts] = React.useState([])
 
     React.useEffect(() => {
+        setLoading(true);
         setPosts([]);
-        if (activityPage === "liked") fetchUserLikedPosts({ authorId: params.userid }).then(setPosts);
+        if (activityPage === "liked") {
+            fetchUserLikedPosts({ authorId: params.userid }).then((data) => {
+                setPosts(data);
+                setLoading(false);
+            });
+
+        }
         else if (activityPage === "commented") {
-            fetchUserCommentedPosts({ authorId: params.userid }).then(setPosts)
+            fetchUserCommentedPosts({ authorId: params.userid }).then((data) => {
+                setPosts(data);
+                setLoading(false);
+            });
+            setLoading(false);
         };
 
     }, [activityPage])
@@ -184,7 +195,17 @@ export default function UserNameProfilePage() {
                                     Commented
                                 </Button>
                             </div>
-                            <ProfilePagePosts posts={posts} action={activityPage} />
+                            {loading ?
+                                <div className='flex justify-center items-center h-[200px]'>
+                                    <LoaderCircle className='animate-spin' />
+                                </div>
+                                :
+                                <ProfilePagePosts
+                                    posts={posts}
+                                    type={activityPage}
+                                />
+                            }
+
                         </CardContent>
                     </div>
                 }
