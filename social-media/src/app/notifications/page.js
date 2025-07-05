@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { formatDistanceToNow } from "date-fns"
+import Time from '@/components/Time';
 import { Ellipsis, Check, Settings, LoaderCircle } from "lucide-react"
 
 export default function NotificationsPage() {
@@ -145,7 +145,7 @@ export default function NotificationsPage() {
                               <span
                                 className='font-thin whitespace-nowrap'
                               >
-                                {formatDistanceToNow(new Date(notification.createdAt))} ago
+                                <Time date={notification.createdAt}/>
                               </span>
                             </div>
                             <div className='font-thin'>

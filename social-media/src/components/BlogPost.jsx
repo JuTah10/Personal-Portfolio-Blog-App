@@ -8,6 +8,7 @@ import { Button } from './ui/button';
 import Link from 'next/link';
 
 import CreateNewComment from './CreateNewComment';
+import Time from './Time';
 
 import { formatDistanceToNow } from "date-fns"
 
@@ -118,7 +119,8 @@ export default function BlogPost({ post, user }) {
                                             @{post.author.username}
                                         </Link>
                                         <span>•</span>
-                                        <span>{formatDistanceToNow(new Date(post.updatedAt))} ago</span>
+                                        <span><Time date={post.updatedAt}/></span>
+                                       
                                     </div>
                                 </div>
 
@@ -236,7 +238,7 @@ export default function BlogPost({ post, user }) {
                                                             @{post.author.username}
                                                         </Link>
                                                         <span>•</span>
-                                                        <span>{formatDistanceToNow(new Date(post.updatedAt))} ago</span>
+                                                        <span>{<Time date={post.updatedAt}/>}</span>  
                                                     </div>
                                                 </div>
                                             </div>
@@ -265,8 +267,8 @@ export default function BlogPost({ post, user }) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <span className="flex items-center space-x-2 text-sm text-muted-foreground">
-                                                                {formatDistanceToNow(new Date(com.createdAt))} ago
+                                                            <span className="flex items-center space-x-2 text-sm text-muted-foreground">                                
+                                                                <Time date={com.createdAt}/>
                                                             </span>
                                                         </div>
                                                     </div>
