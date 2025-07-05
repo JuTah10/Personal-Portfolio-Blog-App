@@ -11,13 +11,15 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { useTheme } from "next-themes"
 
-import { User, LoaderCircle, Activity } from "lucide-react"
+import { User, LoaderCircle, Activity, HeartIcon } from "lucide-react"
 import { toast } from 'react-hot-toast';
 
-import { useParams } from 'next/navigation';
 
+import { useParams } from 'next/navigation';
 
 import { UserLogInContext } from '@/components/UserLogInContextBlog';
 
@@ -26,6 +28,7 @@ import { updateUserProfile } from '@/actions/profile';
 import { fetchUserLikedPosts } from '@/actions/profile';
 
 export default function UserNameProfilePage() {
+    const { theme } = useTheme()
     const params = useParams();
     const { userInf } = React.useContext(UserLogInContext);
     const { register, handleSubmit, formState: { errors }, formState: { isDirty, isSubmitting }, reset } = useForm({
@@ -37,6 +40,7 @@ export default function UserNameProfilePage() {
             website: userInf.website,
         }
     });
+    const router = useRouter();
 
     const [displayProfilePage, setDisplayProfilePage] = React.useState(false); //rememebr to fix this
     const [activityPage, setActivityPage] = React.useState('liked')
@@ -179,14 +183,14 @@ export default function UserNameProfilePage() {
                                 </Button>
                             </div>
                             <Card
-                                className="grid md:grid-cols-2 p-4 brightness-75"
+                                className={`grid md:grid-cols-2 p-4 ${theme === "dark" ? "brightness-75" : ""}`}
                             >
                                 {activityPage === "liked" &&
                                     likedPosts.map((post) => {
                                         return (
                                             <Card
                                                 key={post.post.id}
-                                                className="brightness-125 bg-card text-card-foreground"
+                                                className="brightness-125 bg-card text-card-foreground self-start"
                                             >
                                                 <CardContent className="px-4 sm:px-6">
                                                     <div className="flex space-x-3 sm:space-x-4 justify-start items-center">
@@ -202,11 +206,38 @@ export default function UserNameProfilePage() {
                                                                     <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                                                                         <div>
                                                                             @{post.author.username}
-                                                                        </div>                         
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <p
+                                                                className={`mt-2 text-sm text-foreground break-words whitespace-pre-line }`}
+                                                            >
+                                                                {post.post.content}
+                                                            </p>
                                                         </div>
+                                                    </div>
+                                                    {post.post.image && (
+                                                        <div className="rounded-lg overflow-hidden">
+                                                            <img src={post.post.image} alt="Post content" className="w-full h-auto object-cover" />
+                                                        </div>
+                                                    )}
+                                                    {/* Like and Go to Post button */}
+                                                    <div className="flex justify-between items-center pt-2 space-x-4">
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="small"
+                                                            className="gap-2 text-red-500"
+                                                            disabled
+                                                        >
+                                                            <HeartIcon className="size-5 fill-current" />
+                                                        </Button>
+                                                        <Button
+                                                            className="cursor-pointer hover:brightness-75"
+                                                            onClick={() =>router.push(`/blog/#${post.post.id}`)}
+                                                        >
+                                                            Go to Post
+                                                        </Button>
                                                     </div>
                                                 </CardContent>
 
