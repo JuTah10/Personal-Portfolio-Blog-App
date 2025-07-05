@@ -15,14 +15,16 @@ import { useRouter } from 'next/navigation';
 export default function ProfilePagePosts({ posts }) {
     const { theme } = useTheme();
     const router = useRouter();
+
     return (
         <Card
             className={`grid md:grid-cols-2 p-4 ${theme === "dark" ? "brightness-75" : ""}`}
         >
             {posts.map((post) => {
+            
                 return (
                     <Card
-                        key={post.post.id}
+                        key={post.id}
                         className="brightness-125 bg-card text-card-foreground self-start"
                     >
                         <CardContent className="px-4 sm:px-6">

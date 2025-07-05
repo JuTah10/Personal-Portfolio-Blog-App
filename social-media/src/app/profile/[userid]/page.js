@@ -184,7 +184,7 @@ export default function UserNameProfilePage() {
                                     Commented
                                 </Button>
                             </div>
-                            <ProfilePagePosts posts={posts} />
+                            <ProfilePagePosts posts={posts} action={activityPage} />
                         </CardContent>
                     </div>
                 }

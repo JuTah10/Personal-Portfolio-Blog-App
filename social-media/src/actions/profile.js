@@ -33,6 +33,7 @@ export async function fetchUserLikedPosts({ authorId }) {
                 authorId,
             },
             select: {
+                id: true,
                 author: {
                     select: {
                         id: true,
@@ -65,6 +66,7 @@ export async function fetchUserCommentedPosts({ authorId }) {
                 authorId
             },
             select: {
+                id: true,
                 author: {
                     select: {
                         id: true,
