@@ -25,7 +25,7 @@ export async function updateUserProfile({ newUserProfile }) {
 
 export async function fetchUserLikedPosts({ authorId }) {
     try {
-        const posts = await prisma.like.findMany({
+        return await prisma.like.findMany({
             orderBy: {
                 createdAt: "desc"
             },
@@ -46,13 +46,43 @@ export async function fetchUserLikedPosts({ authorId }) {
                         id: true,
                         content: true,
                         image: true,
-                        updatedAt: true
                     }
                 }
             }
         });
-        return posts;
     } catch (error) {
-        console.error("Failed to fetch User Posted Posts: ", error);
+        console.error("Failed to fetch User Liked Posts: ", error);
+    }
+}
+
+export async function fetchUserCommentedPosts({ authorId }) {
+    try {
+        return await prisma.comment.findMany({
+            orderBy: {
+                createdAt: "desc"
+            },
+            where: {
+                authorId
+            },
+            select: {
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        username: true,
+                        image: true
+                    }
+                },
+                post: {
+                    select: {
+                        id: true,
+                        content: true,
+                        image: true,
+                    }
+                }
+            }
+        })
+    } catch (error) {
+        console.error("Failed to fetch User Commented Posts: ", error);
     }
 }
