@@ -7,9 +7,11 @@ import { useState } from "react";
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { ModeToggle } from "./ui/ModeToggle";
+import { useRouter } from "next/navigation";
 
 function MobileNavbar({ user }) {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const router = useRouter();
 
     return (
         <div className="flex md:hidden items-center space-x-2">
@@ -91,7 +93,7 @@ function MobileNavbar({ user }) {
                                         onClick={() => {
                                             setShowMobileMenu(false);
                                             document.cookie = "guestInf=; path=/; max-age=0";
-                                            window.location.reload();
+                                            router.replace("/blog")
 
                                         }}
                                         variant="ghost"
