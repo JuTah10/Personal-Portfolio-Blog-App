@@ -34,19 +34,18 @@ export async function fetchUserLikedPosts({ authorId }) {
             },
             select: {
                 id: true,
-                author: {
-                    select: {
-                        id: true,
-                        name: true,
-                        username: true,
-                        image: true
-                    }
-                },
                 post: {
                     select: {
                         id: true,
                         content: true,
                         image: true,
+                        author: {
+                            select:{
+                                name: true,
+                                username: true,
+                                image: true
+                            }
+                        }
                     }
                 }
             }

@@ -53,17 +53,17 @@ export default function ProfilePagePosts({ posts, type }) {
                                     <CardContent className="px-4 sm:px-6">
                                         <div className="flex space-x-3 sm:space-x-4 justify-start items-center">
                                             <Avatar className="size-8 sm:w-10 sm:h-10">
-                                                <AvatarImage src={post.author.image ?? "/avatar.png"} />
+                                                <AvatarImage src={post.post.author.image ?? "/avatar.png"} />
                                             </Avatar>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex">
                                                     <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 truncate">
                                                         <div className="font-semibold truncate">
-                                                            {post.author.name}
+                                                            {post.post.author.name}
                                                         </div>
                                                         <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                                                             <div>
-                                                                @{post.author.username}
+                                                                @{post.post.author.username}
                                                             </div>
                                                         </div>
                                                     </div>
