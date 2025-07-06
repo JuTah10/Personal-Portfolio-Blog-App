@@ -10,8 +10,6 @@ import Link from 'next/link';
 import CreateNewComment from './CreateNewComment';
 import Time from './Time';
 
-import { formatDistanceToNow } from "date-fns"
-
 import { postLike, createNewCommment, deletePost } from '@/actions/post';
 
 import toast from 'react-hot-toast';
