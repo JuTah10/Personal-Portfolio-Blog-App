@@ -18,6 +18,7 @@ import { toast } from 'react-hot-toast';
 import ProfilePagePosts from '@/components/ProfilePagePosts';
 
 import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { UserLogInContext } from '@/components/UserLogInContextBlog';
 
@@ -28,14 +29,15 @@ import { fetchUserCommentedPosts } from '@/actions/profile';
 
 export default function UserNameProfilePage() {
     const params = useParams();
+    const router = useRouter();
     const { userInf } = React.useContext(UserLogInContext);
     const { register, handleSubmit, formState: { errors }, formState: { isDirty, isSubmitting }, reset } = useForm({
         defaultValues: {
             id: params.userid,
-            name: userInf.name,
-            email: userInf.email,
-            location: userInf.location,
-            website: userInf.website,
+            name: userInf?.name,
+            email: userInf?.email,
+            location: userInf?.location,
+            website: userInf?.website,
         }
     });
 
@@ -43,6 +45,20 @@ export default function UserNameProfilePage() {
     const [loading, setLoading] = React.useState(false);
     const [activityPage, setActivityPage] = React.useState('liked')
     const [posts, setPosts] = React.useState([])
+
+    React.useEffect(() => {
+        if (userInf === undefined || params?.userid === undefined);
+
+        if (!userInf) {
+            router.replace('/blog');
+            return;
+        }
+
+        if (userInf.id !== params.userid) {
+            router.back();
+        }
+    }, [userInf, params?.userid]);
+
 
     React.useEffect(() => {
         setLoading(true);
@@ -78,7 +94,7 @@ export default function UserNameProfilePage() {
 
     }
 
-        console.log(userInf)
+    console.log(userInf)
     return (
         <div className='grid grid-cols-1 lg:grid-cols-9 lg:grid-rows-1 gap-5'>
             <div className='col-span-2 lg:flex flex-col gap-2'>
@@ -112,7 +128,7 @@ export default function UserNameProfilePage() {
                             <div className="grid md:grid-cols-3 w-[100%] gap-4">
                                 <div className="grid w-full items-center gap-3">
                                     <Label htmlFor="email">Email</Label>
-                                    <Input disabled type="email" id="email" placeholder={userInf.email} />
+                                    <Input disabled type="email" id="email" placeholder={userInf?.email} />
                                 </div>
                                 <div className="grid w-full items-center gap-3">
                                     <Label htmlFor="name">
@@ -123,7 +139,7 @@ export default function UserNameProfilePage() {
                                         type="text"
                                         id="name"
                                         placeholder="Name"
-                                        disabled={userInf.email.startsWith("guest")}
+                                        disabled={userInf?.email.startsWith("guest_")}
                                         {...register("name", { required: true })}
                                     />
 
@@ -136,7 +152,7 @@ export default function UserNameProfilePage() {
                                         type="text"
                                         id="location"
                                         placeholder="Location"
-                                        disabled={userInf.email.startsWith("guest")}
+                                        disabled={userInf?.email.startsWith("guest_")}
                                         {...register("location")}
                                     />
                                 </div>
@@ -148,15 +164,18 @@ export default function UserNameProfilePage() {
                                         type="text"
                                         id="website"
                                         placeholder="Website"
-                                        disabled={userInf.email.startsWith("guest")}
+                                        disabled={userInf?.email.startsWith("guest_")}
                                         {...register("website")}
                                     />
                                 </div>
                                 <div className='md:col-span-3 row-span-full w-full flex flex-col justify-center items-center'>
                                     <Avatar className=" size-24 sm:w-24 sm:h-24">
-                                        <AvatarImage src={userInf.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
+                                        <AvatarImage src={userInf?.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
                                     </Avatar>
-                                    <div className='text-red-500 mt-1'>Create a real user account to edit your profile</div>
+                                    {userInf?.email.startsWith("guest_") &&
+                                        <div className='text-red-500 mt-1'>Create a real user account to edit your profile</div>
+                                    }
+
                                 </div>
                             </div>
                             <Button

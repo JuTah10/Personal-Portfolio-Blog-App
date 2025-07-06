@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/ModeToggle";
-import { useRouter } from "next/navigation";
 
 
 function DesktopNavbar({ user }) {
-    const router = useRouter();
     return (
         <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
@@ -59,7 +57,7 @@ function DesktopNavbar({ user }) {
                         <Button
                             onClick={() => {
                                 document.cookie = "guestInf=; path=/; max-age=0";
-                                router.replace("/blog")
+                                window.location.href = "/blog";
                             }}
                             variant="ghost"
                             className="flex items-center gap-2 cursor-pointer"
