@@ -78,6 +78,7 @@ export default function UserNameProfilePage() {
 
     }
 
+        console.log(userInf)
     return (
         <div className='grid grid-cols-1 lg:grid-cols-9 lg:grid-rows-1 gap-5'>
             <div className='col-span-2 lg:flex flex-col gap-2'>
@@ -122,6 +123,7 @@ export default function UserNameProfilePage() {
                                         type="text"
                                         id="name"
                                         placeholder="Name"
+                                        disabled={userInf.email.startsWith("guest")}
                                         {...register("name", { required: true })}
                                     />
 
@@ -134,6 +136,7 @@ export default function UserNameProfilePage() {
                                         type="text"
                                         id="location"
                                         placeholder="Location"
+                                        disabled={userInf.email.startsWith("guest")}
                                         {...register("location")}
                                     />
                                 </div>
@@ -145,13 +148,15 @@ export default function UserNameProfilePage() {
                                         type="text"
                                         id="website"
                                         placeholder="Website"
+                                        disabled={userInf.email.startsWith("guest")}
                                         {...register("website")}
                                     />
                                 </div>
-                                <div className='md:col-span-3 row-span-full w-full flex justify-center items-center'>
+                                <div className='md:col-span-3 row-span-full w-full flex flex-col justify-center items-center'>
                                     <Avatar className=" size-24 sm:w-24 sm:h-24">
                                         <AvatarImage src={userInf.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
                                     </Avatar>
+                                    <div className='text-red-500 mt-1'>Create a real user account to edit your profile</div>
                                 </div>
                             </div>
                             <Button
