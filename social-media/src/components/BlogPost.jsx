@@ -34,7 +34,6 @@ export default function BlogPost({ post, user }) {
     const [showComments, setShowComments] = React.useState(false);
 
     const [comment, setComment] = React.useState(post.comments);
-    const [commentAmount, setCommentAmount] = React.useState(post.comments.length)
     const [newComment, setNewComment] = React.useState("")
     const [commentPosting, setCommentPosting] = React.useState(false);
 
@@ -67,7 +66,6 @@ export default function BlogPost({ post, user }) {
             setCommentPosting(true);
             const getComment = await createNewCommment({ content: newComment, authorId: user.id, postId: post.id })
             setComment(prevComment => [{ ...getComment, author: { image: user.image, username: user.username } }, ...prevComment]);
-            setCommentAmount(prev => prev + 1);
         } catch (error) {
             console.error("Error frontend when adding new comment", error)
         } finally {

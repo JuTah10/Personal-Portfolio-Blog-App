@@ -9,10 +9,7 @@ import { syncUser, getUserById } from "@/actions/user";
 import { fetchPosts } from '@/actions/post'
 import UserLogInContextBlog from "@/components/UserLogInContextBlog";
 
-
 import Navbar from "@/components/Navbar";
-
-
 
 
 const geistSans = Geist({

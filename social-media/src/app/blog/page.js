@@ -14,15 +14,13 @@ export default function BlogPage() {
 
   const isSignedIn = !!userInf;
 
-  const user = userInf;
-
 
   return (
     <div className='grid grid-cols-1 lg:grid-cols-10 gap-6'>
       <div className='lg:col-span-7'>
-        {isSignedIn && (user?.role === "admin") && <CreateNewPost user={user} />}
+        {isSignedIn && (userInf?.role === "admin") && <CreateNewPost user={userInf} />}
         <div className='space-y-6'>
-          <BlogPostClient user={user} posts={posts} />
+          <BlogPostClient user={userInf} posts={posts} />
         </div>
       </div>
       <div className='hidden lg:block lg:col-span-3'>
