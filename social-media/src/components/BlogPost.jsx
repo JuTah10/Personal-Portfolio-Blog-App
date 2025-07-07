@@ -5,7 +5,9 @@ import { HeartIcon, MessageCircleIcon, Trash, LoaderCircle } from 'lucide-react'
 import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import CreateNewComment from './CreateNewComment';
 import Time from './Time';
@@ -27,6 +29,7 @@ import {
 
 
 export default function BlogPost({ post, user }) {
+    const router = useRouter();
     const contentRef = React.useRef(null);
     const [liked, setLiked] = React.useState(post.likes.some(like => like.authorId === user?.id));
     const [updateLikes, setUpdateLikes] = React.useState(post._count.likes);
@@ -86,6 +89,7 @@ export default function BlogPost({ post, user }) {
             setIsDeletingPost(true);
             const result = await deletePost({ postId: post.id });
             if (result.success) {
+                router.refresh();
                 toast.success("Deleted Post")
             }
         } catch (error) {
