@@ -103,77 +103,70 @@ export default function NotificationsPage() {
 
           :
           <CardContent>
-            {notifications.filter(notification => readNotifications || !notification.read).map((notification) => {
-              return (
-                <Card
-                  onClick={async () => {
-                    try {
-                      await setReadNotification({ notificationId: notification.id })
-                      router.push(`/blog/#${notification.post.id}`)
-                    } catch (error) {
-                      console.error("Failed to mark notification as read:(front-end)", error);
-                    }
+            {notifications.filter(n => readNotifications || !n.read).length === 0 ? (
+              <div className="text-center text-sm text-muted-foreground py-6">
+                No notifications to show.
+              </div>
+            ) : (
+              notifications
+                .filter(notification => readNotifications || !notification.read)
+                .map((notification) => (
+                  <Card
+                    onClick={async () => {
+                      try {
+                        await setReadNotification({ notificationId: notification.id })
+                        router.push(`/blog/#${notification.post.id}`)
+                      } catch (error) {
+                        console.error("Failed to mark notification as read:(front-end)", error);
+                      }
+                    }}
+                    key={notification.id}
+                    className={`mb-2 cursor-pointer ${notification.read ? "brightness-90" : "hover:brightness-70"}`}
+                  >
+                    <CardContent className="flex items-center space-x-3 sm:space-x-4">
+                      {!notification.read && (
+                        <span className="text-blue-400">•</span>
+                      )}
 
-                  }}
-                  key={notification.id}
-                  className={`mb-2 cursor-pointer ${notification.read ? "brightness-90" : "hover:brightness-70"}`}
-                >
-                  <CardContent className="flex items-center space-x-3 sm:space-x-4">
-                    {notification.read ?
-                      null
-                      :
-                      <span
-                        className='text-blue-400'
-                      >
-                        •
-                      </span>
-                    }
+                      <Avatar className="size-8 sm:w-10 sm:h-10">
+                        <AvatarImage src={notification.sender.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
+                      </Avatar>
 
-                    <Avatar className="size-8 sm:w-10 sm:h-10">
-                      <AvatarImage src={notification.sender.image ?? "https://www.gravatar.com/avatar/?d=mp"} />
-                    </Avatar>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-sm">
-                          <div>
-                            <div className="font-semibold flex ">
-                              <div
-                                className='mr-1 max-w-[100px] truncate'
-                              >
-                                {notification.sender.username}
-                              </div>
-                              <span
-                                className='font-thin whitespace-nowrap'
-                              >
-                                <Time date={notification.createdAt}/>
-                              </span>
-                            </div>
-                            <div className='font-thin'>
-                              {notification.comment ?
-                                <div className='flex items-center justify-start'>
-                                  commented
-                                  <div
-                                    className='mx-1 font-bold max-w-[50px] md:max-w-[200px] truncate'
-                                  >
-                                    {notification.comment.content}
-                                  </div>
-                                  <span>on your post.</span>
-
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 text-sm">
+                            <div>
+                              <div className="font-semibold flex">
+                                <div className="mr-1 max-w-[100px] truncate">
+                                  {notification.sender.username}
                                 </div>
-                                :
-                                <div>liked your post.</div>
-                              }
-
+                                <span className="font-thin whitespace-nowrap">
+                                  <Time date={notification.createdAt} />
+                                </span>
+                              </div>
+                              <div className="font-thin">
+                                {notification.comment ? (
+                                  <div className="flex items-center justify-start">
+                                    commented
+                                    <div className="mx-1 font-bold max-w-[50px] md:max-w-[200px] truncate">
+                                      {notification.comment.content}
+                                    </div>
+                                    <span>on your post.</span>
+                                  </div>
+                                ) : (
+                                  <div>liked your post.</div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
+                    </CardContent>
+                  </Card>
+                ))
+            )}
           </CardContent>
+
         }
 
 
