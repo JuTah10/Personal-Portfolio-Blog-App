@@ -15,9 +15,9 @@ export const ourFileRouter = {
       if (!userId) throw new Error("Unauthorized");
       return { userId };
     })
-    .onUploadComplete(async ({ metadata, file }) => {
+    .onUploadComplete(async ({ file }) => {
       try {
-        return { fileUrl: file.ufsUrl };
+        return { fileUrl: file.ufsUrl};
       } catch (error) {
         console.error("Error in onUploadComplete:", error);
         throw error;

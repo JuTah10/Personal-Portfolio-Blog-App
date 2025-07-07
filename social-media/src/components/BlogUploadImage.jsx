@@ -1,10 +1,12 @@
 "use client"
-import { UploadDropzone, UploadIcon } from '@uploadthing/react'
 import React from 'react'
+import { UploadDropzone } from '@uploadthing/react'
+import { XIcon } from 'lucide-react'
+import { toast } from 'react-hot-toast'
+
 
 export default function BlogUploadImage({ endpoint, value, onChange }) {
   if (value) {
-    console.log("here")
     return (
       <div className="relative size-40">
         <img src={value} alt="Upload" className="rounded-md size-40 object-cover" />
@@ -21,27 +23,18 @@ export default function BlogUploadImage({ endpoint, value, onChange }) {
 
   return (
     <UploadDropzone
-
       endpoint={endpoint}
-      className="cursor-pointer w-UploadIcon h-70 p-4 flex flex-col items-center gap-2 border border-zinc-700 rounded-lg
-  "
+      className="cursor-pointer w-UploadIcon h-70 p-4 flex flex-col items-center gap-2 border border-zinc-700 rounded-lg"
       appearance={{
         button: `bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-5 rounded transition-colors duration-150`,
       }}
-
       onClientUploadComplete={(res) => {
-        console.log(res)
-        const uploadedUrl = res?.[0]?.fileUrl || res?.[0]?.url;
-        if (uploadedUrl) {
-          onChange(uploadedUrl);
-        }
+        onChange(res?.[0].ufsUrl);
       }}
-
       onUploadError={(error) => {
-        console.log(error);
+        toast.error("Error uploading photos. Please try again!")
+        console.log(`ERROR! ${error.message}`);
       }}
     />
-
-
   )
 }
