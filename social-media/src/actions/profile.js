@@ -10,8 +10,7 @@ export async function updateUserProfile({ newUserProfile }) {
             },
             data: {
                 name: newUserProfile.name,
-                location: newUserProfile.location,
-                website: newUserProfile.website
+                username: newUserProfile.username
             }
         })
 

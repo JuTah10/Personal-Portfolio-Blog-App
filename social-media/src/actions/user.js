@@ -49,14 +49,3 @@ export async function getUserById({ clerkId }) {
     })
 }
 
-// export async function getUserIdFromClerkId() {
-//     const { userId: clerkId } = await auth();
-
-//     if (!clerkId) throw new Error("User not found with this clerkId");
-
-//     const user = await getUserById({ clerkId });
-//     if (!user) throw new Error("User not found!");
-
-//     return user.id;
-// }
-

@@ -35,9 +35,7 @@ export default function UserNameProfilePage() {
         defaultValues: {
             id: params.userid,
             name: userInf?.name,
-            email: userInf?.email,
-            location: userInf?.location,
-            website: userInf?.website,
+            username: userInf?.username,
         }
     });
 
@@ -145,27 +143,16 @@ export default function UserNameProfilePage() {
 
                                 </div>
                                 <div className="grid w-full items-center gap-3">
-                                    <Label htmlFor="location">
-                                        Location
+                                    <Label htmlFor="username">
+                                        Username
+                                        {errors.username && <span className="text-sm text-red-500">Username is required</span>}
                                     </Label>
                                     <Input
                                         type="text"
-                                        id="location"
-                                        placeholder="Location"
+                                        id="username"
+                                        placeholder="Username"
                                         disabled={userInf?.email.startsWith("guest_")}
-                                        {...register("location")}
-                                    />
-                                </div>
-                                <div className="grid w-full items-center gap-3">
-                                    <Label htmlFor="website">
-                                        Website
-                                    </Label>
-                                    <Input
-                                        type="text"
-                                        id="website"
-                                        placeholder="Website"
-                                        disabled={userInf?.email.startsWith("guest_")}
-                                        {...register("website")}
+                                        {...register("username", { required: true })}
                                     />
                                 </div>
                                 <div className='md:col-span-3 row-span-full w-full flex flex-col justify-center items-center'>
