@@ -27,6 +27,7 @@ import {
 
 
 export default function BlogPost({ post, user }) {
+    const contentRef = React.useRef(null);
     const [liked, setLiked] = React.useState(post.likes.some(like => like.authorId === user?.id));
     const [updateLikes, setUpdateLikes] = React.useState(post._count.likes);
     const [processingLike, setProcessingLike] = React.useState(false);
@@ -39,9 +40,15 @@ export default function BlogPost({ post, user }) {
 
     const [isDeletingPost, setIsDeletingPost] = React.useState(false);
 
+    const [isOverFlowing, setIsOverFlowing] = React.useState(false);
+
     const lines = post.content.split("\n")
     const title = lines[0];
     const content = lines.slice(1).join("\n");
+
+    React.useEffect(() => {
+        if (contentRef.current.scrollHeight > 250) setIsOverFlowing(true);
+    })
 
 
     async function handleLike() {
@@ -91,10 +98,22 @@ export default function BlogPost({ post, user }) {
 
 
     return (
-        <Card id={post.id.toString()} className="overflow-hidden">
+        <Card id={post.id} className="overflow-hidden">
             <CardContent className="p-4 sm:p-6">
-                <div className="space-y-4">
-                    <div className="flex space-x-3 sm:space-x-4">
+                <div className="relative space-y-4">
+                    {isOverFlowing &&
+                        <Button
+                            variant="secondary"
+                            className="absolute left-[calc(50%-20%)] sm:left-[calc(50%-12%)] bottom-4 rounded-2xl cursor-pointer bg-secondary/80 hover:bg-secondary/100"
+                            onClick={() => setShowComments(true)}
+                        >
+                            Click to see more!
+                        </Button>
+                    }
+                    <div
+                        ref={contentRef}
+                        className="flex space-x-3 sm:space-x-4 max-h-[250px] overflow-hidden"
+                    >
                         <Link href={`/`}>
                             <Avatar className="size-8 sm:w-10 sm:h-10">
                                 <AvatarImage src={post.author.image ?? "/avatar.png"} />
@@ -137,7 +156,7 @@ export default function BlogPost({ post, user }) {
                                     {title}
                                 </h1>
                                 <p
-                                    className={`text-sm text-foreground break-words whitespace-pre-line}`}
+                                    className={`text-sm text-foreground break-words whitespace-pre-line`}
                                 >
                                     {content}
                                 </p>
