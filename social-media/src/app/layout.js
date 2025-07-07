@@ -62,8 +62,8 @@ export default async function RootLayout({ children }) {
             <UserLogInContextBlog userInf={userInf} posts={posts}>
               <div className="min-h-screen">
                 <Navbar />
-                <main className="py-8">
-                  <div className="max-w-7xl mx-auto px-4">
+                <main>
+                  <div className="max-w-screen-2xl mx-auto px-4">
                     {children}
                   </div>
 
