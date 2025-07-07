@@ -100,11 +100,25 @@ export async function postLike({ authorId: userId, postId }) {
             }
         })
         if (hasLiked) {
-            await prisma.like.delete({
-                where: {
-                    authorId_postId: { authorId: userId, postId }
-                }
-            });
+            await prisma.$transaction([
+                prisma.like.delete({
+                    where: {
+                        authorId_postId: { authorId: userId, postId }
+                    }
+                }),
+                ...(post.authorId !== userId
+                    ? [
+                        prisma.notification.deleteMany({
+                            where: {
+                                type: "LIKE",
+                                receiverId: post.authorId,
+                                senderId: userId,
+                                postId
+                            }
+                        })
+                    ]
+                    : [])
+            ])
             return;
         }
         await prisma.$transaction([
@@ -187,7 +201,7 @@ export async function deletePost({ postId }) {
             }
         });
 
-      
+
         return { success: true }
     } catch (error) {
         console.error("Failed to delete Post", error);
