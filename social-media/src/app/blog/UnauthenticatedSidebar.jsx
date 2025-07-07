@@ -1,6 +1,6 @@
 import React from "react"
 import { Button } from "@/components/ui/button"
-import { GuestWarning } from "./GuestWarning"
+import { GuestWarning } from "../../components/GuestWarning"
 import { SignInButton, SignUpButton } from '@clerk/nextjs'
 
 import {

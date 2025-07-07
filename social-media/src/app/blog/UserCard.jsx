@@ -6,9 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
 
-import { MapPinIcon, LinkIcon } from 'lucide-react'
 
 
 export default function UserCard({ userInf }) {

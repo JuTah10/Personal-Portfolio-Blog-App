@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 
 import { User, LoaderCircle, Activity } from "lucide-react"
 import { toast } from 'react-hot-toast';
-import ProfilePagePosts from '@/components/ProfilePagePosts';
+import ProfilePagePosts from '@/app/profile/[userid]/ProfilePagePosts';
 
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';

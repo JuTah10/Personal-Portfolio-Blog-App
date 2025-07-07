@@ -1,10 +1,10 @@
 "use client"
 import React from 'react'
-import { Button } from './ui/button';
+import { Button } from '../../components/ui/button';
 import { Card, CardContent } from "@/components/ui/card"
-import { Textarea } from "./ui/textarea";
-import { Input } from './ui/input';
-import { Avatar, AvatarImage } from './ui/avatar'
+import { Textarea } from "../../components/ui/textarea";
+import { Input } from '../../components/ui/input';
+import { Avatar, AvatarImage } from '../../components/ui/avatar'
 import { ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
 
 import BlogUploadImage from './BlogUploadImage';

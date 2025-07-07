@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button } from './ui/button'
+import { Button } from '../../components/ui/button'
 import {
     Dialog,
     DialogClose,
@@ -11,7 +11,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from './ui/input';
+import { Input } from '../../components/ui/input';
 
 import { HeartIcon, MessageCircleIcon, Loader2Icon } from 'lucide-react';
 

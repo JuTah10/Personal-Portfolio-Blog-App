@@ -2,15 +2,15 @@
 import React from 'react'
 
 import { HeartIcon, MessageCircleIcon, Trash, LoaderCircle } from 'lucide-react';
-import { Card, CardContent } from "./ui/card";
-import { Avatar, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
+import { Card, CardContent } from "../../components/ui/card";
+import { Avatar, AvatarImage } from '../../components/ui/avatar';
+import { Button } from '../../components/ui/button';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import CreateNewComment from './CreateNewComment';
-import Time from './Time';
+import Time from '../../components/Time';
 
 import { postLike, createNewCommment, deletePost } from '@/actions/post';
 
