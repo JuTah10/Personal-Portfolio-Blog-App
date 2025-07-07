@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import { UserLogInContext } from "../../components/UserLogInContextBlog";
+import { UserLogInContext } from "../../../components/UserLogInContextBlog";
 import { UnauthenticatedSidebar } from './UnauthenticatedSidebar';
 import UserCard from './UserCard';
 

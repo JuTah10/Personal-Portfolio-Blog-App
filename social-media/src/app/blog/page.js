@@ -1,9 +1,9 @@
 
 "use client"
 import React from 'react'
-import CreateNewPost from '@/app/blog/CreateNewPost'
-import OwnerInf from '@/app/blog/OwnerInf'
-import BlogPostClient from '@/app/blog/BlogPostClient';
+import CreateNewPost from '@/app/blog/components/CreateNewPost'
+import OwnerInf from '@/app/blog/components/OwnerInf'
+import BlogPostClient from '@/app/blog/components/BlogPostClient';
 
 
 import { UserLogInContext } from '@/components/UserLogInContextBlog';

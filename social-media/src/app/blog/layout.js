@@ -1,4 +1,4 @@
-import Sidebar from "@/app/blog/Sidebar";
+import Sidebar from "@/app/blog/components/Sidebar";
 export default function BlogLayout({ children }) {
   return (
    
