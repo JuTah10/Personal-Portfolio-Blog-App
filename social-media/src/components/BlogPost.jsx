@@ -141,15 +141,16 @@ export default function BlogPost({ post, user }) {
                                 >
                                     {content}
                                 </p>
+                                {post.image && (
+                                    <div className="rounded-lg overflow-hidden mt-2">
+                                        <img src={post.image} alt="Post content" className="w-full h-auto object-cover" />
+                                    </div>
+                                )}
                             </div>
 
                         </div>
                     </div>
-                    {post.image && (
-                        <div className="rounded-lg overflow-hidden">
-                            <img src={post.image} alt="Post content" className="w-full h-auto object-cover" />
-                        </div>
-                    )}
+
 
                     <div className="flex items-center pt-2 space-x-4">
                         {user ?
@@ -209,16 +210,21 @@ export default function BlogPost({ post, user }) {
 
 
                     <Dialog open={showComments} onOpenChange={setShowComments}>
-                        <DialogContent className="block lg:flex !w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh] overflow-y-auto">
-                            <div className='p-4 w-full lg:w-[60%] border-b-2 lg:border-r-2 lg:border-b-0 mb-4 lg:mb-0'>
+                        <DialogContent className="flex flex-col lg:flex-row min-h-0 !w-[95vw] xl:!w-[60vw] !h-[90vh] !max-w-[100vw] !max-h-[90vh]">
+                            <div className='p-4 w-full h-full lg:w-[60%] border-b-2 lg:border-r-2 lg:border-b-0 mb-4 lg:mb-0 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] min-h-0'>
                                 <DialogHeader>
                                     <DialogTitle className="mb-5 break-words pb-4 border-b-2">{title}</DialogTitle>
-                                    <DialogDescription className="break-words whitespace-pre-line text-left overflow-y-auto">
+                                    <DialogDescription className="break-words whitespace-pre-line text-left ">
                                         {content}
                                     </DialogDescription>
+                                    {post.image && (
+                                        <div className="rounded-lg overflow-hidden mt-2">
+                                            <img src={post.image} alt="Post content" className="w-full h-auto object-cover" />
+                                        </div>
+                                    )}
                                 </DialogHeader>
                             </div>
-                            <div className='w-full lg:w-[35%]'>
+                            <div className='w-full lg:w-[35%] h-full min-h-0'>
                                 <div className='grid grid-rows-12 grid-cols-1 gap-2 h-full'>
                                     {/* Author infor display */}
                                     <div className="row-span-1 flex items-center space-x-3 sm:space-x-4">
