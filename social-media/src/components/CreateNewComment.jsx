@@ -18,7 +18,6 @@ import { HeartIcon, MessageCircleIcon, Loader2Icon } from 'lucide-react';
 
 
 export default function CreateNewComment({ user, liked, handleLike, updateLikes, handleComment, commentPosting, newComment, setNewComment, comment }) {
-
     const inputRef = React.useRef(null);
 
     return (
@@ -28,7 +27,7 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes,
                     <Button
                         variant="ghost"
                         size="sm"
-                        className={`text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
+                        className={`cursor-pointer text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
                             }`}
                         onClick={handleLike}
                     >
@@ -67,7 +66,7 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes,
                 <Button
                     variant="ghost"
                     size="sm"
-                    className="text-muted-foreground gap-2 hover:text-blue-500"
+                    className="cursor-pointer text-muted-foreground gap-2 hover:text-blue-500"
                     onClick={() => {
                         if (inputRef.current) inputRef.current.focus();
                     }}
@@ -88,9 +87,9 @@ export default function CreateNewComment({ user, liked, handleLike, updateLikes,
                             ref={inputRef}
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="Add a comment..."
+                            placeholder={`${user ? "Add a comment..." : "Sign in to leave a comment"}`}
                             className="p-4 pr-11 font-bold border-none focus-visible:ring-0 !bg-card resize-none"
-                            disabled={commentPosting}
+                            disabled={!user || commentPosting}
                         />
                         <button
                             disabled={!newComment.trim() || commentPosting}

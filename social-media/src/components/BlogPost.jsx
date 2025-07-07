@@ -180,7 +180,7 @@ export default function BlogPost({ post, user }) {
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className={`text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
+                                className={`cursor-pointer text-muted-foreground gap-2 ${liked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
                                     }`}
                                 onClick={handleLike}
                             >
@@ -221,7 +221,7 @@ export default function BlogPost({ post, user }) {
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="text-muted-foreground gap-2 hover:text-blue-500"
+                            className="text-muted-foreground gap-2 hover:text-blue-500 cursor-pointer"
                             onClick={() => setShowComments((prev) => !prev)}
                         >
                             <MessageCircleIcon
@@ -280,7 +280,7 @@ export default function BlogPost({ post, user }) {
 
                                     {/* Comments */}
                                     <div
-                                        className='row-span-9 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
+                                        className='row-span-8 lg:row-span-9 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'
                                     >
                                         {(comment.length > 0) &&
                                             comment.map((com) => {
@@ -311,7 +311,7 @@ export default function BlogPost({ post, user }) {
                                     </div>
 
                                     {/* Like/Comment/create new comment section */}
-                                    <div className='row-span-2'>
+                                    <div className='row-span-3 lg:row-span-2 '>
                                         <CreateNewComment
                                             user={user}
                                             liked={liked}
