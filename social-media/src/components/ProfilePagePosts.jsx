@@ -16,6 +16,7 @@ export default function ProfilePagePosts({ posts, type }) {
     const { theme } = useTheme();
     const router = useRouter();
 
+
     return (
         <>
             {
@@ -68,18 +69,26 @@ export default function ProfilePagePosts({ posts, type }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p
-                                                    className={`mt-2 text-sm text-foreground break-words whitespace-pre-line }`}
-                                                >
-                                                    {post.post.content}
-                                                </p>
+                                                <div className='max-h-[245px] w-full truncate'>
+                                                    <h1
+                                                        className='text-md break-words my-1 font-bold'
+                                                    >
+                                                        {post.post.content.split("\n")[0]}
+                                                    </h1>
+                                                    <p
+                                                        className={`text-sm text-foreground break-words whitespace-pre-line`}
+                                                    >
+                                                        {post.post.content.split("\n").slice(1).join("\n")}
+                                                    </p>
+                                                    {post.image && (
+                                                        <div className="rounded-lg overflow-hidden mt-2">
+                                                            <img src={post.post.image} alt="Post content" className="w-full h-auto object-cover" />
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
-                                        {post.post.image && (
-                                            <div className="rounded-lg overflow-hidden">
-                                                <img src={post.post.image} alt="Post content" className="w-full h-auto object-cover" />
-                                            </div>
-                                        )}
+
                                         {/* Like and Go to Post button */}
                                         <div className="flex justify-between items-center pt-2 space-x-4">
                                             {type === "liked" ?

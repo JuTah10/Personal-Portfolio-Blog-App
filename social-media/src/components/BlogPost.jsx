@@ -155,7 +155,7 @@ export default function BlogPost({ post, user }) {
                             </div>
                             <div>
                                 <h1
-                                    className='text-xl break-words my-1'
+                                    className='text-md break-words my-1 font-bold'
                                 >
                                     {title}
                                 </h1>
