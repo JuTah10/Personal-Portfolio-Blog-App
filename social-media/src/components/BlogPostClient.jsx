@@ -22,8 +22,6 @@ export default function BlogPostClient({ user, posts }) {
             setTimeout(() => {
                 document.getElementById(hash)?.classList.add('ring-2', 'ring-red-500')
                 document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' })
-
-
             }, 50)
         }
     }, [pathname])
