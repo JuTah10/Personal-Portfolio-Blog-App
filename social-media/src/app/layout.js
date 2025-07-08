@@ -11,16 +11,13 @@ import UserLogInContextBlog from "@/components/UserLogInContextBlog";
 
 import Navbar from "@/components/Navbar";
 
+import { Quicksand } from 'next/font/google'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const quicksand = Quicksand({
+  subsets: ['latin'],
+  weight: ['400', '600'],
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Vu Nguyen",
@@ -51,7 +48,7 @@ export default async function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${quicksand.className} antialiased`}
         >
           <ThemeProvider
             attribute="class"

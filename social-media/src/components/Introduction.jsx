@@ -22,7 +22,7 @@ export default function Introduction() {
         visible: { x: 0, opacity: 1 },
     };
     return (
-        <div className="flex flex-col-reverse items-center justify-evenly md:flex-row md:gap-12 h-full ">
+        <div className="mx-4 h-[calc(100vh-66px)] pb-20 flex flex-col-reverse items-center justify-evenly md:flex-row md:gap-12">
             {/* Text Content */}
             <motion.div
                 className="text-center md:text-left max-w-xl space-y-4"
