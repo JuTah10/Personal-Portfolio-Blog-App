@@ -57,7 +57,20 @@ export default function Introduction() {
                     animate="visible"
                 >
                     {[<Github />, <Linkedin />, <Mail />].map((Icon, index) => (
-                        <motion.div key={index} variants={itemVariants}>
+                        <motion.div
+                            className='hover:scale-125 cursor-pointer hover:transition-transform hover:duration-150'
+                            key={index}
+                            variants={itemVariants}
+                            onClick={() =>
+                                window.open(
+                                    index === 0
+                                        ? "https://github.com/JuTah10"
+                                        : index === 1
+                                            ? "https://www.linkedin.com/in/vu-nguyen-5a739026b/"
+                                            : "mailto:vn22dy@brocku.ca"
+                                )
+                            }
+                        >
                             {Icon}
                         </motion.div>
                     ))}
