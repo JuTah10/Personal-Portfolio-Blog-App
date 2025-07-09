@@ -15,9 +15,8 @@ import { Quicksand } from 'next/font/google'
 
 const quicksand = Quicksand({
   subsets: ['latin'],
-  weight: ['400', '600'],
+  weight: ['400', '700'],
 })
-
 
 export const metadata = {
   title: "Vu Nguyen",

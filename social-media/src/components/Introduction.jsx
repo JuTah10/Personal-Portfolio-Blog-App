@@ -30,7 +30,7 @@ export default function Introduction() {
                 animate={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)', scale: 1 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
             >
-                <h1 className="text-4xl font-bold">
+                <h1 className="text-5xl font-bold">
                     <TypeAnimation
                         sequence={[
                             500,
