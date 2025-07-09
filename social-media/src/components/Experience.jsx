@@ -19,82 +19,92 @@ export default function Experience() {
             title: "Front-End Web Developer @ Brock University",
             duration: "SEP 2024 - PRESENT",
             description: [
-                <RoughNotationGroup show={show}>
-                    <span>
-                        Increased student engagement and learning outcomes by developing and customizing interactive Brightspace (D2L) course features such as flash cards, accordions, tabs, quizzes, etc. for
-                        <RoughNotation
-                            className="mx-1"
-                            type="box"
-                            color="currentColor"
-                            animationDelay={700}
-                        >
-                            3,000+
-                        </RoughNotation>
-                        students and instructors using
-                        <RoughNotation
-                            className="mx-1"
-                            type="underline"
-                            color="currentColor"
-                            animationDelay={700}
-                        >
-                            React
-                        </RoughNotation>
-                        ,
-                        <RoughNotation
-                            className="mx-1"
-                            type="underline"
-                            color="currentColor"
-                            animationDelay={700}
-                        >
-                            Tailwind CSS
-                        </RoughNotation>
-                        , and
-                        <RoughNotation
-                            className="mx-1"
-                            type="underline"
-                            color="currentColor"
-                            animationDelay={700}
-                            multiline={true}
-                        >
-                            modern web technologies
-                        </RoughNotation>
+                {
+                    order: "first-first",
+                    list: (
+                        <RoughNotationGroup show={show}>
+                            Increased student engagement and learning outcomes by developing and customizing interactive Brightspace (D2L) course features such as flash cards, accordions, tabs, quizzes, etc. for
+                            <RoughNotation
+                                className="mx-1"
+                                type="box"
+                                color="currentColor"
+                                animationDelay={700}
+                            >
+                                3,000+
+                            </RoughNotation>
+                            students and instructors using
+                            <RoughNotation
+                                className="mx-1"
+                                type="underline"
+                                color="currentColor"
+                                animationDelay={700}
+                            >
+                                React
+                            </RoughNotation>
+                            ,
+                            <RoughNotation
+                                className="mx-1"
+                                type="underline"
+                                color="currentColor"
+                                animationDelay={700}
+                            >
+                                Tailwind CSS
+                            </RoughNotation>
+                            , and
+                            <RoughNotation
+                                className="mx-1"
+                                type="underline"
+                                color="currentColor"
+                                animationDelay={700}
+                                multiline={true}
+                            >
+                                modern web technologies
+                            </RoughNotation>
+                            .
+                        </RoughNotationGroup>
 
-                        .
-                    </span>
-                </RoughNotationGroup>
+                    )
+                }
                 ,
-                <RoughNotationGroup show={show}>
-                    Enhanced course functionality and user experience by
-                    <RoughNotation
-                        className="mx-1"
-                        type="underline"
-                        color="currentColor"
-                        animationDelay={700}
-                    >
-                        identifying
-                    </RoughNotation>
-                    ,
-                    <RoughNotation
-                        className="mx-1"
-                        type="underline"
-                        color="currentColor"
-                        animationDelay={700}
-                    >
-                        troubleshooting
-                    </RoughNotation>
-                    , and
-                    <RoughNotation
-                        className="mx-1"
-                        type="underline"
-                        color="currentColor"
-                        animationDelay={700}
-                        multiline={true}
-                    >
-                        resolving frontend issues
-                    </RoughNotation>
-                    in Brightspace for both students and faculty.
-                </RoughNotationGroup>
 
+                {
+                    order: "first-second",
+                    list: (
+                        <span key={"first-second"}>
+                            <RoughNotationGroup show={show}>
+                                Enhanced course functionality and user experience by
+                                <RoughNotation
+                                    className="mx-1"
+                                    type="underline"
+                                    color="currentColor"
+                                    animationDelay={700}
+                                >
+                                    identifying
+                                </RoughNotation>
+                                ,
+                                <RoughNotation
+                                    className="mx-1"
+                                    type="underline"
+                                    color="currentColor"
+                                    animationDelay={700}
+                                >
+                                    troubleshooting
+                                </RoughNotation>
+                                , and
+                                <RoughNotation
+                                    className="mx-1"
+                                    type="underline"
+                                    color="currentColor"
+                                    animationDelay={700}
+                                    multiline={true}
+                                >
+                                    resolving frontend issues
+                                </RoughNotation>
+                                in Brightspace for both students and faculty.
+                            </RoughNotationGroup>
+                        </span>
+                    )
+                }
             ]
 
         },
@@ -103,8 +113,83 @@ export default function Experience() {
             title: "Administrative Technology Assistant @ Brock University",
             duration: "SEP 2024 - PRESENT",
             description: [
-                "Improved operational efficiency by implementing and maintaining key administrative features, such as user roles, authentication, email templates, digital tax form processing, etc. using Modern Campus Destiny One, effectively doubling workflow speed and streamlining backend operations for the department.",
-                "Supported educational technology initiatives by coordinating with internal departments and external vendors to ensure smooth project execution, system configuration, and communication."
+                {
+                    order: "second-first",
+                    list: (
+                        <RoughNotationGroup show={show}>
+                            Improved operational efficiency by implementing and maintaining key administrative features, such as user roles, authentication, email templates, digital tax form processing, etc. using
+                            <RoughNotation
+                                className="mx-1"
+                                type="underline"
+                                color="currentColor"
+                                animationDelay={700}
+                                multiline={true}
+                            >
+                                Modern Campus Destiny One
+                            </RoughNotation>
+                            , effectively
+                            <RoughNotation
+                                className="mx-1"
+                                type="box"
+                                color="currentColor"
+                                animationDelay={700}
+                                multiline
+                            >
+                                doubling workflow speed
+                            </RoughNotation>
+                            and
+                            <RoughNotation
+                                className="mx-1"
+                                type="box"
+                                color="currentColor"
+                                animationDelay={700}
+                                multiline
+                            >
+                                streamlining backend operations
+                            </RoughNotation>
+                            for the department.
+                        </RoughNotationGroup>
+                    )
+                }
+                ,
+                {
+                    order: "second-second",
+                    list: (
+                        <RoughNotationGroup show={show}>
+                            Supported educational technology initiatives by coordinating with internal departments and external vendors to ensure smooth
+                            <RoughNotation
+                                className="mx-1"
+                                type="underline"
+                                color="currentColor"
+                                animationDelay={700}
+                                multiline={true}
+                            >
+                                project execution
+                            </RoughNotation>
+                            ,
+                            <RoughNotation
+                                className="mx-1"
+                                type="underline"
+                                color="currentColor"
+                                animationDelay={700}
+                                multiline={true}
+                            >
+                                system configuration
+                            </RoughNotation>
+                            , and
+                            <RoughNotation
+                                className="mx-1"
+                                type="underline"
+                                color="currentColor"
+                                animationDelay={700}
+                                multiline={true}
+                            >
+                                communication
+                            </RoughNotation>
+                            .
+                        </RoughNotationGroup>
+                    )
+                }
             ]
 
         }
@@ -176,7 +261,7 @@ export default function Experience() {
                     {match?.description.map((m, index) => {
                         return (
                             <motion.div
-                                key={m + index}
+                                key={m.order}
                                 initial={{ opacity: 0, y: 200 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0 }}
@@ -196,7 +281,7 @@ export default function Experience() {
 
                                 >
                                     <Triangle className="size-2 flex-shrink-0 mt-2 rotate-90 fill-accent-foreground" />
-                                    <span>{m}</span>
+                                    <span>{m.list}</span>
                                 </motion.div>
                             </motion.div>
 
