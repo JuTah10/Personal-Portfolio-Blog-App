@@ -32,6 +32,7 @@ export default function Aboutme() {
                                     className='flex items-center gap-2'
                                     initial={{ opacity: 0, y: 200 }}
                                     whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
                                     transition={{ duration: 1.0, delay: index * 0.1, ease: "easeOut" }} // 1
                                 >
                                     <Triangle className='rotate-90 size-2 fill-accent-foreground' />
@@ -47,6 +48,7 @@ export default function Aboutme() {
                                     className='flex items-center gap-2'
                                     initial={{ opacity: 0, y: 200 }}
                                     whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
                                     transition={{ duration: 1.0, delay: (index - 1) * 0.1, ease: "easeOut" }} // 1
                                 >
                                     <Triangle className='rotate-90 size-2 fill-accent-foreground' />

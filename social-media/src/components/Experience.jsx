@@ -1,62 +1,101 @@
 "use client"
 import React from 'react'
 import { motion } from 'framer-motion';
+import Button from '@mui/material/Button';
+import { Triangle } from 'lucide-react';
 
 export default function Experience() {
     const [displayExperience, setDisplayExperience] = React.useState("AMAZON");
     const experience = [
         {
-            company: "AMAZON",
-            title: "Software Development Engineer @ Amazon",
-            duration: "JUL 2022 - PRESENT",
+            company: "BROCK UNIVERSITY ",
+            title: "Front-End Web Developer @ Brock University",
+            duration: "SEP 2024 - PRESENT",
             description: [
-                "Led development of end-to-end region build automation across Route 53 (AWS's DNS web service). This enabled the launch of customer-facing global services in new regions within a day, a significant reduction from the previous time-frame of a month.",
-                "Re-built Route 53's core domain management and DNS systems to provide a better user experience to millions of customers."
+                "Increased student engagement and learning outcomes by developing and customizing interactive Brightspace (D2L) course content such as flash cards, accordions, tabs, quizzes, etc. for 3,000+ students and instructors using React, Tailwind CSS, and modern web technologies.",
+                "Enhanced course functionality and user experience by identifying, troubleshooting, and resolving frontend issues in Brightspace for both students and faculty."
             ]
 
         },
         {
-            company: "WATTPAD",
-            title: "Associate Engineer @ Wattpad",
-            duration: "MAY 2020 - APR 2021",
+            company: "BROCK UNIVERSITY",
+            title: "Administrative Technology Assistant @ Brock University",
+            duration: "SEP 2024 - PRESENT",
             description: [
-                "Developed a responsive React web page (the new Story Details) from scratch, both on client and server side, for an app with massive scale (2 billion daily requests).",
-                "Iteratively built web experiences for 80 million users across high-traffic pages.",
-                "Collaborated with senior engineers and product management following best practices for the full software development life cycle, including coding standards, code reviews, source control management, build processes, testing, and operations."
+                "Improved operational efficiency by implementing and maintaining key administrative features, such as user roles, authentication, email templates, digital tax form processing, etc. using Modern Campus Destiny One, effectively doubling workflow speed and streamlining backend operations for the department.",
+                "Supported educational technology initiatives by coordinating with internal departments and external vendors to ensure smooth project execution, system configuration, and communication."
             ]
 
         }
     ];
     const match = experience.find(((exp) => exp.company === displayExperience))
+    const activeIndex = experience.findIndex(exp => exp.company === displayExperience);
     return (
         <motion.div>
             <div className='flex items-center gap-4'>
                 <h1 className='text-2xl md:text-4xl font-bold'>/ experience</h1>
                 <hr className='hidden md:block w-[30%] mt-4' />
             </div>
-            <div className='sm:flex my-12 text-md md:text-lg space-y-4 md:mx-10'>
+            <div className='sm:flex gap-10 my-12 text-md md:text-lg space-y-4 '>
                 {/* Tabs */}
-                <div>
+                <div className='relative flex flex-col  border-r-2 space-y-4 '>
+                    <motion.div
+                        layoutId="active-indicator"
+                        className="absolute right-0 w-0.5 h-9 bg-accent-foreground rounded"
+                        style={{
+                            top: `${activeIndex * 40}px`,
+                            transition: 'top 0.3s ease',
+                        }}
+                    />
                     {experience.map((exp) => {
                         return (
-                            <div
+                            <Button
                                 key={exp.title}
+                                variant="text"
+                                color="inherit"
+                                sx={{
+                                    whiteSpace: "nowrap", whiteSpace: "nowrap",
+                                    fontWeight: displayExperience === exp.company ? 'bold' : 'normal',
+                                    color: displayExperience === exp.company ? '' : 'gray',
+                                    pr: {
+                                        xs: "50%",
+                                        sm: "100px"
+                                    },
+                                    pl: {
+                                        sm: "40px"
+                                    },
+
+
+                                }}
                                 onClick={() => setDisplayExperience(exp.company)}
+
                             >
                                 {exp.company}
-                            </div>
+                            </Button>
                         )
                     })}
                 </div>
 
 
-                <div>
-                    <h1>{match?.title}</h1>
-                    <p>{match?.duration}</p>
+                <div className='space-y-6'>
+                    <div className='space-y-2'>
+                        <h1 className='text-xl md:text-2xl font-bold'>{match?.title}</h1>
+                        <p className='text-gray-500'>{match?.duration}</p>
+                    </div>
+                    {match?.description.map((m) => {
+                        return (
+                            <div className="flex gap-4">
+                                <Triangle className="size-2 flex-shrink-0 mt-2 rotate-90 fill-accent-foreground" />
+                                <span>{m}</span>
+                            </div>
+
+                        )
+                    })}
+
                 </div>
 
 
             </div>
-        </motion.div>
+        </motion.div >
     )
 }
