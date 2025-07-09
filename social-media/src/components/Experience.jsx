@@ -1,19 +1,100 @@
 "use client"
 import React from 'react'
-import { motion } from 'framer-motion';
+import { motion, time } from 'framer-motion';
 import Button from '@mui/material/Button';
 import { Triangle } from 'lucide-react';
+import { RoughNotationGroup, RoughNotation } from 'react-rough-notation';
 
 export default function Experience() {
     const [displayExperience, setDisplayExperience] = React.useState("BROCK UNIVERSITY");
+    const [show, setShow] = React.useState(false);
+
+    React.useEffect(() => {
+        const timeout = setTimeout(() => setShow(true), 1000)
+        return () => clearTimeout(timeout)
+    }, [show])
     const experience = [
         {
             company: "BROCK UNIVERSITY",
             title: "Front-End Web Developer @ Brock University",
             duration: "SEP 2024 - PRESENT",
             description: [
-                "Increased student engagement and learning outcomes by developing and customizing interactive Brightspace (D2L) course content such as flash cards, accordions, tabs, quizzes, etc. for 3,000+ students and instructors using React, Tailwind CSS, and modern web technologies.",
-                "Enhanced course functionality and user experience by identifying, troubleshooting, and resolving frontend issues in Brightspace for both students and faculty."
+                <RoughNotationGroup show={show}>
+                    <span>
+                        Increased student engagement and learning outcomes by developing and customizing interactive Brightspace (D2L) course features such as flash cards, accordions, tabs, quizzes, etc. for
+                        <RoughNotation
+                            className="mx-1"
+                            type="box"
+                            color="currentColor"
+                            animationDelay={700}
+                        >
+                            3,000+
+                        </RoughNotation>
+                        students and instructors using
+                        <RoughNotation
+                            className="mx-1"
+                            type="underline"
+                            color="currentColor"
+                            animationDelay={700}
+                        >
+                            React
+                        </RoughNotation>
+                        ,
+                        <RoughNotation
+                            className="mx-1"
+                            type="underline"
+                            color="currentColor"
+                            animationDelay={700}
+                        >
+                            Tailwind CSS
+                        </RoughNotation>
+                        , and
+                        <RoughNotation
+                            className="mx-1"
+                            type="underline"
+                            color="currentColor"
+                            animationDelay={700}
+                            multiline={true}
+                        >
+                            modern web technologies
+                        </RoughNotation>
+
+                        .
+                    </span>
+                </RoughNotationGroup>
+                ,
+                <RoughNotationGroup show={show}>
+                    Enhanced course functionality and user experience by
+                    <RoughNotation
+                        className="mx-1"
+                        type="underline"
+                        color="currentColor"
+                        animationDelay={700}
+                    >
+                        identifying
+                    </RoughNotation>
+                    ,
+                    <RoughNotation
+                        className="mx-1"
+                        type="underline"
+                        color="currentColor"
+                        animationDelay={700}
+                    >
+                        troubleshooting
+                    </RoughNotation>
+                    , and
+                    <RoughNotation
+                        className="mx-1"
+                        type="underline"
+                        color="currentColor"
+                        animationDelay={700}
+                        multiline={true}
+                    >
+                        resolving frontend issues
+                    </RoughNotation>
+                    in Brightspace for both students and faculty.
+                </RoughNotationGroup>
+
             ]
 
         },
@@ -37,6 +118,7 @@ export default function Experience() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
+
         >
             <div className='flex items-center gap-4'>
                 <h1 className='text-2xl md:text-4xl font-bold'>/ experience</h1>
@@ -73,7 +155,10 @@ export default function Experience() {
 
 
                                 }}
-                                onClick={() => setDisplayExperience(exp.company)}
+                                onClick={() => {
+                                    setShow(false);
+                                    setDisplayExperience(exp.company)
+                                }}
 
                             >
                                 {exp.company}
@@ -88,23 +173,26 @@ export default function Experience() {
                         <h1 className='text-xl md:text-2xl font-bold'>{match?.title}</h1>
                         <p className='text-gray-500'>{match?.duration}</p>
                     </div>
-                    {match?.description.map((m) => {
+                    {match?.description.map((m, index) => {
                         return (
                             <motion.div
-                                key={m}
+                                key={m + index}
                                 initial={{ opacity: 0, y: 200 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0 }}
-                                transition={{ duration: 1.0, delay: 0.1, ease: "easeOut" }}
+                                transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+                                onViewportEnter={() => {
+                                    setShow(false);
+                                    const timeout = setTimeout(() => setShow(true), 1500)
+                                    return () => clearTimeout(timeout)
+                                }}
                             >
                                 <motion.div
-
                                     className="flex gap-4"
                                     initial={{ opacity: 0, y: 200 }}
-
                                     viewport={{ once: true }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 1.0, delay: 0.1, ease: "easeOut" }}
+                                    transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
 
                                 >
                                     <Triangle className="size-2 flex-shrink-0 mt-2 rotate-90 fill-accent-foreground" />
