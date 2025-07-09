@@ -5,10 +5,10 @@ import Button from '@mui/material/Button';
 import { Triangle } from 'lucide-react';
 
 export default function Experience() {
-    const [displayExperience, setDisplayExperience] = React.useState("AMAZON");
+    const [displayExperience, setDisplayExperience] = React.useState("BROCK UNIVERSITY");
     const experience = [
         {
-            company: "BROCK UNIVERSITY ",
+            company: "BROCK UNIVERSITY",
             title: "Front-End Web Developer @ Brock University",
             duration: "SEP 2024 - PRESENT",
             description: [
@@ -18,7 +18,7 @@ export default function Experience() {
 
         },
         {
-            company: "BROCK UNIVERSITY",
+            company: "BROCK UNIVERSITY ",
             title: "Administrative Technology Assistant @ Brock University",
             duration: "SEP 2024 - PRESENT",
             description: [
@@ -30,8 +30,14 @@ export default function Experience() {
     ];
     const match = experience.find(((exp) => exp.company === displayExperience))
     const activeIndex = experience.findIndex(exp => exp.company === displayExperience);
+
     return (
-        <motion.div>
+        <motion.div
+            initial={{ opacity: 0, y: 200 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+        >
             <div className='flex items-center gap-4'>
                 <h1 className='text-2xl md:text-4xl font-bold'>/ experience</h1>
                 <hr className='hidden md:block w-[30%] mt-4' />
@@ -84,10 +90,28 @@ export default function Experience() {
                     </div>
                     {match?.description.map((m) => {
                         return (
-                            <div className="flex gap-4">
-                                <Triangle className="size-2 flex-shrink-0 mt-2 rotate-90 fill-accent-foreground" />
-                                <span>{m}</span>
-                            </div>
+                            <motion.div
+                                key={m}
+                                initial={{ opacity: 0, y: 200 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0 }}
+                                transition={{ duration: 1.0, delay: 0.1, ease: "easeOut" }}
+                            >
+                                <motion.div
+
+                                    className="flex gap-4"
+                                    initial={{ opacity: 0, y: 200 }}
+
+                                    viewport={{ once: true }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 1.0, delay: 0.1, ease: "easeOut" }}
+
+                                >
+                                    <Triangle className="size-2 flex-shrink-0 mt-2 rotate-90 fill-accent-foreground" />
+                                    <span>{m}</span>
+                                </motion.div>
+                            </motion.div>
+
 
                         )
                     })}
