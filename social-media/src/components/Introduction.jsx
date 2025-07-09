@@ -51,7 +51,7 @@ export default function Introduction() {
                     I'm especially fascinated by large-scale, high-impact products.
                 </p>
                 <motion.div
-                    className="flex gap-4"
+                    className="flex justify-center md:justify-start gap-4"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
