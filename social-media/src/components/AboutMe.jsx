@@ -13,7 +13,6 @@ export default function Aboutme() {
             initial={{ opacity: 0, y: 200 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className='mx-[20px] lg:mx-[10%]'
         >
             <div className='flex items-center gap-4'>
                 <h1 className='text-2xl md:text-4xl font-bold'>/ about me</h1>
