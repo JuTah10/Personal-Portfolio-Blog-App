@@ -211,7 +211,7 @@ export default function Experience() {
             </div>
             <div className='sm:flex gap-10 my-12 text-md md:text-lg space-y-4 '>
                 {/* Tabs */}
-                <div className='relative flex flex-col  border-r-2 space-y-4 '>
+                <div className='relative flex flex-col border-r-2 space-y-4 '>
                     <motion.div
                         layoutId="active-indicator"
                         className="absolute right-0 w-0.5 h-9 bg-accent-foreground rounded"
