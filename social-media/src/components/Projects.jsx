@@ -11,6 +11,7 @@ export default function Projects() {
                 <h1 className='text-2xl md:text-4xl font-bold'>/ projects</h1>
                 <hr className='hidden md:block w-[30%] mt-4' />
             </div>
+            {/* SLider */}
         </motion.div>
     )
 }
