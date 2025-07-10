@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { motion, time } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Button from '@mui/material/Button';
 import { Triangle } from 'lucide-react';
 import { RoughNotationGroup, RoughNotation } from 'react-rough-notation';
