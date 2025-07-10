@@ -265,7 +265,7 @@ export default function Experience() {
                                 initial={{ opacity: 0, y: 200 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0 }}
-                                transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+                                transition={{ duration: 0.7, delay: index * 0.2, ease: "easeOut" }}
                                 onViewportEnter={() => {
                                     setShow(false);
                                     const timeout = setTimeout(() => setShow(true), 1500)
