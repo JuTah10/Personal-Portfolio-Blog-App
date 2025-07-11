@@ -8,8 +8,9 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-    CarouselApi
 } from "@/components/ui/carousel"
+
+import { FolderClosed, Github, ExternalLink } from 'lucide-react'
 
 
 export default function Projects() {
@@ -41,8 +42,8 @@ export default function Projects() {
     const additionalProjects = [
         {
             name: "portfolio",
-            description: "test",
-            languagesUsed: "",
+            description: "A modern e-commerce platform for browsing, buying, and securely checking out products - with built-in admin functionality to manage inventory and listings.",
+            languagesUsed: "React, Express.JS, Postgresql, Docker",
             github: "",
             live: ""
         },
@@ -137,7 +138,7 @@ export default function Projects() {
                             <CarouselItem key={index}>
                                 <img src={item.link} className='max-h-full w-full rounded-3xl brightness-75' />
                                 <div className='absolute bottom-5 md:bottom-10 w-full flex flex-col items-center text-center gap-2 text-white'>
-                                    <h1 className='text-xl md:text-2xl font-bold'>{item.name}</h1>
+                                    <h1 className='text-lg md:text-2xl font-bold'>{item.name}</h1>
                                     <p className='hidden md:block max-w-1/2 text-xs font-bold'>{item.description}</p>
                                     <div className='text-xs font-bold text-emerald-500'>{item.languagesUsed}</div>
                                 </div>
@@ -175,9 +176,31 @@ export default function Projects() {
             <div className="h-[900px] sm:h-[800px] mx-4 xl:mx-28 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2 ">
 
                 {additionalProjects.map((project, index) => (
-                    <motion.div key={index} className=" bg-gray-800 rounded-3xl p-5">
+                    <motion.div key={index} className="bg-accent rounded-3xl p-5 space-y-4">
                         {/* Header */}
-                        
+                        <div className='flex justify-between items-center'>
+                            <FolderClosed className='w-7 h-7' />
+                            <div className='flex gap-2 items-center'>
+                                {project.github &&
+                                    <Github className='w-5 h-5 hover:scale-125 cursor-pointer hover:transition-transform hover:duration-150' />
+                                }
+                                {project.live &&
+                                    <ExternalLink className='w-5 h-5 hover:scale-125 cursor-pointer hover:transition-transform hover:duration-150' />
+                                }
+
+
+                            </div>
+                        </div>
+
+                        <h1 className='text-xl md:text-2xl font-bold '>
+                            {project.name}
+                        </h1>
+                        <p className='text-sm sm:text-md'>
+                            {project.description}
+                        </p>
+                        <p className='text-sm sm:text-md mt-15'>
+                            {project.languagesUsed}
+                        </p>
                     </motion.div>
                 ))}
 
