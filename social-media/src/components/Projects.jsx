@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { hover, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 import {
     Carousel,
@@ -41,7 +41,7 @@ export default function Projects() {
 
             {/* Slider */}
             <Carousel
-                className="relative w-fit h-fit my-12 mx-4 xl:mx-28 "
+                className="relative w-fit h-fit my-12 mx-4 xl:mx-28 space-y-6"
                 opts={{
                     align: "start",
                     loop: true,
@@ -50,27 +50,34 @@ export default function Projects() {
                 onMouseLeave={() => setHovered(false)}
             >
                 <CarouselContent className="max-h-[500px]">
-                    {displaySliderItems.map((item) => {
+                    {displaySliderItems.map((item, index) => {
                         return (
-                            <CarouselItem>
+                            <CarouselItem key={index}>
                                 <img src={item} className='max-h-full w-full rounded-3xl brightness-75' />
                             </CarouselItem>
                         )
                     })}
-
                 </CarouselContent>
+                <div className='flex justify-center items-center gap-2'>
+                    {displaySliderItems.map((_, index) => {
+                        return (
+                            <div key={index} className={`${index === count ? "bg-current" : "bg-accent brightness-95"} w-7 h-[3px] flex-shrink-0`} />
+                        )
+                    })}
+                </div>
                 <div
-                    onClick={() => setCount((prev) => (prev === -1 ? 2 : prev - 1))}
+                    onClick={() => setCount((prev) => (prev === 0 ? 2 : prev - 1))}
                 >
                     <CarouselPrevious
                         className="absolute left-10 top-1/2 cursor-pointer" />
                 </div>
                 <div
-                    onClick={() => setCount((prev) => (prev === 3 ? 0 : prev + 1))}
+                    onClick={() => setCount((prev) => (prev === 2 ? 0 : prev + 1))}
                 >
                     <CarouselNext className="absolute right-10 top-1/2 cursor-pointer" ref={nextButtonRef} />
                 </div>
             </Carousel>
+
         </motion.div>
     )
 }
