@@ -27,7 +27,7 @@ export default function Projects() {
         name: "blog page",
         description: "A full-stack blog where admin can publish posts and users can like or comment. It includes a login system with optional guest access, notifications feature for post interactions, and user profiles to update info and track past activity.",
         languagesUsed: "Next.js, Prisma, Clerk, Tailwind CSS",
-        github: "",
+        github: "https://github.com/JuTah10/Personal-Portfolio-Blog-App",
         live: ""
     },
     {
@@ -35,7 +35,7 @@ export default function Projects() {
         name: "portfolio",
         description: "A personal portfolio showcasing projects, posts, and skills. It features smooth UI/UX powered by modern frameworks and animation libraries for a polished, interactive experience.",
         languagesUsed: "React.js, Tailwind CSS, ShadCN, Framer Motion, Material UI",
-        github: "",
+        github: "https://github.com/JuTah10/Personal-Portfolio-Blog-App",
         live: ""
     }]
 
@@ -75,11 +75,7 @@ export default function Projects() {
 
 
     const [api, setApi] = React.useState();
-
     const [current, setCurrent] = React.useState(0)
-
-
-
 
     React.useEffect(() => {
         if (!hovered) {
@@ -189,7 +185,6 @@ export default function Projects() {
             <div className="h-[900px] sm:h-[700px] mx-4 xl:mx-28 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2 ">
 
                 {additionalProjects.map((project, index) => (
-
                     <motion.div
                         key={index} className="bg-accent rounded-3xl p-5 space-y-4 hover:-translate-y-2 "
                         initial={{ opacity: 0, y: 200 }}
