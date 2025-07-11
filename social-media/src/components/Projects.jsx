@@ -17,7 +17,7 @@ export default function Projects() {
         link: "/HomePage.avif",
         name: "vnwear",
         description: "A modern e-commerce platform for browsing, buying, and securely checking out products - with built-in admin functionality to manage inventory and listings.",
-        languagesUsed: "REACT, NODE.JS, POSTGRESQL, DOCKER",
+        languagesUsed: "REACT, EXPRESS.JS, POSTGRESQL, DOCKER",
         github: "",
         live: ""
     },
@@ -36,8 +36,37 @@ export default function Projects() {
         languagesUsed: "",
         github: "",
         live: ""
-    }
+    }]
 
+    const additionalProjects = [
+        {
+            name: "portfolio",
+            description: "test",
+            languagesUsed: "",
+            github: "",
+            live: ""
+        },
+        {
+            name: "portfolio",
+            description: "test",
+            languagesUsed: "",
+            github: "",
+            live: ""
+        },
+        {
+            name: "portfolio",
+            description: "test",
+            languagesUsed: "",
+            github: "",
+            live: ""
+        },
+        {
+            name: "portfolio",
+            description: "test",
+            languagesUsed: "",
+            github: "",
+            live: ""
+        }
     ]
     const nextButtonRef = React.useRef(null);
     const [count, setCount] = React.useState(0);
@@ -140,6 +169,20 @@ export default function Projects() {
                 </div>
 
             </Carousel>
+
+            {/* Additional Projects */}
+
+            <div className="h-[900px] sm:h-[800px] mx-4 xl:mx-28 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2 ">
+
+                {additionalProjects.map((project, index) => (
+                    <motion.div key={index} className=" bg-gray-800 rounded-3xl p-5">
+                        {/* Header */}
+                        
+                    </motion.div>
+                ))}
+
+            </div>
+
 
         </motion.div>
     )
