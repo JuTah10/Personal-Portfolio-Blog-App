@@ -8,13 +8,48 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
+    CarouselApi
 } from "@/components/ui/carousel"
 
+
 export default function Projects() {
-    const displaySliderItems = ["/HomePage.avif", "/", "/"]
+    const displaySliderItems = [{
+        link: "/HomePage.avif",
+        name: "vnwear",
+        description: "A modern e-commerce platform for browsing, buying, and securely checking out products - with built-in admin functionality to manage inventory and listings.",
+        languagesUsed: "REACT, NODE.JS, POSTGRESQL, DOCKER",
+        github: "",
+        live: ""
+    },
+    {
+        link: "/HomePage.avif",
+        name: "blog page",
+        description: "test",
+        languagesUsed: "",
+        github: "",
+        live: ""
+    },
+    {
+        link: "/HomePage.avif",
+        name: "portfolio",
+        description: "test",
+        languagesUsed: "",
+        github: "",
+        live: ""
+    }
+
+    ]
     const nextButtonRef = React.useRef(null);
     const [count, setCount] = React.useState(0);
     const [hovered, setHovered] = React.useState(false);
+
+
+    const [api, setApi] = React.useState();
+
+    const [current, setCurrent] = React.useState(0)
+
+
+
 
     React.useEffect(() => {
         if (!hovered) {
@@ -24,6 +59,23 @@ export default function Projects() {
             return () => clearInterval(interval)
         }
     }, [hovered])
+
+
+    React.useEffect(() => {
+        if (!api) {
+            return
+        }
+        setCurrent(api.selectedScrollSnap())
+        api.on("select", () => {
+            setCurrent(api.selectedScrollSnap())
+
+        })
+    }, [api])
+
+    React.useEffect(() => {
+        setCount(current)
+    }, [current]);
+
 
 
     return (
@@ -41,6 +93,7 @@ export default function Projects() {
 
             {/* Slider */}
             <Carousel
+                setApi={setApi}
                 className="relative w-fit h-fit my-12 mx-4 xl:mx-28 space-y-6"
                 opts={{
                     align: "start",
@@ -53,11 +106,18 @@ export default function Projects() {
                     {displaySliderItems.map((item, index) => {
                         return (
                             <CarouselItem key={index}>
-                                <img src={item} className='max-h-full w-full rounded-3xl brightness-75' />
+                                <img src={item.link} className='max-h-full w-full rounded-3xl brightness-75' />
+                                <div className='absolute bottom-5 md:bottom-10 w-full flex flex-col items-center text-center gap-2 text-white'>
+                                    <h1 className='text-xl md:text-2xl font-bold'>{item.name}</h1>
+                                    <p className='hidden md:block max-w-1/2 text-xs font-bold'>{item.description}</p>
+                                    <div className='text-xs font-bold text-emerald-500'>{item.languagesUsed}</div>
+                                </div>
                             </CarouselItem>
                         )
                     })}
                 </CarouselContent>
+
+                {/* slider tracker */}
                 <div className='flex justify-center items-center gap-2'>
                     {displaySliderItems.map((_, index) => {
                         return (
@@ -65,17 +125,20 @@ export default function Projects() {
                         )
                     })}
                 </div>
+
+                {/* Slider Buttons */}
                 <div
                     onClick={() => setCount((prev) => (prev === 0 ? 2 : prev - 1))}
                 >
                     <CarouselPrevious
-                        className="absolute left-10 top-1/2 cursor-pointer" />
+                        className="absolute left-10 bottom-1/2 cursor-pointer" />
                 </div>
                 <div
                     onClick={() => setCount((prev) => (prev === 2 ? 0 : prev + 1))}
                 >
-                    <CarouselNext className="absolute right-10 top-1/2 cursor-pointer" ref={nextButtonRef} />
+                    <CarouselNext className="absolute right-10 bottom-1/2 cursor-pointer" ref={nextButtonRef} />
                 </div>
+
             </Carousel>
 
         </motion.div>
