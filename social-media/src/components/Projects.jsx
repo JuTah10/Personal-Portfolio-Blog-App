@@ -23,18 +23,18 @@ export default function Projects() {
         live: ""
     },
     {
-        link: "/HomePage.avif",
+        link: "/BlogScreenShoot.avif",
         name: "blog page",
-        description: "test",
-        languagesUsed: "",
+        description: "A full-stack blog where admin can publish posts and users can like or comment. It includes a login system with optional guest access, notifications feature for post interactions, and user profiles to update info and track past activity.",
+        languagesUsed: "Next.js, Prisma, Clerk, Tailwind CSS",
         github: "",
         live: ""
     },
     {
-        link: "/HomePage.avif",
+        link: "/Portfolio.avif",
         name: "portfolio",
-        description: "test",
-        languagesUsed: "",
+        description: "A personal portfolio showcasing projects, posts, and skills. It features smooth UI/UX powered by modern frameworks and animation libraries for a polished, interactive experience.",
+        languagesUsed: "React.js, Tailwind CSS, ShadCN, Framer Motion, Material UI",
         github: "",
         live: ""
     }]
@@ -130,11 +130,11 @@ export default function Projects() {
                     {displaySliderItems.map((item, index) => {
                         return (
                             <CarouselItem key={index}>
-                                <img src={item.link} className='max-h-full w-full rounded-3xl brightness-75' />
+                                <img src={item.link} className='h-full w-full rounded-3xl brightness-75' />
                                 <div className='absolute bottom-5 md:bottom-10 w-full flex flex-col items-center text-center gap-2 text-white'>
                                     <h1 className='text-lg md:text-2xl font-bold'>{item.name}</h1>
                                     <p className='hidden md:block max-w-1/2 text-xs font-bold'>{item.description}</p>
-                                    <div className='text-xs font-bold text-emerald-500'>{item.languagesUsed}</div>
+                                    <div className='text-[10px] sm:text-xs font-bold text-emerald-500 max-w-[70%]'>{item.languagesUsed}</div>
                                 </div>
                             </CarouselItem>
                         )
