@@ -109,7 +109,7 @@ export default function Projects() {
 
 
     return (
-        <div key="projects">
+        <div key="projects" className='mb-20'>
             <div className='flex items-center gap-4'>
                 <h1 className='text-2xl md:text-4xl font-bold'>/ projects</h1>
                 <hr className='hidden md:block w-[30%] mt-4' />

@@ -203,6 +203,7 @@ export default function Experience() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
+            className='min-h-[400px]'
 
         >
             <div className='flex items-center gap-4'>
