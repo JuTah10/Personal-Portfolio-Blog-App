@@ -109,13 +109,7 @@ export default function Projects() {
 
 
     return (
-        <motion.div
-            key="projects"
-            initial={{ opacity: 0, y: 200 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-        >
+        <div key="projects">
             <div className='flex items-center gap-4'>
                 <h1 className='text-2xl md:text-4xl font-bold'>/ projects</h1>
                 <hr className='hidden md:block w-[30%] mt-4' />
@@ -173,10 +167,16 @@ export default function Projects() {
 
             {/* Additional Projects */}
 
-            <div className="h-[900px] sm:h-[800px] mx-4 xl:mx-28 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2 ">
+            <div className="h-[900px] sm:h-[700px] mx-4 xl:mx-28 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-2 ">
 
                 {additionalProjects.map((project, index) => (
-                    <motion.div key={index} className="bg-accent rounded-3xl p-5 space-y-4">
+                    <motion.div
+                        key={index} className="bg-accent rounded-3xl p-5 space-y-4"
+                        initial={{ opacity: 0, y: 200 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                    >
                         {/* Header */}
                         <div className='flex justify-between items-center'>
                             <FolderClosed className='w-7 h-7' />
@@ -205,8 +205,6 @@ export default function Projects() {
                 ))}
 
             </div>
-
-
-        </motion.div>
+        </div>
     )
 }
