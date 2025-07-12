@@ -41,10 +41,10 @@ export default function Projects() {
 
     const additionalProjects = [
         {
-            name: "portfolio",
-            description: "A modern e-commerce platform for browsing, buying, and securely checking out products - with built-in admin functionality to manage inventory and listings.",
-            languagesUsed: "React, Express.JS, Postgresql, Docker",
-            github: "",
+            name: "CoExistenceNetworkedGame",
+            description: "A networked multiplayer card game inspired by rock-paper-scissors using sockets and threads to support concurrent 2-player matches with a Swing GUI client.",
+            languagesUsed: "Java, Java Swing, Socket Programming, Multithreading",
+            github: "https://github.com/JuTah10/CoExistenceNetworkedGame",
             live: ""
         },
         {
@@ -208,7 +208,7 @@ export default function Projects() {
                             </div>
                         </div>
 
-                        <h1 className='text-xl md:text-2xl font-bold '>
+                        <h1 className='text-xl md:text-2xl font-bold break-words'>
                             {project.name}
                         </h1>
                         <p className='text-sm sm:text-md'>
