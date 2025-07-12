@@ -63,7 +63,7 @@ export default function Projects() {
         },
         {
             name: "Note App",
-            description: "a note-app using HTML/CSS, Javascript with React framework",
+            description: "A note-app using HTML/CSS, Javascript with React framework",
             languagesUsed: "React.js",
             github: "https://github.com/JuTah10/note-app",
             live: ""
@@ -196,10 +196,16 @@ export default function Projects() {
                             <FolderClosed className='w-7 h-7' />
                             <div className='flex gap-2 items-center'>
                                 {project.github &&
-                                    <Github className='w-5 h-5 hover:scale-125 cursor-pointer hover:transition-transform hover:duration-150' />
+                                    <Github
+                                        onClick={() => window.open(project.github)}
+                                        className='w-5 h-5 hover:scale-125 cursor-pointer hover:transition-transform hover:duration-150'
+                                    />
                                 }
                                 {project.live &&
-                                    <ExternalLink className='w-5 h-5 hover:scale-125 cursor-pointer hover:transition-transform hover:duration-150' />
+                                    <ExternalLink
+                                        onClick={() => window.open(project.live)}
+                                        className='w-5 h-5 hover:scale-125 cursor-pointer hover:transition-transform hover:duration-150'
+                                    />
                                 }
 
 
