@@ -41,31 +41,31 @@ export default function Projects() {
 
     const additionalProjects = [
         {
-            name: "CoExistenceNetworkedGame",
+            name: "Co-Existence Networked Game",
             description: "A networked multiplayer card game inspired by rock-paper-scissors using sockets and threads to support concurrent 2-player matches with a Swing GUI client.",
             languagesUsed: "Java, Java Swing, Socket Programming, Multithreading",
             github: "https://github.com/JuTah10/CoExistenceNetworkedGame",
             live: ""
         },
         {
-            name: "portfolio",
-            description: "test",
-            languagesUsed: "",
-            github: "",
+            name: "Graph-Based Recipe Management System",
+            description: "A graph-base recipe system to find ingredients needed to make a dish base on pantry, including generating shopping cart and mise en place",
+            languagesUsed: "Java, Graph Data Structure (Adjacency Matrix), OOP",
+            github: "https://github.com/JuTah10/Graph-Based_Recipe_Management_System",
             live: ""
         },
         {
-            name: "portfolio",
-            description: "test",
-            languagesUsed: "",
-            github: "",
+            name: "Book Note",
+            description: "A book note app to search books by author, title, or ISBN, with personal notes stored and managed in a PostgreSQL database.",
+            languagesUsed: "JavaScript, Express.js, EJS, PostgreSQL",
+            github: "https://github.com/JuTah10/book-note",
             live: ""
         },
         {
-            name: "portfolio",
-            description: "test",
-            languagesUsed: "",
-            github: "",
+            name: "Note App",
+            description: "a note-app using HTML/CSS, Javascript with React framework",
+            languagesUsed: "React.js",
+            github: "https://github.com/JuTah10/note-app",
             live: ""
         }
     ]
@@ -101,8 +101,6 @@ export default function Projects() {
     React.useEffect(() => {
         setCount(current)
     }, [current]);
-
-
 
     return (
         <div key="projects" className='mb-20'>
