@@ -20,6 +20,9 @@ const quicksand = Quicksand({
 export const metadata = {
   title: "Vu Nguyen",
   description: "Vu Nguyen Personal Portfolio",
+  icons: {
+    icon: "favicon.ico"
+  }
 };
 
 export default async function RootLayout({ children }) {
@@ -43,8 +46,8 @@ export default async function RootLayout({ children }) {
   const posts = await fetchPosts();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <ClerkProvider>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
         <body
           className={`${quicksand.className} antialiased`}
         >
@@ -68,7 +71,7 @@ export default async function RootLayout({ children }) {
             <Toaster />
           </ThemeProvider>
         </body>
-      </ClerkProvider>
-    </html>
+      </html>
+    </ClerkProvider>
   );
 }
