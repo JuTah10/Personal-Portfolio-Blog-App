@@ -1,10 +1,11 @@
 "use client"
 import React from "react";
-import { BellIcon, HomeIcon, UserIcon, NotebookPen, FolderDot, LogOutIcon, Linkedin, Mail, Github } from "lucide-react";
+import { BellIcon, HomeIcon, UserIcon, NotebookPen, FolderDot, LogOutIcon, Linkedin, Mail, Github, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/ModeToggle";
+import { useTheme } from "next-themes"
 
 import {
     CommandDialog,
@@ -22,6 +23,7 @@ import { useRouter } from "next/navigation";
 
 function DesktopNavbar({ user }) {
     const router = useRouter();
+    const { theme, setTheme } = useTheme()
     const [open, setOpen] = React.useState(false);
     const [hideCtrlKey, setHideCtrKey] = React.useState(false);
     const [hideShiftKey, setHideShiftKey] = React.useState(false);
@@ -34,34 +36,39 @@ function DesktopNavbar({ user }) {
                     setHideShiftKey(true);
                 }
                 if (e.key === "H" && (e.shiftKey)) {
-                    e.preventDefault()
+                    e.preventDefault();
                     setOpen((open) => !open);
-                    router.push('/')
+                    router.push('/');
                 }
                 if (e.key === "P" && (e.shiftKey)) {
-                    e.preventDefault()
+                    e.preventDefault();
                     setOpen((open) => !open);
-                    router.push('/#projects')
+                    router.push('/#projects');
                 }
                 if (e.key === "B" && (e.shiftKey)) {
-                    e.preventDefault()
+                    e.preventDefault();
                     setOpen((open) => !open);
                     router.push('/blog')
                 }
                 if (e.key === "L" && (e.shiftKey)) {
-                    e.preventDefault()
+                    e.preventDefault();
                     setOpen((open) => !open);
-                    window.open("https://www.linkedin.com/in/vu-nguyen-5a739026b/")
+                    window.open("https://www.linkedin.com/in/vu-nguyen-5a739026b/");
                 }
                 if (e.key === "E" && (e.shiftKey)) {
-                    e.preventDefault()
+                    e.preventDefault();
                     setOpen((open) => !open);
-                    window.open("mailto:vn22dy@brocku.ca")
+                    window.open("mailto:vn22dy@brocku.ca");
                 }
                 if (e.key === "G" && (e.shiftKey)) {
-                    e.preventDefault()
+                    e.preventDefault();
                     setOpen((open) => !open);
-                    window.open("https://github.com/JuTah10")
+                    window.open("https://github.com/JuTah10");
+                }
+                if (e.key === "T" && (e.shiftKey)) {
+                    e.preventDefault();
+                    setOpen((open) => !open);
+                    setTheme(theme === "dark" ? "light" : "dark");
                 }
 
             }
@@ -190,6 +197,27 @@ function DesktopNavbar({ user }) {
                                 <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">G</kbd>
+                            </CommandShortcut>
+                        </CommandItem>
+                    </CommandGroup>
+                    <CommandGroup heading="Other">
+                        <CommandItem>
+                            {theme === "light" ?
+                                <>
+                                    <Moon />
+                                    <span>Dark Mode</span>
+                                </>
+
+                                :
+                                <>
+                                    <Sun />
+                                    <span>Light Mode</span>
+                                </>
+                            }
+                            <CommandShortcut>
+                                <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <span className="mx-2">+</span>
+                                <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">T</kbd>
                             </CommandShortcut>
                         </CommandItem>
                     </CommandGroup>
