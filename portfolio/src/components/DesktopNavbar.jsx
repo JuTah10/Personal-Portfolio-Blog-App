@@ -38,7 +38,32 @@ function DesktopNavbar({ user }) {
                     setOpen((open) => !open);
                     router.push('/')
                 }
-                
+                if (e.key === "P" && (e.shiftKey)) {
+                    e.preventDefault()
+                    setOpen((open) => !open);
+                    router.push('/#projects')
+                }
+                if (e.key === "B" && (e.shiftKey)) {
+                    e.preventDefault()
+                    setOpen((open) => !open);
+                    router.push('/blog')
+                }
+                if (e.key === "L" && (e.shiftKey)) { 
+                    e.preventDefault()
+                    setOpen((open) => !open);
+                    window.open("https://www.linkedin.com/in/vu-nguyen-5a739026b/")
+                }
+                if (e.key === "E" && (e.shiftKey)) { 
+                    e.preventDefault()
+                    setOpen((open) => !open);
+                    window.open("mailto:vn22dy@brocku.ca")
+                }
+                if (e.key === "G" && (e.shiftKey)) { 
+                    e.preventDefault()
+                    setOpen((open) => !open);
+                    window.open("https://github.com/JuTah10")
+                }
+
             }
             if (e.ctrlKey) {
                 setHideCtrKey(true);
