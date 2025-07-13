@@ -142,16 +142,27 @@ function DesktopNavbar({ user }) {
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
                     <CommandGroup heading="Navigation">
-                        <CommandItem>
+                        <CommandItem
+                            className="cursor-pointer"
+                            onSelect={() => {
+                                setOpen((open) => !open);
+                                router.push('/');
+                            }}
+                        >
                             <HomeIcon />
-                            <span>Home</span>
+                            <span >Home</span>
                             <CommandShortcut>
                                 <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">H</kbd>
                             </CommandShortcut>
                         </CommandItem>
-                        <CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                setOpen((open) => !open);
+                                router.push('/#projects');
+                            }}
+                        >
                             <FolderDot />
                             <span>Projects</span>
                             <CommandShortcut>
@@ -160,7 +171,12 @@ function DesktopNavbar({ user }) {
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">P</kbd>
                             </CommandShortcut>
                         </CommandItem>
-                        <CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                setOpen((open) => !open);
+                                router.push('/blog');
+                            }}
+                        >
                             <NotebookPen />
                             <span>Blog</span>
                             <CommandShortcut>
@@ -172,7 +188,12 @@ function DesktopNavbar({ user }) {
                     </CommandGroup>
                     <CommandSeparator />
                     <CommandGroup heading="Links">
-                        <CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                setOpen((open) => !open);
+                                window.open("https://www.linkedin.com/in/vu-nguyen-5a739026b/");
+                            }}
+                        >
                             <Linkedin />
                             <span>LinkedIn</span>
                             <CommandShortcut>
@@ -181,7 +202,12 @@ function DesktopNavbar({ user }) {
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">L</kbd>
                             </CommandShortcut>
                         </CommandItem>
-                        <CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                setOpen((open) => !open);
+                                window.open("mailto:vn22dy@brocku.ca");
+                            }}
+                        >
                             <Mail />
                             <span>Email</span>
                             <CommandShortcut>
@@ -190,7 +216,12 @@ function DesktopNavbar({ user }) {
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">E</kbd>
                             </CommandShortcut>
                         </CommandItem>
-                        <CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                setOpen((open) => !open);
+                                window.open("https://github.com/JuTah10");
+                            }}
+                        >
                             <Github />
                             <span>Github</span>
                             <CommandShortcut>
@@ -201,7 +232,12 @@ function DesktopNavbar({ user }) {
                         </CommandItem>
                     </CommandGroup>
                     <CommandGroup heading="Other">
-                        <CommandItem>
+                        <CommandItem
+                            onSelect={() => {
+                                setOpen((open) => !open);
+                                setTheme(theme === "dark" ? "light" : "dark");
+                            }}
+                        >
                             {theme === "light" ?
                                 <>
                                     <Moon />
