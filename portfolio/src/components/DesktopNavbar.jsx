@@ -8,11 +8,11 @@ import { ModeToggle } from "@/components/ui/ModeToggle";
 
 
 import {
-    Calculator,
-    Calendar,
+
+
     CreditCard,
     Settings,
-    Smile,
+
     User,
 } from "lucide-react"
 
@@ -36,11 +36,13 @@ function DesktopNavbar({ user }) {
 
     React.useEffect(() => {
         function down(e) {
-
+            if (open) {
+                if (e.shiftKey) {
+                    setShiftCtrKey(true);
+                }
+            }
             if (e.ctrlKey) {
-                console.log("aoshjdoasd")
                 setHideCtrKey(true);
-
             }
             if (e.key === "k" && (e.ctrlKey)) {
                 e.preventDefault()
@@ -107,35 +109,42 @@ function DesktopNavbar({ user }) {
                 <CommandInput placeholder="Type a command or search..." />
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
-                    <CommandGroup heading="Suggestions">
+                    <CommandGroup heading="Navigation">
                         <CommandItem>
-                            <Calendar />
-                            <span>Calendar</span>
+                            <HomeIcon />
+                            <span>Home</span>
+                            <CommandShortcut>
+                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <span className="mx-2">+</span>
+                                <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">H</kbd>
+                            </CommandShortcut>
                         </CommandItem>
                         <CommandItem>
-                            <Smile />
-                            <span>Search Emoji</span>
+                            <FolderDot />
+                            <span>Projects</span>
+                            <CommandShortcut>⌘P</CommandShortcut>
                         </CommandItem>
                         <CommandItem>
-                            <Calculator />
-                            <span>Calculator</span>
+                            <NotebookPen />
+                            <span>Folder</span>
+                            <CommandShortcut>⌘P</CommandShortcut>
                         </CommandItem>
                     </CommandGroup>
                     <CommandSeparator />
-                    <CommandGroup heading="Settings">
+                    <CommandGroup heading="Links">
                         <CommandItem>
                             <User />
-                            <span>Profile</span>
+                            <span>LinkedIn</span>
                             <CommandShortcut>⌘P</CommandShortcut>
                         </CommandItem>
                         <CommandItem>
                             <CreditCard />
-                            <span>Billing</span>
+                            <span>Email</span>
                             <CommandShortcut>⌘B</CommandShortcut>
                         </CommandItem>
                         <CommandItem>
                             <Settings />
-                            <span>Settings</span>
+                            <span>Github</span>
                             <CommandShortcut>⌘S</CommandShortcut>
                         </CommandItem>
                     </CommandGroup>
