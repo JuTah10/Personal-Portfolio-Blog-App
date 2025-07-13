@@ -48,17 +48,17 @@ function DesktopNavbar({ user }) {
                     setOpen((open) => !open);
                     router.push('/blog')
                 }
-                if (e.key === "L" && (e.shiftKey)) { 
+                if (e.key === "L" && (e.shiftKey)) {
                     e.preventDefault()
                     setOpen((open) => !open);
                     window.open("https://www.linkedin.com/in/vu-nguyen-5a739026b/")
                 }
-                if (e.key === "E" && (e.shiftKey)) { 
+                if (e.key === "E" && (e.shiftKey)) {
                     e.preventDefault()
                     setOpen((open) => !open);
                     window.open("mailto:vn22dy@brocku.ca")
                 }
-                if (e.key === "G" && (e.shiftKey)) { 
+                if (e.key === "G" && (e.shiftKey)) {
                     e.preventDefault()
                     setOpen((open) => !open);
                     window.open("https://github.com/JuTah10")
@@ -99,14 +99,11 @@ function DesktopNavbar({ user }) {
                 variant="secondary" className="flex items-center gap-2 cursor-pointer"
                 asChild
             >
-                <span className="hidden lg:inline">
-                    Press{" "}
-
-
+                <span>
+                    <span className="hidden lg:inline">Press{" "}</span>
                     <kbd className={`${hideCtrlKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>
                         <span className="text-xs">Ctrl</span>
                     </kbd>
-
 
                     <span className="mx-1">+</span>
                     <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
@@ -151,7 +148,7 @@ function DesktopNavbar({ user }) {
                             <FolderDot />
                             <span>Projects</span>
                             <CommandShortcut>
-                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">P</kbd>
                             </CommandShortcut>
@@ -160,7 +157,7 @@ function DesktopNavbar({ user }) {
                             <NotebookPen />
                             <span>Blog</span>
                             <CommandShortcut>
-                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">B</kbd>
                             </CommandShortcut>
@@ -172,7 +169,7 @@ function DesktopNavbar({ user }) {
                             <Linkedin />
                             <span>LinkedIn</span>
                             <CommandShortcut>
-                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">L</kbd>
                             </CommandShortcut>
@@ -181,7 +178,7 @@ function DesktopNavbar({ user }) {
                             <Mail />
                             <span>Email</span>
                             <CommandShortcut>
-                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">E</kbd>
                             </CommandShortcut>
@@ -190,7 +187,7 @@ function DesktopNavbar({ user }) {
                             <Github />
                             <span>Github</span>
                             <CommandShortcut>
-                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">G</kbd>
                             </CommandShortcut>
