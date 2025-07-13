@@ -54,16 +54,19 @@ function DesktopNavbar({ user }) {
                     e.preventDefault();
                     setOpen((open) => !open);
                     window.open("https://www.linkedin.com/in/vu-nguyen-5a739026b/");
+                    setHideShiftKey(false);
                 }
                 if (e.key === "E" && (e.shiftKey)) {
                     e.preventDefault();
                     setOpen((open) => !open);
                     window.open("mailto:vn22dy@brocku.ca");
+                    setHideShiftKey(false);
                 }
                 if (e.key === "G" && (e.shiftKey)) {
                     e.preventDefault();
                     setOpen((open) => !open);
                     window.open("https://github.com/JuTah10");
+                    setHideShiftKey(false);
                 }
                 if (e.key === "T" && (e.shiftKey)) {
                     e.preventDefault();
