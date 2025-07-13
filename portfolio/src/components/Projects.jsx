@@ -28,7 +28,7 @@ export default function Projects() {
         description: "A full-stack blog where admin can publish posts and users can like or comment. It includes a login system with optional guest access, notifications feature for post interactions, and user profiles to update info and track past activity.",
         languagesUsed: "Next.js, Prisma, Clerk, Tailwind CSS",
         github: "https://github.com/JuTah10/Personal-Portfolio-Blog-App",
-        live: ""
+        live: "https://personal-portfolio-blog-app.vercel.app/blog"
     },
     {
         link: "/Portfolio.avif",
@@ -36,7 +36,7 @@ export default function Projects() {
         description: "A personal portfolio showcasing projects, posts, and skills. It features smooth UI/UX powered by modern frameworks and animation libraries for a polished, interactive experience.",
         languagesUsed: "React.js, Tailwind CSS, ShadCN, Framer Motion, Material UI",
         github: "https://github.com/JuTah10/Personal-Portfolio-Blog-App",
-        live: ""
+        live: "https://personal-portfolio-blog-app.vercel.app/"
     }]
 
     const additionalProjects = [
