@@ -43,8 +43,8 @@ export default async function RootLayout({ children }) {
   const posts = await fetchPosts();
 
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <ClerkProvider>
         <body
           className={`${quicksand.className} antialiased`}
         >
@@ -68,9 +68,7 @@ export default async function RootLayout({ children }) {
             <Toaster />
           </ThemeProvider>
         </body>
-      </html>
-
-    </ClerkProvider>
-
+      </ClerkProvider>
+    </html>
   );
 }

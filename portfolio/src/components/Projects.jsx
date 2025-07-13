@@ -103,7 +103,7 @@ export default function Projects() {
     }, [current]);
 
     return (
-        <div key="projects" className='mb-20'>
+        <div id="projects" className='mb-20'>
             <div className='flex items-center gap-4'>
                 <h1 className='text-2xl md:text-4xl font-bold'>/ projects</h1>
                 <hr className='hidden md:block w-[30%] mt-4' />
