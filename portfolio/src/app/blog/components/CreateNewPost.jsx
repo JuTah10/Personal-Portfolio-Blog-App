@@ -13,8 +13,11 @@ import toast from 'react-hot-toast';
 
 import { createPost } from '@/actions/post';
 
+import { useRouter } from 'next/navigation';
+
 
 export default function CreateNewPost({ user }) {
+  const router = useRouter();
   const [showInput, setShowInput] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
@@ -32,6 +35,10 @@ export default function CreateNewPost({ user }) {
       const result = await createPost(finalContent, imageUrl, user.id);
       if (result.success) {
         toast.success("Uploaded New Post");
+        setTimeout(() => {
+          window.location.reload();
+        }, 100)
+
       }
     } catch (error) {
       console.error("Error in handSubmit - CreateNewPost", error);
