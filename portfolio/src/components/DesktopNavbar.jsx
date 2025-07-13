@@ -6,16 +6,6 @@ import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ui/ModeToggle";
 
-
-import {
-
-
-    CreditCard,
-    Settings,
-
-    User,
-} from "lucide-react"
-
 import {
     CommandDialog,
     CommandEmpty,
@@ -27,19 +17,28 @@ import {
     CommandShortcut,
 } from "@/components/ui/command"
 
+import { useRouter } from "next/navigation";
+
 
 function DesktopNavbar({ user }) {
+    const router = useRouter();
     const [open, setOpen] = React.useState(false);
     const [hideCtrlKey, setHideCtrKey] = React.useState(false);
-    const [hideShiftKey, setShiftCtrKey] = React.useState(false);
+    const [hideShiftKey, setHideShiftKey] = React.useState(false);
 
 
     React.useEffect(() => {
         function down(e) {
             if (open) {
                 if (e.shiftKey) {
-                    setShiftCtrKey(true);
+                    setHideShiftKey(true);
                 }
+                if (e.key === "H" && (e.shiftKey)) {
+                    e.preventDefault()
+                    setOpen((open) => !open);
+                    router.push('/')
+                }
+                
             }
             if (e.ctrlKey) {
                 setHideCtrKey(true);
@@ -48,10 +47,14 @@ function DesktopNavbar({ user }) {
                 e.preventDefault()
                 setOpen((open) => !open)
             }
+
         }
         function up(e) {
             if (e.key === "Control") {
                 setHideCtrKey(false);
+            }
+            if (e.key === "Shift") {
+                setHideShiftKey(false);
             }
         }
         document.addEventListener("keydown", down)
@@ -60,7 +63,7 @@ function DesktopNavbar({ user }) {
             document.removeEventListener("keydown", down);
             document.removeEventListener("keyup", up);
         };
-    }, [])
+    }, [open])
 
     return (
         <div className="hidden md:flex items-center space-x-4">
@@ -114,7 +117,7 @@ function DesktopNavbar({ user }) {
                             <HomeIcon />
                             <span>Home</span>
                             <CommandShortcut>
-                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`${hideShiftKey && "invisible"} bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">H</kbd>
                             </CommandShortcut>
@@ -144,7 +147,7 @@ function DesktopNavbar({ user }) {
                             <Linkedin />
                             <span>LinkedIn</span>
                             <CommandShortcut>
-                                 <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">L</kbd>
                             </CommandShortcut>
@@ -153,7 +156,7 @@ function DesktopNavbar({ user }) {
                             <Mail />
                             <span>Email</span>
                             <CommandShortcut>
-                                 <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">E</kbd>
                             </CommandShortcut>
@@ -162,7 +165,7 @@ function DesktopNavbar({ user }) {
                             <Github />
                             <span>Github</span>
                             <CommandShortcut>
-                                 <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
                                 <span className="mx-2">+</span>
                                 <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">G</kbd>
                             </CommandShortcut>
