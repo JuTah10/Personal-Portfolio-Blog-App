@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { BellIcon, HomeIcon, UserIcon, NotebookPen, FolderDot, LogOutIcon } from "lucide-react";
+import { BellIcon, HomeIcon, UserIcon, NotebookPen, FolderDot, LogOutIcon, Linkedin, Mail, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
@@ -122,30 +122,50 @@ function DesktopNavbar({ user }) {
                         <CommandItem>
                             <FolderDot />
                             <span>Projects</span>
-                            <CommandShortcut>⌘P</CommandShortcut>
+                            <CommandShortcut>
+                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <span className="mx-2">+</span>
+                                <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">P</kbd>
+                            </CommandShortcut>
                         </CommandItem>
                         <CommandItem>
                             <NotebookPen />
-                            <span>Folder</span>
-                            <CommandShortcut>⌘P</CommandShortcut>
+                            <span>Blog</span>
+                            <CommandShortcut>
+                                <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <span className="mx-2">+</span>
+                                <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">B</kbd>
+                            </CommandShortcut>
                         </CommandItem>
                     </CommandGroup>
                     <CommandSeparator />
                     <CommandGroup heading="Links">
                         <CommandItem>
-                            <User />
+                            <Linkedin />
                             <span>LinkedIn</span>
-                            <CommandShortcut>⌘P</CommandShortcut>
+                            <CommandShortcut>
+                                 <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <span className="mx-2">+</span>
+                                <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">L</kbd>
+                            </CommandShortcut>
                         </CommandItem>
                         <CommandItem>
-                            <CreditCard />
+                            <Mail />
                             <span>Email</span>
-                            <CommandShortcut>⌘B</CommandShortcut>
+                            <CommandShortcut>
+                                 <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <span className="mx-2">+</span>
+                                <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">E</kbd>
+                            </CommandShortcut>
                         </CommandItem>
                         <CommandItem>
-                            <Settings />
+                            <Github />
                             <span>Github</span>
-                            <CommandShortcut>⌘S</CommandShortcut>
+                            <CommandShortcut>
+                                 <kbd className={`bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none`}>Shift</kbd>
+                                <span className="mx-2">+</span>
+                                <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">G</kbd>
+                            </CommandShortcut>
                         </CommandItem>
                     </CommandGroup>
                 </CommandList>
