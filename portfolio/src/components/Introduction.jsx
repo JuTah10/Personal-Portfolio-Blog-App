@@ -80,14 +80,14 @@ export default function Introduction() {
             {/* Image */}
             <motion.div
                 initial={{ opacity: 0, x: -100, y: 100, filter: 'blur(8px)', scale: 0.7 }}
-                animate={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)', scale: 1 }}
+                animate={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)', scale: 1.5 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 className="w-60 h-60 rounded-full overflow-hidden border"
             >
                 <img
-                    src="https://avatars.githubusercontent.com/u/126214032?v=4"
+                    src="/ProfilePhoto.avif"
                     alt="Vu's avatar"
-                    className="object-cover w-full h-full"
+                    className="object-cover w-full h-full object-[0_10%]"
                 />
             </motion.div>
 
